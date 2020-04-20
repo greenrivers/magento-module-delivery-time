@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\Checkbox;
+
+/** @var Checkbox $block */
+?>
+
+<div id="switcher" data-bind="scope: 'checkbox-scope'">
+    <label class="switch">
+        <input type="hidden" name="groups[general][fields][enable][value]"
+               data-bind="value: getValue()"/>
+        <input type="checkbox" data-bind="checked: isChecked">
+        <span data-bind="css: { sliderOne: isChecked, slider: !isChecked() }" class="round" id="spa"></span>
+    </label>
+    <span id="toggle" data-bind="text: text"></span>
+</div>
+
+<script type="text/x-magento-init">
+{
+  "#switcher": {
+        "Magento_Ui/js/core/app": {
+        "components":{
+          "checkbox-scope":{
+            "component":"Unexpected_DeliveryTime/js/system/config/checkbox",
+            "isChecked": <?= json_encode($block->getValue()) ?>
+          }
+        }
+      }
+  }
+}
+</script>

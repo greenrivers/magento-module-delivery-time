@@ -1,0 +1,10 @@
+<div class="admin__field">
+    <label class="admin__field-label" data-bind="text: getRange()"></label>
+</div>
+
+<div class="admin__field">
+    <div class="data-slider" data-bind="visible: isRange"
+         sliderRange="range: range, values: values, min: minScale, max: maxScale, step: scaleStep"></div>
+    <div class="data-slider" data-bind="visible: !isRange()"
+         sliderRange="value: value, min: minScale, max: maxScale, step: scaleStep"></div>
+</div>

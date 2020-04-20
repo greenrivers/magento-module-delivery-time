@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="unexpected" translate="label" sortOrder="100000">
+            <label>Unexpected</label>
+        </tab>
+        <section id="delivery_time" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1"
+                 showInStore="1">
+            <class>separator-top</class>
+            <label>Delivery Time</label>
+            <tab>unexpected</tab>
+            <resource>Unexpected_DeliveryTime::delivery_time_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>General Configuration</label>
+                <field id="enable" translate="label" type="checkbox" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable</label>
+                    <frontend_model>Unexpected\DeliveryTime\Block\Adminhtml\System\Config\Checkbox</frontend_model>
+                </field>
+                <field id="date_unit" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Date unit</label>
+                    <source_model>Unexpected\DeliveryTime\Model\Config\Source\DateUnit</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="min_scale" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Slider min scale</label>
+                    <validate>required-entry validate-number validate-digits</validate>
+                </field>
+                <field id="max_scale" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Slider max scale</label>
+                    <validate>required-entry validate-number validate-digits validate-max-scale</validate>
+                </field>
+                <field id="scale_step" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Slider step scale</label>
+                    <validate>required-entry validate-number validate-digits validate-scale-step</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

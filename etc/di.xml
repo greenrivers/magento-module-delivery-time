@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Unexpected\DeliveryTime\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+            <argument name="fileName" xsi:type="string">/var/log/unexpected/delivery_time.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Unexpected\DeliveryTime\Logger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="name" xsi:type="string">Unexpected_DeliveryTime Logger</argument>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Unexpected\DeliveryTime\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
+</config>
