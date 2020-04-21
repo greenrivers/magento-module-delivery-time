@@ -91,9 +91,11 @@ define([
 
         getRange: function () {
             const {value, values, dateUnit} = this;
+            const deliveryTimeType = registry.get('index=delivery_time_type');
 
             if (!this.isRange()) {
-                return `Up to ${value()} ${dateUnit}`;
+                const text = deliveryTimeType.value() ? 'From' : 'Up to';
+                return `${text} ${value()} ${dateUnit}`;
             }
             return `From ${values[0]()} to ${values[1]()} ${dateUnit}`;
         }

@@ -1,0 +1,19 @@
+<?php
+
+use Magento\Catalog\Block\Product\View;
+
+/** @var View $block */
+$product = $block->getProduct();
+$viewModel = $block->getViewModel();
+?>
+
+<div class="delivery-tyime">
+    <div class="fieldset">
+        <div class="field delivery_time">
+            <label class="label" for="deliver">
+                <span><?= $viewModel->render($product) ?></span>
+            </label>
+        </div>
+    </div>
+</div>
+

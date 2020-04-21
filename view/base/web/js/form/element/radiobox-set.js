@@ -12,6 +12,7 @@ define([
             this._super();
 
             const deliveryTimeType = registry.get('index=delivery_time_type');
+
             this.value = deliveryTimeType.value();
             this.value = this.normalizeData(this.value);
 

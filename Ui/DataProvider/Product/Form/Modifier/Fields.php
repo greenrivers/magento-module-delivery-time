@@ -64,9 +64,9 @@ class Fields extends AbstractModifier
             ]
         );
 
-//        $meta['delivery-time']['children']['delivery_time_min_scale']['arguments']['data']['config']['visible'] = false;
-//        $meta['delivery-time']['children']['delivery_time_max_scale']['arguments']['data']['config']['visible'] = false;
-//        $meta['delivery-time']['children']['delivery_time_type']['arguments']['data']['config']['visible'] = false;
+        $meta['delivery-time']['children']['delivery_time_min_scale']['arguments']['data']['config']['visible'] = false;
+        $meta['delivery-time']['children']['delivery_time_max_scale']['arguments']['data']['config']['visible'] = false;
+        $meta['delivery-time']['children']['delivery_time_type']['arguments']['data']['config']['visible'] = false;
 
         return $meta;
     }
