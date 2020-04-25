@@ -53,4 +53,16 @@ class View
                 return '';
         }
     }
+
+    /**
+     * @param array $product
+     * @return string
+     */
+    public function renderFromProductArray(array $product): string
+    {
+        $type = $product['delivery_time_type'];
+        $min = $product['delivery_time_min_scale'];
+        $max = $product['delivery_time_max_scale'];
+        return $this->attributeParser($type, $min, $max);
+    }
 }

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_item_price_renderers"/>
+    <body>
+        <referenceBlock name="checkout.cart.item.renderers">
+            <referenceBlock name="checkout.cart.item.renderers.default">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">
+                        Unexpected\DeliveryTime\ViewModel\DeliveryTime
+                    </argument>
+                </arguments>
+            </referenceBlock>
+            <referenceBlock name="checkout.cart.item.renderers.simple">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">
+                        Unexpected\DeliveryTime\ViewModel\DeliveryTime
+                    </argument>
+                </arguments>
+            </referenceBlock>
+        </referenceBlock>
+    </body>
+</page>

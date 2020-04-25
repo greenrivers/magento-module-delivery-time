@@ -28,4 +28,12 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
+
+    <type name="Magento\Checkout\Block\Cart\AbstractCart">
+        <plugin name="cart_item" type="Unexpected\DeliveryTime\Block\Cart\AbstractCart" sortOrder="1"/>
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="checkout_default_config_provider"
+                type="Unexpected\DeliveryTime\Plugin\Model\DefaultConfigProvider"/>
+    </type>
 </config>
