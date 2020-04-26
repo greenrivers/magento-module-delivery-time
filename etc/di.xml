@@ -36,4 +36,7 @@
         <plugin name="checkout_default_config_provider"
                 type="Unexpected\DeliveryTime\Plugin\Model\DefaultConfigProvider"/>
     </type>
+
+    <preference for="Unexpected\DeliveryTime\Api\OrderItemRepositoryInterface"
+                type="Unexpected\DeliveryTime\Model\Repository\OrderItemRepository"/>
 </config>

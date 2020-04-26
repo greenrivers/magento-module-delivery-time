@@ -4,19 +4,25 @@ namespace Unexpected\DeliveryTime\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\Sales\Model\Order\Item;
+use Unexpected\DeliveryTime\Api\OrderItemRepositoryInterface;
 
 class View
 {
     /** @var Config */
     private $config;
 
+    /** @var OrderItemRepositoryInterface */
+    private $orderItemRepository;
+
     /**
      * Render constructor.
      * @param Config $config
+     * @param OrderItemRepositoryInterface $orderItemRepository
      */
-    public function __construct(Config $config)
+    public function __construct(Config $config, OrderItemRepositoryInterface $orderItemRepository)
     {
         $this->config = $config;
+        $this->orderItemRepository = $orderItemRepository;
     }
 
     public function renderFromProduct(Product $product): string
@@ -29,7 +35,9 @@ class View
 
     public function renderFromOrderItem(Item $item): string
     {
-        return '';
+        $id = $item->getId();
+        return 'rte';
+//        return $this->orderItemRepository->getById($id);
     }
 
     /**

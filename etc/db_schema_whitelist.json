@@ -1,0 +1,16 @@
+{
+    "unexpected_delivery_time_order_item": {
+        "column": {
+            "delivery_time_id": true,
+            "order_item_id": true,
+            "delivery_time": true
+        },
+        "index": {
+            "UNEXPECTED_DELIVERY_TIME_ORDER_ITEM_ORDER_ITEM_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_5161895FF976B8F9D0DACCD57E24EA47": true
+        }
+    }
+}

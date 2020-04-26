@@ -21,4 +21,10 @@
             </argument>
         </arguments>
     </virtualType>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
+        <plugin name="delivery_time_order_view" type="Unexpected\DeliveryTime\Plugin\DefaultRenderer"/>
+    </type>
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Items">
+        <plugin name="delivery_time_order_view_columns" type="Unexpected\DeliveryTime\Plugin\Items"/>
+    </type>
 </config>

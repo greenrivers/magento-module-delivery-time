@@ -36,4 +36,9 @@ class DeliveryTime implements ArgumentInterface
 
         return $result;
     }
+
+    public function renderItem()
+    {
+        return 'testowy test';
+    }
 }

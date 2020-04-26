@@ -49,6 +49,17 @@
                     <label>Slider step scale</label>
                     <validate>required-entry validate-number validate-digits validate-scale-step</validate>
                 </field>
+                <field id="pages" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Visible on</label>
+                    <source_model>Unexpected\DeliveryTime\Model\Config\Source\Pages</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="text" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Text</label>
+                    <validate>required-entry</validate>
+                </field>
             </group>
         </section>
     </system>
