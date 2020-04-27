@@ -1,12 +1,18 @@
 <?php
 
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 namespace Unexpected\DeliveryTime\Api\Data;
 
-interface OrderItemInterface
+interface DeliveryTimeInterface
 {
     const DELIVERY_TIME_ID = 'delivery_time_id';
     const ORDER_ITEM_ID = 'order_item_id';
-    const DELIVERY_TIME = 'delivery_time';
+    const CONTENT = 'content';
 
     /**
      * @return int
@@ -33,11 +39,11 @@ interface OrderItemInterface
     /**
      * @return string
      */
-    public function getDeliveryTime(): string;
+    public function getContent(): string;
 
     /**
-     * @param string $deliveryTime
+     * @param string $content
      * @return $this
      */
-    public function setDeliveryTime(string $deliveryTime): self;
+    public function setContent(string $content): self;
 }

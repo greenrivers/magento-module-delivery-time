@@ -1,13 +1,19 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+-->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="unexpected_delivery_time_order_item" resource="default" engine="innodb"
-           comment="Unexpected_DeliveryTime order table">
+    <table name="unexpected_delivery_time" resource="default" engine="innodb" comment="Unexpected_DeliveryTime table">
         <column xsi:type="int" name="delivery_time_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Delivery Time ID"/>
         <column xsi:type="int" name="order_item_id" padding="10" unsigned="true" nullable="false" identity="false"
                 comment="Order Item ID"/>
-        <column xsi:type="varchar" name="delivery_time" nullable="false" length="64" comment="Delivery Time"/>
+        <column xsi:type="varchar" name="content" nullable="false" length="64" comment="Delivery Time"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="delivery_time_id"/>
         </constraint>
