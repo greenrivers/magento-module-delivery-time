@@ -16,7 +16,7 @@ use Magento\Ui\Component\Form\Field;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Model\Source\RadioOptions;
 
-class Fields extends AbstractModifier
+class AddFields extends AbstractModifier
 {
     /** @var Config */
     private $config;
@@ -25,7 +25,7 @@ class Fields extends AbstractModifier
     private $radioOptions;
 
     /**
-     * Fields constructor.
+     * AddFields constructor.
      * @param Config $config
      * @param RadioOptions $radioOptions
      */

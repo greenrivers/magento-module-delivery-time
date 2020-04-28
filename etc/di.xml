@@ -30,13 +30,14 @@
     </type>
 
     <type name="Magento\Checkout\Block\Cart\AbstractCart">
-        <plugin name="cart_item" type="Unexpected\DeliveryTime\Block\Cart\AbstractCart" sortOrder="1"/>
+        <plugin name="Unexpected_DeliveryTime::Block_AbstractCart"
+                type="Unexpected\DeliveryTime\Plugin\Block\AbstractCart"/>
     </type>
     <type name="Magento\Checkout\Model\DefaultConfigProvider">
-        <plugin name="checkout_default_config_provider"
+        <plugin name="Unexpected_DeliveryTime::Model_DefaultConfigProvider"
                 type="Unexpected\DeliveryTime\Plugin\Model\DefaultConfigProvider"/>
     </type>
 
-    <preference for="Unexpected\DeliveryTime\Api\OrderItemRepositoryInterface"
-                type="Unexpected\DeliveryTime\Model\Repository\OrderItemRepository"/>
+    <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
+                type="Unexpected\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>
 </config>

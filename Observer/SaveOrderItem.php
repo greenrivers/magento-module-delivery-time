@@ -6,35 +6,35 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Sales\Model\Order;
-use Unexpected\DeliveryTime\Api\OrderItemRepositoryInterface;
-use Unexpected\DeliveryTime\Helper\View;
-use Unexpected\DeliveryTime\Model\OrderItem;
-use Unexpected\DeliveryTime\Model\OrderItemFactory;
+use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use Unexpected\DeliveryTime\Helper\Render;
+use Unexpected\DeliveryTime\Model\DeliveryTime;
+use Unexpected\DeliveryTime\Model\DeliveryTimeFactory;
 
 class SaveOrderItem implements ObserverInterface
 {
-    /** @var OrderItemFactory */
-    private $orderItemFactory;
+    /** @var DeliveryTimeFactory */
+    private $deliveryTimeFactory;
 
-    /** @var OrderItemRepositoryInterface */
-    private $orderItemRepository;
+    /** @var DeliveryTimeRepositoryInterface */
+    private $deliveryTimeRepository;
 
-    /** @var View */
+    /** @var Render */
     private $view;
 
     /**
      * SaveOrderItem constructor.
-     * @param OrderItemFactory $orderItemFactory
-     * @param OrderItemRepositoryInterface $orderItemRepository
-     * @param View $view
+     * @param DeliveryTimeFactory $deliveryTimeFactory
+     * @param DeliveryTimeRepositoryInterface $deliveryTimeRepository
+     * @param Render $view
      */
     public function __construct(
-        OrderItemFactory $orderItemFactory,
-        OrderItemRepositoryInterface $orderItemRepository,
-        View $view
+        DeliveryTimeFactory $deliveryTimeFactory,
+        DeliveryTimeRepositoryInterface $deliveryTimeRepository,
+        Render $view
     ) {
-        $this->orderItemFactory = $orderItemFactory;
-        $this->orderItemRepository = $orderItemRepository;
+        $this->deliveryTimeFactory = $deliveryTimeFactory;
+        $this->deliveryTimeRepository = $deliveryTimeRepository;
         $this->view = $view;
     }
 
@@ -48,13 +48,13 @@ class SaveOrderItem implements ObserverInterface
         $items = $order->getAllVisibleItems();
         foreach ($items as $item) {
             $product = $item->getProduct();
-            $deliveryTime = $this->view->renderFromProduct($product);
-            /** @var OrderItem $orderItem */
-            $orderItem = $this->orderItemFactory->create();
-            $orderItem->setOrderItemId($item->getItemId())
-                ->setDeliveryTime($deliveryTime);
+            $content = $this->view->renderFromProduct($product);
+            /** @var DeliveryTime $deliveryTime */
+            $deliveryTime = $this->deliveryTimeFactory->create();
+            $deliveryTime->setOrderItemId($item->getItemId())
+                ->setContent($content);
             try {
-                $this->orderItemRepository->save($orderItem);
+                $this->deliveryTimeRepository->save($deliveryTime);
             } catch (CouldNotSaveException $e) {
             }
         }

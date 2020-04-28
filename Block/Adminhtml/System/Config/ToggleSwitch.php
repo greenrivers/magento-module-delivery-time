@@ -13,10 +13,10 @@ use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Unexpected\DeliveryTime\Helper\Config;
 
-class Checkbox extends Field
+class ToggleSwitch extends Field
 {
     /** @var string */
-    protected $_template = 'Unexpected_DeliveryTime::system/config/checkbox.phtml';
+    protected $_template = 'Unexpected_DeliveryTime::system/config/toggle_switch.phtml';
 
     /** @var Config */
     private $config;

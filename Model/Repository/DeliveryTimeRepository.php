@@ -68,8 +68,7 @@ class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
     /**
      * @inheritDoc
      */
-    public
-    function save(DeliveryTimeInterface $deliveryTime): DeliveryTimeInterface
+    public function save(DeliveryTimeInterface $deliveryTime): DeliveryTimeInterface
     {
         try {
             $this->deliveryTimeResource->save($deliveryTime);
@@ -83,8 +82,7 @@ class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
     /**
      * @inheritDoc
      */
-    public
-    function getById(int $deliveryTimeId): DeliveryTimeInterface
+    public function getById(int $deliveryTimeId): DeliveryTimeInterface
     {
         if (!isset($this->deliveryTimes[$deliveryTimeId])) {
             /** @var DeliveryTimeInterface $deliveryTime */
@@ -101,12 +99,10 @@ class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
     /**
      * @inheritDoc
      */
-    public
-    function getList(SearchCriteriaInterface $searchCriteria): SearchResultInterface
+    public function getList(SearchCriteriaInterface $searchCriteria): SearchResultInterface
     {
         /** @var Collection $collection */
         $collection = $this->deliveryTimeCollectionFactory->create();
-
         $this->collectionProcessor->process($searchCriteria, $collection);
 
         /** @var SearchResultInterface $searchResults */
@@ -120,8 +116,7 @@ class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
     /**
      * @inheritDoc
      */
-    public
-    function delete(DeliveryTimeInterface $deliveryTime): bool
+    public function delete(DeliveryTimeInterface $deliveryTime): bool
     {
         try {
             $deliveryTimeId = $deliveryTime->getDeliveryTimeId();
@@ -136,8 +131,7 @@ class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
     /**
      * @inheritDoc
      */
-    public
-    function deleteById(int $deliveryTimeId): bool
+    public function deleteById(int $deliveryTimeId): bool
     {
         return $this->delete($this->getById($deliveryTimeId));
     }

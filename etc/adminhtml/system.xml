@@ -24,7 +24,7 @@
                 <field id="enable" translate="label" type="checkbox" sortOrder="10" showInDefault="1" showInWebsite="1"
                        showInStore="1">
                     <label>Enable</label>
-                    <frontend_model>Unexpected\DeliveryTime\Block\Adminhtml\System\Config\Checkbox</frontend_model>
+                    <frontend_model>Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch</frontend_model>
                 </field>
                 <field id="date_unit" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1"
                        showInStore="1">
@@ -49,7 +49,8 @@
                     <label>Slider step scale</label>
                     <validate>required-entry validate-number validate-digits validate-scale-step</validate>
                 </field>
-                <field id="pages" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1"
+                <field id="pages" translate="label" type="multiselect" sortOrder="60" showInDefault="1"
+                       showInWebsite="1"
                        showInStore="1">
                     <label>Visible on</label>
                     <source_model>Unexpected\DeliveryTime\Model\Config\Source\Pages</source_model>

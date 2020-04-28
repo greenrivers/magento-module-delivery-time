@@ -12,19 +12,21 @@
                  type="Magento\Ui\DataProvider\Modifier\Pool">
         <arguments>
             <argument name="modifiers" xsi:type="array">
-                <item name="newFields" xsi:type="array">
+                <item name="Fields" xsi:type="array">
                     <item name="class" xsi:type="string">
-                        Unexpected\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\Fields
+                        Unexpected\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\AddFields
                     </item>
                     <item name="sortOrder" xsi:type="number">100</item>
                 </item>
             </argument>
         </arguments>
     </virtualType>
+
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
-        <plugin name="delivery_time_order_view" type="Unexpected\DeliveryTime\Plugin\DefaultRenderer"/>
+        <plugin name="Unexpected_DeliveryTime::Block_DefaultRenderer"
+                type="Unexpected\DeliveryTime\Plugin\Block\DefaultRenderer"/>
     </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Items">
-        <plugin name="delivery_time_order_view_columns" type="Unexpected\DeliveryTime\Plugin\Items"/>
+        <plugin name="Unexpected_DeliveryTime::Block_Items" type="Unexpected\DeliveryTime\Plugin\Block\Items"/>
     </type>
 </config>

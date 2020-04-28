@@ -1,29 +1,35 @@
 <?php
 
-namespace Unexpected\DeliveryTime\Plugin;
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+namespace Unexpected\DeliveryTime\Plugin\CustomerData;
 
 use Magento\Checkout\CustomerData\DefaultItem as Subject;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote\Item;
 use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\View;
+use Unexpected\DeliveryTime\Helper\Render;
 
-class MiniCart
+class DefaultItem
 {
-    /** @var View */
-    private $view;
-
     /** @var Config */
     private $config;
 
+    /** @var Render */
+    private $render;
+
     /**
-     * MiniCart constructor.
-     * @param View $view
+     * DefaultItem constructor.
      * @param Config $config
+     * @param Render $render
      */
-    public function __construct(View $view, Config $config)
+    public function __construct(Config $config, Render $render)
     {
-        $this->view = $view;
+        $this->render = $render;
         $this->config = $config;
     }
 
@@ -38,7 +44,7 @@ class MiniCart
         try {
             if ($this->config->getEnableConfig()) {
                 $product = $item->getProduct();
-                $result['delivery_time'] = $this->view->renderFromProduct($product);
+                $result['delivery_time'] = $this->render->getFromProduct($product);
             }
         } catch (NoSuchEntityException $e) {
         }

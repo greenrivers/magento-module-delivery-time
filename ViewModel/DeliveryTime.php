@@ -1,44 +1,47 @@
 <?php
 
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 namespace Unexpected\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\View;
+use Magento\Sales\Model\Order\Item;
+use Unexpected\DeliveryTime\Helper\Render;
 
 class DeliveryTime implements ArgumentInterface
 {
-    /** @var Config */
-    private $config;
-
-    /** @var View */
-    private $view;
+    /** @var Render */
+    private $render;
 
     /**
      * DeliveryTime constructor.
-     * @param Config $config
-     * @param View $view
+     * @param Render $render
      */
-    public function __construct(Config $config, View $view)
+    public function __construct(Render $render)
     {
-        $this->config = $config;
-        $this->view = $view;
+        $this->render = $render;
     }
 
-    public function render(Product $product): string
+    /**
+     * @param Product $product
+     * @return string
+     */
+    public function renderFromProduct(Product $product): string
     {
-        $result = '';
-
-        if ($this->config->getEnableConfig()) {
-            $result = $this->view->renderFromProduct($product);
-        }
-
-        return $result;
+        return $this->render->getFromProduct($product);
     }
 
-    public function renderItem()
+    /**
+     * @param Item $item
+     * @return string
+     */
+    public function renderItem(Item $item): string
     {
-        return 'testowy test';
+        return $this->render->getFromOrderItem($item);
     }
 }

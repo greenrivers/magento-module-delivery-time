@@ -4,22 +4,22 @@ namespace Unexpected\DeliveryTime\Plugin\Model;
 
 use Magento\Checkout\Model\DefaultConfigProvider as Subject;
 use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\View;
+use Unexpected\DeliveryTime\Helper\Render;
 
 class DefaultConfigProvider
 {
     /** @var Config */
     private $config;
 
-    /** @var View */
+    /** @var Render */
     private $view;
 
     /**
      * DefaultConfigProvider constructor.
      * @param Config $config
-     * @param View $view
+     * @param Render $view
      */
-    public function __construct(Config $config, View $view)
+    public function __construct(Config $config, Render $view)
     {
         $this->config = $config;
         $this->view = $view;

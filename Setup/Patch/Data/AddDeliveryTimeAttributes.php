@@ -1,7 +1,14 @@
 <?php
 
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 namespace Unexpected\DeliveryTime\Setup\Patch\Data;
 
+use Exception;
 use Magento\Catalog\Model\Product;
 use Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend;
 use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
@@ -16,8 +23,8 @@ use Unexpected\DeliveryTime\Model\Source\RadioOptions;
 class AddDeliveryTimeAttributes implements DataPatchInterface
 {
     const DELIVERY_TIME_TYPE = 'delivery_time_type';
-    const DELIVERY_TIME_MIN_SCALE = 'delivery_time_min_scale';
-    const DELIVERY_TIME_MAX_SCALE = 'delivery_time_max_scale';
+    const DELIVERY_TIME_MIN = 'delivery_time_min';
+    const DELIVERY_TIME_MAX = 'delivery_time_max';
 
     /** @var ModuleDataSetupInterface */
     private $moduleDataSetup;
@@ -100,8 +107,8 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
     {
         try {
             $attrs = [
-                self::DELIVERY_TIME_MIN_SCALE => 'Min scale',
-                self::DELIVERY_TIME_MAX_SCALE => 'Max scale'
+                self::DELIVERY_TIME_MIN => 'Min',
+                self::DELIVERY_TIME_MAX => 'Max'
             ];
 
             foreach ($attrs as $attr => $label) {
@@ -141,9 +148,7 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'used_in_product_listing' => true,
                 'unique' => false
             ]);
-        } catch (LocalizedException $e) {
-            $this->logger->error($e->getLogMessage());
-        } catch (\Zend_Validate_Exception $e) {
+        } catch (Exception $e) {
             $this->logger->error($e->getMessage());
         }
     }

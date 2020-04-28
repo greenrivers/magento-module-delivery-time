@@ -1,29 +1,37 @@
 <?php
 
-namespace Unexpected\DeliveryTime\Plugin;
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+namespace Unexpected\DeliveryTime\Plugin\Block;
 
 use Magento\Framework\DataObject;
 use Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer as Subject;
 use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\View;
+use Unexpected\DeliveryTime\Helper\Render;
 
 class DefaultRenderer
 {
+    const COLUMN = 'delivery-time';
+
     /** @var Config */
     private $config;
 
-    /** @var View */
-    private $view;
+    /** @var Render */
+    private $render;
 
     /**
      * DefaultRenderer constructor.
      * @param Config $config
-     * @param View $view
+     * @param Render $render
      */
-    public function __construct(Config $config, View $view)
+    public function __construct(Config $config, Render $render)
     {
         $this->config = $config;
-        $this->view = $view;
+        $this->render = $render;
     }
 
     /**
@@ -35,8 +43,8 @@ class DefaultRenderer
      */
     public function afterGetColumnHtml(Subject $subject, string $result, DataObject $item, string $column): string
     {
-        if ($column === 'delivery-time') {
-            $result = $this->view->renderFromOrderItem($item);
+        if ($column === self::COLUMN) {
+            $result = $this->render->getFromOrderItem($item);
         }
         return $result;
     }
@@ -44,7 +52,7 @@ class DefaultRenderer
     public function afterGetColumns(Subject $subject, array $result): array
     {
         if ($this->config->getEnableConfig()) {
-            $result = $this->insertArrayAtPosition($result, ['delivery-time' => 'col-delivery-time'], 4);
+            $result = $this->insertArrayAtPosition($result, [self::COLUMN => 'col-delivery-time'], 4);
         }
         return $result;
     }

@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 namespace Unexpected\DeliveryTime\Model;
 
 use Magento\Framework\Model\AbstractModel;
