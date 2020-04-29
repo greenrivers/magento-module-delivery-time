@@ -1,3 +1,9 @@
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 define([
     'jquery',
     'mage/translate',
@@ -7,7 +13,13 @@ define([
 
     return function () {
         $.validator.addMethod(
-            'validate-max-scale', function (value) {
+            'validate-max-scale',
+
+            /**
+             * @param {String} value
+             * @returns {Boolean}
+             */
+            function (value) {
                 const min = parseInt($('#delivery_time_general_min_scale').val());
                 return parseInt(value) > min;
             },
@@ -15,7 +27,13 @@ define([
         );
 
         $.validator.addMethod(
-            'validate-scale-step', function (value) {
+            'validate-scale-step',
+
+            /**
+             * @param {String} value
+             * @returns {Boolean}
+             */
+            function (value) {
                 const min = parseInt($('#delivery_time_general_min_scale').val());
                 const max = parseInt($('#delivery_time_general_max_scale').val());
                 return parseInt(value) <= max - min;

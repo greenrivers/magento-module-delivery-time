@@ -1,3 +1,9 @@
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 define([
     'jquery',
     'ko',
@@ -13,11 +19,17 @@ define([
             isChecked: ko.observable(true)
         },
 
+        /**
+         * @inheritdoc
+         */
         initialize: function (config) {
             this._super();
             this.isChecked(config.isChecked);
         },
 
+        /**
+         * @inheritdoc
+         */
         initObservable: function () {
             this._super()
                 .observe({
@@ -39,6 +51,9 @@ define([
             $('#row_delivery_time_general_scale_step').toggle();
         },
 
+        /**
+         * @returns {Number}
+         */
         getValue: function () {
             return this.isChecked() | 0;
         }

@@ -1,3 +1,9 @@
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 define([
     'Magento_Ui/js/form/element/checkbox-set',
     'uiRegistry'
@@ -11,7 +17,7 @@ define([
         initConfig: function () {
             this._super();
 
-            const deliveryTimeType = registry.get('index=delivery_time_type');
+            const deliveryTimeType = registry.get('index = delivery_time_type');
 
             this.value = deliveryTimeType.value();
             this.value = this.normalizeData(this.value);
@@ -25,7 +31,7 @@ define([
         hasChanged: function () {
             const value = this.value();
             const initial = this.initialValue;
-            const range = registry.get('index=range');
+            const range = registry.get('index = range');
 
             range.setConfig(parseInt(value));
 

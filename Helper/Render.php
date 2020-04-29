@@ -11,6 +11,7 @@ namespace Unexpected\DeliveryTime\Helper;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Model\Order\Item;
+use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
 
 class Render
@@ -21,15 +22,24 @@ class Render
     /** @var DeliveryTimeRepositoryInterface */
     private $deliveryTimeRepository;
 
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
      * Render constructor.
      * @param Config $config
      * @param DeliveryTimeRepositoryInterface $deliveryTimeRepository
+     * @param LoggerInterface $logger
      */
-    public function __construct(Config $config, DeliveryTimeRepositoryInterface $deliveryTimeRepository)
+    public function __construct(
+        Config $config,
+        DeliveryTimeRepositoryInterface $deliveryTimeRepository,
+        LoggerInterface $logger
+    )
     {
         $this->config = $config;
         $this->deliveryTimeRepository = $deliveryTimeRepository;
+        $this->logger = $logger;
     }
 
     /**
@@ -68,6 +78,7 @@ class Render
             $deliveryTime = $this->deliveryTimeRepository->getById($id);
             $content = $deliveryTime->getContent();
         } catch (NoSuchEntityException $e) {
+            $this->logger->error($e->getMessage());
         }
         return $content;
     }

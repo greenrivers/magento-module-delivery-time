@@ -1,6 +1,7 @@
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
  */
 
 define([
@@ -15,7 +16,7 @@ define([
 
         /**
          * @param {Object} quoteItem
-         * @return {String}
+         * @returns {String}
          */
         getValue: function (quoteItem) {
             return quoteItem.name;

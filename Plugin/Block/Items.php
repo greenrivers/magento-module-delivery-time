@@ -9,32 +9,29 @@
 namespace Unexpected\DeliveryTime\Plugin\Block;
 
 use Magento\Sales\Block\Adminhtml\Order\View\Items as Subject;
-use Unexpected\DeliveryTime\Helper\Config;
+use Unexpected\DeliveryTime\Helper\OrderView;
 
 class Items
 {
-    /** @var Config */
-    private $config;
+    /** @var OrderView */
+    private $orderView;
 
     /**
      * Items constructor.
-     * @param Config $config
+     * @param OrderView $orderView
      */
-    public function __construct(Config $config)
+    public function __construct(OrderView $orderView)
     {
-        $this->config = $config;
+        $this->orderView = $orderView;
     }
 
+    /**
+     * @param Subject $subject
+     * @param array $result
+     * @return array
+     */
     public function afterGetColumns(Subject $subject, array $result): array
     {
-        if ($this->config->getEnableConfig()) {
-            $result = $this->insertArrayAtPosition($result, ['delivery-time' => 'Delivery Time'], 4);
-        }
-        return $result;
-    }
-
-    function insertArrayAtPosition($array, $insert, $position)
-    {
-        return array_slice($array, 0, $position, TRUE) + $insert + array_slice($array, $position, NULL, TRUE);
+        return $this->orderView->addColumn($result, [OrderView::DELIVERY_TIME_COLUMN => 'Delivery Time'], 4);
     }
 }

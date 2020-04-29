@@ -23,6 +23,16 @@
         </arguments>
     </virtualType>
 
+    <type name="Unexpected\DeliveryTime\Helper\Render">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Unexpected\DeliveryTime\Observer\SaveDeliveryTime">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
     <type name="Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>

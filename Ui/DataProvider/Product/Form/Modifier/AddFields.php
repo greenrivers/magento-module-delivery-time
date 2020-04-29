@@ -64,9 +64,18 @@ class AddFields extends AbstractModifier
             ]
         );
 
-        $meta['delivery-time']['children']['delivery_time_min_scale']['arguments']['data']['config']['visible'] = false;
-        $meta['delivery-time']['children']['delivery_time_max_scale']['arguments']['data']['config']['visible'] = false;
-        $meta['delivery-time']['children']['delivery_time_type']['arguments']['data']['config']['visible'] = false;
+        $meta = array_replace_recursive(
+            $meta,
+            [
+                'delivery-time' => [
+                    'children' => [
+                        'delivery_time_min_scale' => $this->setVisibleConfig(false),
+                        'delivery_time_max_scale' => $this->setVisibleConfig(false),
+                        'delivery_time_type' => $this->setVisibleConfig(false)
+                    ]
+                ],
+            ]
+        );
 
         return $meta;
     }
@@ -148,6 +157,23 @@ class AddFields extends AbstractModifier
                         ],
                     ],
                 ],
+            ]
+        ];
+    }
+
+    /**
+     * @param bool $visible
+     * @return array
+     */
+    private function setVisibleConfig(bool $visible): array
+    {
+        return [
+            'arguments' => [
+                'data' => [
+                    'config' => [
+                        'visible' => $visible
+                    ]
+                ]
             ]
         ];
     }

@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+-->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="product.info.form.content">
-            <block class="Magento\Catalog\Block\Product\View"
-                   name="delivery.time" before="product.info.addtocart"
-                   template="Unexpected_DeliveryTime::catalog/product/view/delivery_time.phtml">
+            <block name="delivery.time" template="Unexpected_DeliveryTime::catalog/product/view/delivery_time.phtml">
                 <arguments>
                     <argument name="view_model" xsi:type="object">
                         Unexpected\DeliveryTime\ViewModel\DeliveryTime

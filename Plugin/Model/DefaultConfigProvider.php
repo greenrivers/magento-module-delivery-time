@@ -12,17 +12,17 @@ class DefaultConfigProvider
     private $config;
 
     /** @var Render */
-    private $view;
+    private $render;
 
     /**
      * DefaultConfigProvider constructor.
      * @param Config $config
-     * @param Render $view
+     * @param Render $render
      */
-    public function __construct(Config $config, Render $view)
+    public function __construct(Config $config, Render $render)
     {
         $this->config = $config;
-        $this->view = $view;
+        $this->render = $render;
     }
 
     /**
@@ -35,7 +35,7 @@ class DefaultConfigProvider
         $items = $result['totalsData']['items'];
         for ($i = 0; $i < count($items); $i++) {
             $product = $result['quoteItemData'][$i]['product'];
-            $items[$i]['delivery_time'] = $this->view->renderFromProductArray($product);
+            $items[$i]['delivery_time'] = $this->render->getFromProductArray($product);
         }
         $result['totalsData']['items'] = $items;
         return $result;

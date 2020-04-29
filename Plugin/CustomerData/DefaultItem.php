@@ -9,7 +9,6 @@
 namespace Unexpected\DeliveryTime\Plugin\CustomerData;
 
 use Magento\Checkout\CustomerData\DefaultItem as Subject;
-use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote\Item;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Helper\Render;
@@ -41,12 +40,9 @@ class DefaultItem
      */
     public function afterGetItemData(Subject $subject, array $result, Item $item): array
     {
-        try {
-            if ($this->config->getEnableConfig()) {
-                $product = $item->getProduct();
-                $result['delivery_time'] = $this->render->getFromProduct($product);
-            }
-        } catch (NoSuchEntityException $e) {
+        if ($this->config->getEnableConfig()) {
+            $product = $item->getProduct();
+            $result['delivery_time'] = $this->render->getFromProduct($product);
         }
         return $result;
     }

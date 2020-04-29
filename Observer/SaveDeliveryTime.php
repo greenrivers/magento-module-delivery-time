@@ -6,12 +6,13 @@ use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Sales\Model\Order;
+use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
 use Unexpected\DeliveryTime\Helper\Render;
 use Unexpected\DeliveryTime\Model\DeliveryTime;
 use Unexpected\DeliveryTime\Model\DeliveryTimeFactory;
 
-class SaveOrderItem implements ObserverInterface
+class SaveDeliveryTime implements ObserverInterface
 {
     /** @var DeliveryTimeFactory */
     private $deliveryTimeFactory;
@@ -20,23 +21,10 @@ class SaveOrderItem implements ObserverInterface
     private $deliveryTimeRepository;
 
     /** @var Render */
-    private $view;
+    private $render;
 
-    /**
-     * SaveOrderItem constructor.
-     * @param DeliveryTimeFactory $deliveryTimeFactory
-     * @param DeliveryTimeRepositoryInterface $deliveryTimeRepository
-     * @param Render $view
-     */
-    public function __construct(
-        DeliveryTimeFactory $deliveryTimeFactory,
-        DeliveryTimeRepositoryInterface $deliveryTimeRepository,
-        Render $view
-    ) {
-        $this->deliveryTimeFactory = $deliveryTimeFactory;
-        $this->deliveryTimeRepository = $deliveryTimeRepository;
-        $this->view = $view;
-    }
+    /** @var LoggerInterface */
+    private $logger;
 
     /**
      * @inheritDoc
@@ -48,7 +36,8 @@ class SaveOrderItem implements ObserverInterface
         $items = $order->getAllVisibleItems();
         foreach ($items as $item) {
             $product = $item->getProduct();
-            $content = $this->view->renderFromProduct($product);
+            $content = $this->render->getFromProduct($product);
+
             /** @var DeliveryTime $deliveryTime */
             $deliveryTime = $this->deliveryTimeFactory->create();
             $deliveryTime->setOrderItemId($item->getItemId())
@@ -56,6 +45,7 @@ class SaveOrderItem implements ObserverInterface
             try {
                 $this->deliveryTimeRepository->save($deliveryTime);
             } catch (CouldNotSaveException $e) {
+                $this->logger->error($e->getMessage());
             }
         }
     }

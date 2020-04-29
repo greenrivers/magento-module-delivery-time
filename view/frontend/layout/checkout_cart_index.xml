@@ -1,5 +1,11 @@
 <?xml version="1.0"?>
-
+<!--
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+-->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
@@ -7,13 +13,7 @@
             <referenceBlock name="checkout.cart">
                 <referenceContainer name="checkout.cart.items">
                     <referenceContainer name="checkout.cart.container">
-                        <referenceBlock name="checkout.cart.form">
-                            <action method="setTemplate">
-                                <argument name="template" xsi:type="string">
-                                    Unexpected_DeliveryTime::cart/form.phtml
-                                </argument>
-                            </action>
-                        </referenceBlock>
+                        <referenceBlock name="checkout.cart.form" template="Unexpected_DeliveryTime::cart/form.phtml"/>
                     </referenceContainer>
                 </referenceContainer>
             </referenceBlock>

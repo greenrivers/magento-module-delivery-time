@@ -11,7 +11,7 @@ use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
 /** @var ToggleSwitch $block */
 ?>
 
-<div id="switcher" data-bind="scope: 'checkbox-scope'">
+<div id="switcher" data-bind="scope: 'toggleSwitch-scope'">
     <label class="switch">
         <input type="hidden" name="groups[general][fields][enable][value]"
                data-bind="value: getValue()"/>
@@ -26,8 +26,8 @@ use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
   "#switcher": {
         "Magento_Ui/js/core/app": {
         "components":{
-          "checkbox-scope":{
-            "component":"Unexpected_DeliveryTime/js/system/config/checkbox",
+          "toggleSwitch-scope":{
+            "component":"Unexpected_DeliveryTime/js/system/config/toggle-switch",
             "isChecked": <?= json_encode($block->getValue()) ?>
           }
         }

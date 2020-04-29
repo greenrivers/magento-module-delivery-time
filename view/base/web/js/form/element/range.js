@@ -1,16 +1,23 @@
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
 define([
     'uiRegistry',
     'ko',
     'jquery',
     'Magento_Ui/js/form/element/abstract',
     'Magento_Ui/js/lib/knockout/template/renderer',
-    'jquery-ui-modules/slider'
+    'jquery-ui-modules/slider',
+    'mage/translate'
 ], function (registry, ko, $, AbstractElement, renderer) {
     'use strict';
 
     const sliderFn = 'slider';
-    const deliveryTimeMinScale = registry.get('index=delivery_time_min_scale');
-    const deliveryTimeMaxScale = registry.get('index=delivery_time_max_scale');
+    const deliveryTimeMinScale = registry.get('index = delivery_time_min_scale');
+    const deliveryTimeMaxScale = registry.get('index = delivery_time_max_scale');
 
     ko.bindingHandlers.sliderRange = {
         init: function (element, valueAccessor) {
@@ -34,7 +41,7 @@ define([
 
                     slide: function (event, ui) {
                         value(ui.value);
-                        const deliveryTimeType = registry.get('index=delivery_time_type');
+                        const deliveryTimeType = registry.get('index = delivery_time_type');
                         if (deliveryTimeType.value() === 0) {
                             deliveryTimeMinScale.value(value());
                         } else {
@@ -45,14 +52,6 @@ define([
             }
 
             $(element)[sliderFn](config);
-        },
-
-        update: function (element, valueAccessor) {
-            // const config = valueAccessor();
-
-            // config.values = ko.unwrap(config.values);
-
-            // $(element)[sliderFn]('option', config);
         }
     };
 
@@ -72,6 +71,9 @@ define([
             dateUnit: null
         },
 
+        /**
+         * @inheritdoc
+         */
         initialize: function (config) {
             this._super();
             const {dateUnit, minScale, maxScale, scaleStep} = config.slider;
@@ -83,21 +85,27 @@ define([
             this.values[1](this.maxScale);
         },
 
+        /**
+         * @param {Number} type
+         */
         setConfig: function (type) {
             this.isRange(type === 2);
-            const deliveryTimeType = registry.get('index=delivery_time_type');
+            const deliveryTimeType = registry.get('index = delivery_time_type');
             deliveryTimeType.value(type);
         },
 
+        /**
+         * @returns {String}
+         */
         getRange: function () {
             const {value, values, dateUnit} = this;
-            const deliveryTimeType = registry.get('index=delivery_time_type');
+            const deliveryTimeType = registry.get('index = delivery_time_type');
 
             if (!this.isRange()) {
                 const text = deliveryTimeType.value() ? 'From' : 'Up to';
-                return `${text} ${value()} ${dateUnit}`;
+                return $.mage.__(`${text} ${value()} ${dateUnit}`);
             }
-            return `From ${values[0]()} to ${values[1]()} ${dateUnit}`;
+            return $.mage.__(`From ${values[0]()} to ${values[1]()} ${dateUnit}`);
         }
     });
 });
