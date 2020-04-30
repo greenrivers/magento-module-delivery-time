@@ -1,0 +1,16 @@
+{
+    "unexpected_delivery_time": {
+        "column": {
+            "delivery_time_id": true,
+            "order_item_id": true,
+            "content": true
+        },
+        "index": {
+            "UNEXPECTED_DELIVERY_TIME_ORDER_ITEM_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "UNEXPECTED_DELIVERY_TIME_ORDER_ITEM_ID_SALES_ORDER_ITEM_ITEM_ID": true
+        }
+    }
+}

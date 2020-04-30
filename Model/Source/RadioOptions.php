@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
 
 namespace Unexpected\DeliveryTime\Model\Source;
 
@@ -7,7 +12,7 @@ use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
 class RadioOptions extends AbstractSource
 {
     /**
-     * @return array
+     * @inheritDoc
      */
     public function toOptionArray(): array
     {
@@ -22,7 +27,7 @@ class RadioOptions extends AbstractSource
     }
 
     /**
-     * @return array
+     * @inheritDoc
      */
     public function getAllOptions(): array
     {

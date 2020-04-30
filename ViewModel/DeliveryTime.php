@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -34,9 +33,9 @@ class DeliveryTime implements ArgumentInterface
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function isEnabled(): string
+    public function isEnabled(): int
     {
         return $this->config->getEnableConfig();
     }
@@ -54,7 +53,7 @@ class DeliveryTime implements ArgumentInterface
      * @param Item $item
      * @return string
      */
-    public function renderItem(Item $item): string
+    public function renderFromItem(Item $item): string
     {
         return $this->render->getFromOrderItem($item);
     }

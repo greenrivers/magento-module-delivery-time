@@ -1,7 +1,8 @@
 <!--
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
  */
 -->
 
@@ -13,7 +14,9 @@
     <div class="product-item-inner">
         <div class="product-item-name-block">
             <strong class="product-item-name" data-bind="html: $parent.name"></strong>
-            <strong class="product-item-name" data-bind="html: $parent.delivery_time"></strong>
+            <!-- ko if: ($parent.delivery_time)-->
+            <strong class="product-item-delivery-time" data-bind="html: $parent.delivery_time"></strong>
+            <!-- /ko -->
             <div class="details-qty">
                 <span class="label"><!-- ko i18n: 'Qty' --><!-- /ko --></span>
                 <span class="value" data-bind="text: $parent.qty"></span>

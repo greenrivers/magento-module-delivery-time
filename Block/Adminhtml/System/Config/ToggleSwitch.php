@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -42,8 +41,7 @@ class ToggleSwitch extends Field
     }
 
     /**
-     * @param AbstractElement $element
-     * @return string
+     * @inheritDoc
      */
     public function render(AbstractElement $element): string
     {

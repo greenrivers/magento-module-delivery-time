@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -109,9 +108,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <div class="field delivery-time">
                 <div class="control delivery-time">
                     <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-delivery-time">
-                    <span class="label">
-                        <?= $viewModel !== null ?? $block->escapeHtml($viewModel->renderFromProduct($product)) ?>
-                    </span>
+                        <span class="label"><?= $block->escapeHtml($viewModel->renderFromProduct($product)) ?></span>
                     </label>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -13,7 +12,7 @@ use Magento\Framework\Data\OptionSourceInterface;
 class DateUnit implements OptionSourceInterface
 {
     /**
-     * @return array
+     * @inheritDoc
      */
     public function toOptionArray(): array
     {
@@ -28,7 +27,7 @@ class DateUnit implements OptionSourceInterface
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     private function toArray(): array
     {

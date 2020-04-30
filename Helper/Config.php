@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -20,9 +19,9 @@ class Config extends AbstractHelper
     const XML_SCALE_STEP_CONFIG_PATH = 'delivery_time/general/scale_step';
 
     /**
-     * @return string
+     * @return int
      */
-    public function getEnableConfig(): string
+    public function getEnableConfig(): int
     {
         return $this->scopeConfig->getValue(self::XML_ENABLE_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
@@ -36,25 +35,25 @@ class Config extends AbstractHelper
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getMinScaleConfig(): string
+    public function getMinScaleConfig(): int
     {
         return $this->scopeConfig->getValue(self::XML_MIN_SCALE_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getMaxScaleConfig(): string
+    public function getMaxScaleConfig(): int
     {
         return $this->scopeConfig->getValue(self::XML_MAX_SCALE_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getScaleStepConfig(): string
+    public function getScaleStepConfig(): int
     {
         return $this->scopeConfig->getValue(self::XML_SCALE_STEP_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }

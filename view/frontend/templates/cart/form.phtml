@@ -1,14 +1,21 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
  */
 
 // phpcs:disable Magento2.Templates.ThisInTemplate
 
-/**  @var $block \Magento\Checkout\Block\Cart\Grid */
+use Magento\Checkout\Block\Cart\Grid;
+use Magento\Tax\Helper\Data;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
+
+/** @var Grid $block */
+/** @var DeliveryTime $viewModel */
+$viewModel = $block->getViewModel();
 ?>
-<?php $mergedCells = ($this->helper(Magento\Tax\Helper\Data::class)->displayCartBothPrices() ? 2 : 1); ?>
+<?php $mergedCells = ($this->helper(Data::class)->displayCartBothPrices() ? 2 : 1); ?>
 <?= $block->getChildHtml('form_before') ?>
 <form action="<?= $block->escapeUrl($block->getUrl('checkout/cart/updatePost')) ?>"
       method="post"
@@ -20,7 +27,7 @@
       class="form form-cart">
     <?= $block->getBlockHtml('formkey') ?>
     <div class="cart table-wrapper<?= $mergedCells == 2 ? ' detailed' : '' ?>">
-        <?php if ($block->getPagerHtml()) :?>
+        <?php if ($block->getPagerHtml()) : ?>
             <div class="cart-products-toolbar cart-products-toolbar-top toolbar"
                  data-attribute="cart-products-toolbar-top"><?= $block->getPagerHtml() ?>
             </div>
@@ -34,23 +41,27 @@
             <tr>
                 <th class="col item" scope="col"><span><?= $block->escapeHtml(__('Item')) ?></span></th>
                 <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Delivery Time')) ?></span></th>
+                <?php if ($viewModel->isEnabled()): ?>
+                    <th class="col delivery-time" scope="col">
+                        <span><?= $block->escapeHtml(__('Delivery Time')) ?></span>
+                    </th>
+                <?php endif; ?>
                 <th class="col qty" scope="col"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
                 <th class="col subtotal" scope="col"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
             </tr>
             </thead>
-            <?php foreach ($block->getItems() as $_item) :?>
+            <?php foreach ($block->getItems() as $_item) : ?>
                 <?= $block->getItemHtml($_item) ?>
             <?php endforeach ?>
         </table>
-        <?php if ($block->getPagerHtml()) :?>
+        <?php if ($block->getPagerHtml()) : ?>
             <div class="cart-products-toolbar cart-products-toolbar-bottom toolbar"
                  data-attribute="cart-products-toolbar-bottom"><?= $block->getPagerHtml() ?>
             </div>
         <?php endif ?>
     </div>
     <div class="cart main actions">
-        <?php if ($block->getContinueShoppingUrl()) :?>
+        <?php if ($block->getContinueShoppingUrl()) : ?>
             <a class="action continue"
                href="<?= $block->escapeUrl($block->getContinueShoppingUrl()) ?>"
                title="<?= $block->escapeHtmlAttr(__('Continue Shopping')) ?>">

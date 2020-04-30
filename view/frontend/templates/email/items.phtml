@@ -1,12 +1,19 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
  */
 
 // phpcs:disable Magento2.Templates.ThisInTemplate
 
-/** @var $block \Magento\Sales\Block\Order\Email\Items */
+use Magento\GiftMessage\Helper\Message;
+use Magento\Sales\Block\Order\Email\Items;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
+
+/** @var Items $block */
+/** @var DeliveryTime $viewModel */
+$viewModel = $block->getViewModel();
 ?>
 <?php $_order = $block->getOrder() ?>
 <?php if ($_order) : ?>
@@ -17,9 +24,11 @@
             <th class="item-info">
                 <?= $block->escapeHtml(__('Items')) ?>
             </th>
-            <th class="item-qty">
-                <?= $block->escapeHtml(__('Delivery Time')) ?>
-            </th>
+            <?php if ($viewModel->isEnabled()): ?>
+                <th class="item-delivery-time">
+                    <?= $block->escapeHtml(__('Delivery Time')) ?>
+                </th>
+            <?php endif; ?>
             <th class="item-qty">
                 <?= $block->escapeHtml(__('Qty')) ?>
             </th>
@@ -39,22 +48,22 @@
         <?= $block->getChildHtml('order_totals') ?>
         </tfoot>
     </table>
-    <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)
+    <?php if ($this->helper(Message::class)
             ->isMessagesAllowed('order', $_order, $_order->getStore())
         && $_order->getGiftMessageId()
     ) : ?>
-        <?php $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)
+        <?php $_giftMessage = $this->helper(Message::class)
             ->getGiftMessage($_order->getGiftMessageId()); ?>
         <?php if ($_giftMessage) : ?>
-            <br />
+            <br/>
             <table class="message-gift">
                 <tr>
                     <td>
                         <h3><?= $block->escapeHtml(__('Gift Message for this Order')) ?></h3>
                         <strong><?= $block->escapeHtml(__('From:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
-                        <br /><strong><?= $block->escapeHtml(__('To:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
-                        <br /><strong><?= $block->escapeHtml(__('Message:')) ?></strong>
-                        <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                        <br/><strong><?= $block->escapeHtml(__('To:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <br/><strong><?= $block->escapeHtml(__('Message:')) ?></strong>
+                        <br/><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
                     </td>
                 </tr>
             </table>

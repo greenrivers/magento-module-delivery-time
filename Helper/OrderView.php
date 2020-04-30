@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -11,6 +10,7 @@ namespace Unexpected\DeliveryTime\Helper;
 class OrderView
 {
     const DELIVERY_TIME_COLUMN = 'delivery-time';
+    const POSITION = 4;
 
     /** @var Config */
     private $config;

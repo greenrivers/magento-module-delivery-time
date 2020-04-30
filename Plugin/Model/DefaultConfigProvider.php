@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
 
 namespace Unexpected\DeliveryTime\Plugin\Model;
 
@@ -32,12 +37,14 @@ class DefaultConfigProvider
      */
     public function afterGetConfig(Subject $subject, array $result): array
     {
-        $items = $result['totalsData']['items'];
-        for ($i = 0; $i < count($items); $i++) {
-            $product = $result['quoteItemData'][$i]['product'];
-            $items[$i]['delivery_time'] = $this->render->getFromProductArray($product);
+        if ($this->config->getEnableConfig()) {
+            $items = $result['totalsData']['items'];
+            for ($i = 0; $i < count($items); $i++) {
+                $product = $result['quoteItemData'][$i]['product'];
+                $items[$i]['delivery_time'] = $this->render->getFromProductArray($product);
+            }
+            $result['totalsData']['items'] = $items;
         }
-        $result['totalsData']['items'] = $items;
         return $result;
     }
 }

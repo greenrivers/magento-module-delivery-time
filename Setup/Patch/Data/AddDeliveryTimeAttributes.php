@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -52,7 +51,7 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
     }
 
     /**
-     * @return array
+     * @inheritDoc
      */
     public static function getDependencies(): array
     {
@@ -60,13 +59,16 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
     }
 
     /**
-     * @return array
+     * @inheritDoc
      */
     public function getAliases(): array
     {
         return [];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function apply(): void
     {
         /** @var EavSetup $eavSetup */

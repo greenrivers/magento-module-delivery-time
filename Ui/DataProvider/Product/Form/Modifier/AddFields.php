@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -48,34 +47,34 @@ class AddFields extends AbstractModifier
      */
     public function modifyMeta(array $meta): array
     {
-        if (!$this->config->getEnableConfig()) {
+        if ($this->config->getEnableConfig()) {
+            $meta = array_replace_recursive(
+                $meta,
+                [
+                    'delivery-time' => [
+                        'children' => $this->getFields()
+                    ],
+                ]
+            );
+
+            $meta = array_replace_recursive(
+                $meta,
+                [
+                    'delivery-time' => [
+                        'children' => [
+                            'delivery_time_min_scale' => $this->setVisibleConfig(false),
+                            'delivery_time_max_scale' => $this->setVisibleConfig(false),
+                            'delivery_time_type' => $this->setVisibleConfig(false)
+                        ]
+                    ],
+                ]
+            );
+        } else {
             $meta['delivery-time']['arguments']['data']['config'] = [
                 'componentType' => 'fieldset',
                 'visible' => false
             ];
         }
-
-        $meta = array_replace_recursive(
-            $meta,
-            [
-                'delivery-time' => [
-                    'children' => $this->getFields()
-                ],
-            ]
-        );
-
-        $meta = array_replace_recursive(
-            $meta,
-            [
-                'delivery-time' => [
-                    'children' => [
-                        'delivery_time_min_scale' => $this->setVisibleConfig(false),
-                        'delivery_time_max_scale' => $this->setVisibleConfig(false),
-                        'delivery_time_type' => $this->setVisibleConfig(false)
-                    ]
-                ],
-            ]
-        );
 
         return $meta;
     }

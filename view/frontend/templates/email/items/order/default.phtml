@@ -1,14 +1,22 @@
 <?php
 /**
- * Copyright © Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
  */
 
 // phpcs:disable Magento2.Templates.ThisInTemplate
 
-/** @var $block \Magento\Sales\Block\Order\Email\Items\DefaultItems */
+use Magento\GiftMessage\Helper\Message;
+use Magento\Sales\Block\Order\Email\Items\DefaultItems;
+use Magento\Sales\Model\Order\Item;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
-/** @var $_item \Magento\Sales\Model\Order\Item */
+/** @var DefaultItems $block */
+/** @var DeliveryTime $viewModel */
+$viewModel = $block->getViewModel();
+
+/** @var $_item Item */
 $_item = $block->getItem();
 $_order = $_item->getOrder();
 ?>
@@ -33,7 +41,9 @@ $_order = $_item->getOrder();
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <td class="item-delivery-time"><?= $block->getViewModel()->renderItem() ?></td>
+    <?php if ($viewModel->isEnabled()): ?>
+        <td class="item-delivery-time"><?= $viewModel->renderFromItem($_item) ?></td>
+    <?php endif; ?>
     <td class="item-qty"><?= (float)$_item->getQtyOrdered() ?></td>
     <td class="item-price">
         <?= /* @noEscape */
@@ -41,7 +51,7 @@ $_order = $_item->getOrder();
     </td>
 </tr>
 <?php if ($_item->getGiftMessageId()
-    && $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)
+    && $_giftMessage = $this->helper(Message::class)
         ->getGiftMessage($_item->getGiftMessageId())
 ) : ?>
     <tr>

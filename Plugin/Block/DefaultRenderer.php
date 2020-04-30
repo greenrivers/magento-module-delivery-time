@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -49,6 +48,10 @@ class DefaultRenderer
 
     public function afterGetColumns(Subject $subject, array $result): array
     {
-        return $this->orderView->addColumn($result, [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'], 4);
+        return $this->orderView->addColumn(
+            $result,
+            [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'],
+            OrderView::POSITION
+        );
     }
 }

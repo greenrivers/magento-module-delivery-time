@@ -1,19 +1,28 @@
 <?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
 
 use Magento\Catalog\Block\Product\View;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
 /** @var View $block */
 $product = $block->getProduct();
+
+/** @var DeliveryTime $viewModel */
 $viewModel = $block->getViewModel();
 ?>
 
-<div class="delivery-tyime">
-    <div class="fieldset">
-        <div class="field delivery_time">
-            <label class="label" for="deliver">
-                <span><?= $viewModel->render($product) ?></span>
-            </label>
+<?php if ($viewModel->isEnabled()): ?>
+    <div class="delivery-time">
+        <div class="fieldset">
+            <div class="field delivery_time">
+                <label class="label" for="delivery-time">
+                    <span><?= $viewModel->renderFromProduct($product) ?></span>
+                </label>
+            </div>
         </div>
     </div>
-</div>
-
+<?php endif; ?>

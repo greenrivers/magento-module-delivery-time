@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @author Unexpected Team
  * @copyright Copyright (c) 2020 Unexpected
@@ -35,8 +34,7 @@ class Render
         Config $config,
         DeliveryTimeRepositoryInterface $deliveryTimeRepository,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->config = $config;
         $this->deliveryTimeRepository = $deliveryTimeRepository;
         $this->logger = $logger;
@@ -51,7 +49,7 @@ class Render
         $type = $product->getDeliveryTimeType();
         $min = $product->getDeliveryTimeMin();
         $max = $product->getDeliveryTimeMax();
-        return $this->attributeParser($type, $min, $max);
+        return $this->mapAttributes($type, $min, $max);
     }
 
     /**
@@ -60,10 +58,8 @@ class Render
      */
     public function getFromProductArray(array $product): string
     {
-        $type = $product['delivery_time_type'];
-        $min = $product['delivery_time_min_scale'];
-        $max = $product['delivery_time_max_scale'];
-        return $this->attributeParser($type, $min, $max);
+        ['delivery_time_type' => $type, 'delivery_time_min' => $min, 'delivery_time_max' => $max] = $product;
+        return $this->mapAttributes($type, $min, $max);
     }
 
     /**
@@ -89,23 +85,19 @@ class Render
      * @param int $max
      * @return string
      */
-    private function attributeParser(int $type, int $min, int $max): string
+    private function mapAttributes(int $type, int $min, int $max): string
     {
         $dateUnit = $this->config->getDateUnitConfig();
 
-        if ($this->config->getEnableConfig()) {
-            switch ($type) {
-                case 0:
-                    return __('From') . " {$min} {$dateUnit}";
-                case 1:
-                    return __('From') . " {$max} {$dateUnit}";
-                case 2:
-                    return __('From') . " {$min} {$dateUnit} " . __('To') . " {$max} {$dateUnit}";
-                default:
-                    return '';
-            }
+        switch ($type) {
+            case 0:
+                return __('From') . " {$min} {$dateUnit}";
+            case 1:
+                return __('From') . " {$max} {$dateUnit}";
+            case 2:
+                return __('From') . " {$min} {$dateUnit} " . __('To') . " {$max} {$dateUnit}";
+            default:
+                return '';
         }
-
-        return '';
     }
 }
