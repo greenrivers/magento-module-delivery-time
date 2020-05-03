@@ -9,7 +9,7 @@ namespace Unexpected\DeliveryTime\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Sales\Model\AbstractModel;
+use Magento\Sales\Model\Order\Item;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
 use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
@@ -77,10 +77,10 @@ class Render
     }
 
     /**
-     * @param AbstractModel $item
+     * @param Item $item
      * @return string
      */
-    public function getFromOrderItem(AbstractModel $item): string
+    public function getFromOrderItem(Item $item): string
     {
         $id = $item->getId();
         $content = '';
@@ -115,11 +115,11 @@ class Render
     }
 
     /**
-     * @param AbstractModel $item
+     * @param Item $item
      * @param string $layout
      * @return bool
      */
-    public function isEnabledOnItem(AbstractModel $item, string $layout): bool
+    public function isEnabledOnOrderItem(Item $item, string $layout): bool
     {
         $deliveryTime = false;
         try {
@@ -141,11 +141,11 @@ class Render
         $dateUnit = $this->config->getDateUnitConfig();
 
         switch ($type) {
-            case 0:
-                return __('From') . " {$min} {$dateUnit}";
             case 1:
-                return __('From') . " {$max} {$dateUnit}";
+                return __('Up to') . " {$min} {$dateUnit}";
             case 2:
+                return __('From') . " {$max} {$dateUnit}";
+            case 3:
                 return __('From') . " {$min} {$dateUnit} " . __('To') . " {$max} {$dateUnit}";
             default:
                 return '';

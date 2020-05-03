@@ -21,6 +21,7 @@ $viewModel = $block->getViewModel();
 /** @var Item $_item */
 $_item = $block->getItem();
 $_order = $_item->getOrder();
+$product = $_item->getProduct();
 ?>
 <tr>
     <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
@@ -43,8 +44,8 @@ $_order = $_item->getOrder();
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <?php if ($viewModel->isEnabledOnItem($_item, $layout)): ?>
-        <td class="item-delivery-time"><?= $viewModel->renderFromItem($_item) ?></td>
+    <?php if ($viewModel->isEnabledOnProduct($product, $layout)): ?>
+        <td class="item-delivery-time"><?= $viewModel->renderFromProduct($product) ?></td>
     <?php endif; ?>
     <td class="item-qty"><?= (float)$_item->getQtyOrdered() ?></td>
     <td class="item-price">

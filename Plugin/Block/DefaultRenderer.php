@@ -55,7 +55,7 @@ class DefaultRenderer
     {
         $item = $subject->getItem();
         $layout = $subject->getRequest()->getFullActionName();
-        if ($this->render->isEnabledOnItem($item, $layout)) {
+        if ($this->render->isEnabledOnOrderItem($item, $layout)) {
             $result = $this->orderView->addColumn(
                 $result,
                 [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'],

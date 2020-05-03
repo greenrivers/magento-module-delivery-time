@@ -6,11 +6,15 @@
  */
 
 use Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer;
+use Magento\Sales\Model\Order\Invoice\Item;
 use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
 /** @var DefaultRenderer $block */
-$_item = $block->getItem();
 $layout = $block->getRequest()->getFullActionName();
+
+/** @var Item $_item */
+$_item = $block->getItem();
+$orderItem = $_item->getOrderItem();
 $block->setPriceDataObject($_item);
 
 /** @var DeliveryTime $viewModel */
@@ -20,8 +24,8 @@ $viewModel = $block->getViewModel();
 <td class="col-price">
     <?= $block->getColumnHtml($_item, 'price') ?>
 </td>
-<?php if ($viewModel->isEnabledOnItem($_item, $layout)): ?>
-    <td class="col-delivery-time"><?= $block->escapeHtml($viewModel->renderFromItem($_item)) ?></td>
+<?php if ($viewModel->isEnabledOnOrderItem($orderItem, $layout)): ?>
+    <td class="col-delivery-time"><?= $block->escapeHtml($viewModel->renderFromItem($orderItem)) ?></td>
 <?php endif; ?>
 <td class="col-qty"><?= $block->getColumnHtml($_item, 'qty') ?></td>
 <td class="col-qty-invoice">

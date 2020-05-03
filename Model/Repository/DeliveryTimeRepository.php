@@ -87,7 +87,7 @@ class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
             /** @var DeliveryTimeInterface $deliveryTime */
             $deliveryTime = $this->deliveryTimeFactory->create();
             $this->deliveryTimeResource->load($deliveryTime, $deliveryTimeId);
-            if (!$deliveryTime->hasDeliveryTimeId() && !$deliveryTime->getDeliveryTimeId()) {
+            if (!$deliveryTime->hasDeliveryTimeId() || !$deliveryTime->getDeliveryTimeId()) {
                 throw new NoSuchEntityException(__('Delivery Time with id "%1" does not exist.', $deliveryTimeId));
             }
             $this->deliveryTimes[$deliveryTimeId] = $deliveryTime;
@@ -103,7 +103,7 @@ class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
         /** @var DeliveryTimeInterface $deliveryTime */
         $deliveryTime = $this->deliveryTimeFactory->create();
         $this->deliveryTimeResource->load($deliveryTime, $orderItemId, DeliveryTimeInterface::ORDER_ITEM_ID);
-        if (!$deliveryTime->hasDeliveryTimeId() && !$deliveryTime->getDeliveryTimeId()) {
+        if (!$deliveryTime || !$deliveryTime->hasDeliveryTimeId() || !$deliveryTime->getDeliveryTimeId()) {
             throw new NoSuchEntityException(
                 __('Delivery Time with specified order item id "%1" not found.', $orderItemId)
             );

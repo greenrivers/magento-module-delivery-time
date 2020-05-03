@@ -42,7 +42,8 @@ class DefaultConfigProvider
             $items = $result['totalsData']['items'];
             for ($i = 0; $i < count($items); $i++) {
                 $product = $result['quoteItemData'][$i]['product'];
-                $items[$i]['delivery_time'] = $this->render->getFromProductArray($product);
+                $deliveryTime = $this->render->getFromProductArray($product);
+                $items[$i]['delivery_time'] = $result['quoteItemData'][$i]['delivery_time'] = $deliveryTime;
             }
             $result['totalsData']['items'] = $items;
         }

@@ -16,8 +16,8 @@ define([
     'use strict';
 
     const sliderFn = 'slider';
-    const deliveryTimeMinScale = registry.get('index = delivery_time_min_scale');
-    const deliveryTimeMaxScale = registry.get('index = delivery_time_max_scale');
+    const deliveryTimeMinScale = registry.get('index = delivery_time_min');
+    const deliveryTimeMaxScale = registry.get('index = delivery_time_max');
 
     ko.bindingHandlers.sliderRange = {
         init: function (element, valueAccessor) {

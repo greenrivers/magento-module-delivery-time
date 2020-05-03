@@ -8,8 +8,8 @@
 namespace Unexpected\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Model\Product;
-use Magento\Sales\Model\AbstractModel;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Magento\Sales\Model\Order\Item;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Helper\Render;
 
@@ -48,13 +48,13 @@ class DeliveryTime implements ArgumentInterface
     }
 
     /**
-     * @param AbstractModel $item
+     * @param Item $item
      * @param string $layout
      * @return bool
      */
-    public function isEnabledOnItem(AbstractModel $item, string $layout): bool
+    public function isEnabledOnOrderItem(Item $item, string $layout): bool
     {
-        return $this->render->isEnabledOnItem($item, $layout);
+        return $this->render->isEnabledOnOrderItem($item, $layout);
     }
 
     /**
@@ -67,10 +67,10 @@ class DeliveryTime implements ArgumentInterface
     }
 
     /**
-     * @param AbstractModel $item
+     * @param Item $item
      * @return string
      */
-    public function renderFromItem(AbstractModel $item): string
+    public function renderFromItem(Item $item): string
     {
         return $this->render->getFromOrderItem($item);
     }

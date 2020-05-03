@@ -14,6 +14,7 @@ use Magento\Ui\Component\Form\Element\RadioSet;
 use Magento\Ui\Component\Form\Field;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Model\Source\RadioOptions;
+use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class AddFields extends AbstractModifier
 {
@@ -48,7 +49,7 @@ class AddFields extends AbstractModifier
     public function modifyMeta(array $meta): array
     {
         if (!$this->config->getEnableConfig()) {
-            $meta['delivery-time']['arguments']['data']['config']['visible'] = true;
+            $meta['delivery-time']['arguments']['data']['config']['visible'] = false;
         }
 
         $meta = array_replace_recursive(
@@ -65,9 +66,9 @@ class AddFields extends AbstractModifier
             [
                 'delivery-time' => [
                     'children' => [
-                        'delivery_time_min_scale' => $this->setVisibleConfig(false),
-                        'delivery_time_max_scale' => $this->setVisibleConfig(false),
-                        'delivery_time_type' => $this->setVisibleConfig(false)
+                        AddDeliveryTimeAttributes::DELIVERY_TIME_MIN => $this->setVisibleConfig(false),
+                        AddDeliveryTimeAttributes::DELIVERY_TIME_MAX => $this->setVisibleConfig(false),
+                        AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE => $this->setVisibleConfig(false)
                     ]
                 ],
             ]
