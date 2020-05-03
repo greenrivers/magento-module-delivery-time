@@ -22,6 +22,9 @@ class Visibility implements OptionSourceInterface
     const ORDER_VIEW_CUSTOMER_PAGE = 'sales_order_view_' . Area::AREA_FRONTEND;
     const ORDER_VIEW_PRINT = 'sales_order_print';
     const ORDER_VIEW_ADMIN_PAGE = 'sales_order_view_' . Area::AREA_ADMINHTML;
+    const SHIPMENT_NEW = 'adminhtml_order_shipment_new';
+    const SHIPMENT_VIEW = 'adminhtml_order_shipment_view';
+    const SHIPMENT_NEW_MAIL = 'sales_email_order_shipment_items';
 
     /**
      * @inheritDoc
@@ -52,6 +55,8 @@ class Visibility implements OptionSourceInterface
             self::INVOICE_NEW . ',' . self::INVOICE_VIEW => __('Invoice'),
             self::ORDER_VIEW_CUSTOMER_PAGE . ',' . self::ORDER_VIEW_PRINT => __('Order view customer'),
             self::ORDER_VIEW_ADMIN_PAGE => __('Order view adminhtml'),
+            self::SHIPMENT_NEW . ',' . self::SHIPMENT_VIEW => __('Shipment view adminhtml'),
+            self::SHIPMENT_NEW_MAIL => __('Shipment new mail')
         ];
     }
 }

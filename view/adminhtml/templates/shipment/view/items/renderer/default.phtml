@@ -1,0 +1,26 @@
+<?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+use Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
+
+/** @var DefaultRenderer $block */
+$_item = $block->getItem();
+$orderItem = $_item->getOrderItem();
+$layout = $block->getRequest()->getFullActionName();
+
+/** @var DeliveryTime $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<tr class="border">
+    <td class="col-product"><?= $block->getColumnHtml($_item, 'name') ?></td>
+    <?php if ($viewModel->isEnabledOnOrderItem($orderItem, $layout)) : ?>
+        <td class="col-delivery-time"><?= $block->escapeHtml($viewModel->renderFromItem($orderItem)) ?></td>
+    <?php endif; ?>
+    <td class="col-qty last"><?= /* @noEscape */
+        $_item->getQty() * 1 ?></td>
+</tr>

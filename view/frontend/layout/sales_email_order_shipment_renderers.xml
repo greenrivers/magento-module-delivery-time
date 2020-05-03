@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sales.email.order.shipment.renderers">
+            <referenceBlock name="sales.email.order.shipment.renderers.default"
+                            template="Unexpected_DeliveryTime::email/items/shipment/default.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">
+                        Unexpected\DeliveryTime\ViewModel\DeliveryTime
+                    </argument>
+                </arguments>
+            </referenceBlock>
+        </referenceBlock>
+    </body>
+</page>
