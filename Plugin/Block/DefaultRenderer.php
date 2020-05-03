@@ -7,6 +7,7 @@
 
 namespace Unexpected\DeliveryTime\Plugin\Block;
 
+use Magento\Framework\App\Area;
 use Magento\Framework\DataObject;
 use Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer as Subject;
 use Unexpected\DeliveryTime\Helper\OrderView;
@@ -54,7 +55,7 @@ class DefaultRenderer
     public function afterGetColumns(Subject $subject, array $result): array
     {
         $item = $subject->getItem();
-        $layout = $subject->getRequest()->getFullActionName();
+        $layout = $subject->getRequest()->getFullActionName() . '_' . Area::AREA_ADMINHTML;
         if ($this->render->isEnabledOnOrderItem($item, $layout)) {
             $result = $this->orderView->addColumn(
                 $result,

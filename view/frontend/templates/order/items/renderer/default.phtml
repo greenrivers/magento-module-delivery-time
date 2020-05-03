@@ -1,0 +1,95 @@
+<?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+use Magento\Framework\App\Area;
+use Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer;
+use Unexpected\DeliveryTime\Model\Config\Source\Visibility;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
+
+/** @var DefaultRenderer $block */
+$_item = $block->getItem();
+$layout = $block->getRequest()->getFullActionName();
+if ($layout !== Visibility::ORDER_VIEW_PRINT) {
+    $layout .= '_' . Area::AREA_FRONTEND;
+}
+
+/** @var DeliveryTime $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<tr id="order-item-row-<?= (int)$_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>">
+        <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+        <?php if ($_options = $block->getItemOptions()) : ?>
+            <dl class="item-options">
+                <?php foreach ($_options as $_option) : ?>
+                    <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                    <?php if (!$block->getPrintStatus()) : ?>
+                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <dd>
+                            <?php if (isset($_formatedOptionValue['full_view'])) : ?>
+                                <?= $block->escapeHtml($_formatedOptionValue['full_view'], ['a']) ?>
+                            <?php else : ?>
+                                <?= $block->escapeHtml($_formatedOptionValue['value'], ['a']) ?>
+                            <?php endif; ?>
+                        </dd>
+                    <?php else : ?>
+                        <dd>
+                            <?= /* @noEscape */
+                            nl2br($block->escapeHtml($_option['print_value'] ?? $_option['value'])) ?>
+                        </dd>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addtInfoBlock) : ?>
+            <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+    <td class="col sku" data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>"><?= /* @noEscape */
+        $block->prepareSku($block->getSku()) ?></td>
+    <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+        <?= $block->getItemPriceHtml() ?>
+    </td>
+    <?php if ($viewModel->isEnabledOnOrderItem($_item, $layout)): ?>
+        <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
+            <?= $viewModel->renderFromItem($_item) ?>
+        </td>
+    <?php endif; ?>
+    <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
+        <ul class="items-qty">
+            <?php if ($block->getItem()->getQtyOrdered() > 0) : ?>
+                <li class="item">
+                    <span class="title"><?= $block->escapeHtml(__('Ordered')) ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyOrdered() ?></span>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->getItem()->getQtyShipped() > 0) : ?>
+                <li class="item">
+                    <span class="title"><?= $block->escapeHtml(__('Shipped')) ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyShipped() ?></span>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->getItem()->getQtyCanceled() > 0) : ?>
+                <li class="item">
+                    <span class="title"><?= $block->escapeHtml(__('Canceled')) ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyCanceled() ?></span>
+                </li>
+            <?php endif; ?>
+            <?php if ($block->getItem()->getQtyRefunded() > 0) : ?>
+                <li class="item">
+                    <span class="title"><?= $block->escapeHtml(__('Refunded')) ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyRefunded() ?></span>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </td>
+    <td class="col subtotal" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
+        <?= $block->getItemRowTotalHtml() ?>
+    </td>
+</tr>

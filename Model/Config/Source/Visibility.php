@@ -7,6 +7,7 @@
 
 namespace Unexpected\DeliveryTime\Model\Config\Source;
 
+use Magento\Framework\App\Area;
 use Magento\Framework\Data\OptionSourceInterface;
 
 class Visibility implements OptionSourceInterface
@@ -18,11 +19,12 @@ class Visibility implements OptionSourceInterface
     const ORDER_NEW_MAIL = 'sales_email_order_items';
     const INVOICE_NEW = 'sales_order_invoice_new';
     const INVOICE_VIEW = 'sales_order_invoice_view';
-    const ORDER_VIEW_CUSTOMER_PAGE = 'sales_order_view';
-    const ORDER_VIEW_ADMIN_PAGE = 'sales_order_view';
+    const ORDER_VIEW_CUSTOMER_PAGE = 'sales_order_view_' . Area::AREA_FRONTEND;
+    const ORDER_VIEW_PRINT = 'sales_order_print';
+    const ORDER_VIEW_ADMIN_PAGE = 'sales_order_view_' . Area::AREA_ADMINHTML;
 
     /**
-     * @return array
+     * @inheritDoc
      */
     public function toOptionArray(): array
     {
@@ -37,7 +39,7 @@ class Visibility implements OptionSourceInterface
     }
 
     /**
-     * @return string[]
+     * @return array
      */
     private function toArray(): array
     {
@@ -48,7 +50,7 @@ class Visibility implements OptionSourceInterface
             self::CHECKOUT_PAGE => __('Checkout'),
             self::ORDER_NEW_MAIL => __('Order new mail'),
             self::INVOICE_NEW . ',' . self::INVOICE_VIEW => __('Invoice'),
-            self::ORDER_VIEW_CUSTOMER_PAGE => __('Order view customer'),
+            self::ORDER_VIEW_CUSTOMER_PAGE . ',' . self::ORDER_VIEW_PRINT => __('Order view customer'),
             self::ORDER_VIEW_ADMIN_PAGE => __('Order view adminhtml'),
         ];
     }
