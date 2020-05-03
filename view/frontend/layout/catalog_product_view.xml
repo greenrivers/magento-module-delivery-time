@@ -10,13 +10,14 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="product.info.form.content">
-            <referenceBlock name="delivery.time" template="Unexpected_DeliveryTime::catalog/product/view/delivery_time.phtml">
+            <block name="delivery.time" class="Magento\Catalog\Block\Product\View"
+                   template="Unexpected_DeliveryTime::catalog/product/view/delivery_time.phtml">
                 <arguments>
                     <argument name="view_model" xsi:type="object">
                         Unexpected\DeliveryTime\ViewModel\DeliveryTime
                     </argument>
                 </arguments>
-            </referenceBlock>
+            </block>
         </referenceContainer>
     </body>
 </page>

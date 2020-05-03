@@ -8,6 +8,7 @@
 namespace Unexpected\DeliveryTime\Plugin\CustomerData;
 
 use Magento\Checkout\CustomerData\DefaultItem as Subject;
+use Magento\Framework\App\Request\Http as Request;
 use Magento\Quote\Model\Quote\Item;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Helper\Render;
@@ -20,15 +21,20 @@ class DefaultItem
     /** @var Render */
     private $render;
 
+    /** @var Request */
+    private $request;
+
     /**
      * DefaultItem constructor.
      * @param Config $config
      * @param Render $render
+     * @param Request $request
      */
-    public function __construct(Config $config, Render $render)
+    public function __construct(Config $config, Render $render, Request $request)
     {
         $this->render = $render;
         $this->config = $config;
+        $this->request = $request;
     }
 
     /**
@@ -39,8 +45,9 @@ class DefaultItem
      */
     public function afterGetItemData(Subject $subject, array $result, Item $item): array
     {
-        if ($this->config->getEnableConfig()) {
-            $product = $item->getProduct();
+        $layout = $this->request->getFullActionName();
+        $product = $item->getProduct();
+        if ($this->render->isEnabledOnProduct($product, $layout)) {
             $result['delivery_time'] = $this->render->getFromProduct($product);
         }
         return $result;

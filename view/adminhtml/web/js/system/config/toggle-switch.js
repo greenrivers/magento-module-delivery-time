@@ -45,10 +45,7 @@ define([
         },
 
         toggleElements: function () {
-            $('#row_delivery_time_general_date_unit').toggle();
-            $('#row_delivery_time_general_min_scale').toggle();
-            $('#row_delivery_time_general_max_scale').toggle();
-            $('#row_delivery_time_general_scale_step').toggle();
+            $('.section-config:not(:first)').toggle();
         },
 
         /**

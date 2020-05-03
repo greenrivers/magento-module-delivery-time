@@ -8,26 +8,26 @@
 namespace Unexpected\DeliveryTime\Plugin\Model;
 
 use Magento\Checkout\Model\DefaultConfigProvider as Subject;
-use Unexpected\DeliveryTime\Helper\Config;
+use Magento\Framework\App\Request\Http as Request;
 use Unexpected\DeliveryTime\Helper\Render;
 
 class DefaultConfigProvider
 {
-    /** @var Config */
-    private $config;
-
     /** @var Render */
     private $render;
 
+    /** @var Request */
+    private $request;
+
     /**
      * DefaultConfigProvider constructor.
-     * @param Config $config
      * @param Render $render
+     * @param Request $request
      */
-    public function __construct(Config $config, Render $render)
+    public function __construct(Render $render, Request $request)
     {
-        $this->config = $config;
         $this->render = $render;
+        $this->request = $request;
     }
 
     /**
@@ -37,7 +37,8 @@ class DefaultConfigProvider
      */
     public function afterGetConfig(Subject $subject, array $result): array
     {
-        if ($this->config->getEnableConfig()) {
+        $layout = $this->request->getFullActionName();
+        if ($this->render->isEnabled($layout)) {
             $items = $result['totalsData']['items'];
             for ($i = 0; $i < count($items); $i++) {
                 $product = $result['quoteItemData'][$i]['product'];

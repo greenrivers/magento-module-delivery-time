@@ -20,7 +20,7 @@ define([
              * @returns {Boolean}
              */
             function (value) {
-                const min = parseInt($('#delivery_time_general_min_scale').val());
+                const min = parseInt($('#delivery_time_backend_min_scale').val());
                 return parseInt(value) > min;
             },
             $.mage.__('Please enter a number greater than min scale.')
@@ -34,8 +34,8 @@ define([
              * @returns {Boolean}
              */
             function (value) {
-                const min = parseInt($('#delivery_time_general_min_scale').val());
-                const max = parseInt($('#delivery_time_general_max_scale').val());
+                const min = parseInt($('#delivery_time_backend_min_scale').val());
+                const max = parseInt($('#delivery_time_backend_max_scale').val());
                 return parseInt(value) <= max - min;
             },
             $.mage.__('Please enter a number lower than difference between max and min scale.')

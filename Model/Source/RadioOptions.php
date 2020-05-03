@@ -40,9 +40,10 @@ class RadioOptions extends AbstractSource
     private function toArray(): array
     {
         return [
-            '0' => __('Up to'),
-            '1' => __('From'),
-            '2' => __('From - to')
+            '0' => __('None'),
+            '1' => __('Up to'),
+            '2' => __('From'),
+            '3' => __('From - to')
         ];
     }
 }

@@ -16,6 +16,7 @@ use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 $_item = $block->getItem();
 $product = $_item->getProduct();
 $isVisibleProduct = $product->isVisibleInSiteVisibility();
+$layout = $block->getRequest()->getFullActionName();
 
 /** @var DeliveryTime $viewModel */
 $viewModel = $block->getViewModel();
@@ -103,7 +104,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         </td>
     <?php endif; ?>
 
-    <?php if ($viewModel->isEnabled()) : ?>
+    <?php if ($viewModel->isEnabledOnProduct($product, $layout)) : ?>
         <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
             <div class="field delivery-time">
                 <div class="control delivery-time">

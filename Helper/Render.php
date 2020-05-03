@@ -9,9 +9,10 @@ namespace Unexpected\DeliveryTime\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Sales\Model\Order\Item;
+use Magento\Sales\Model\AbstractModel;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class Render
 {
@@ -49,7 +50,10 @@ class Render
         $type = $product->getDeliveryTimeType();
         $min = $product->getDeliveryTimeMin();
         $max = $product->getDeliveryTimeMax();
-        return $this->mapAttributes($type, $min, $max);
+        if ($type && $min && $max) {
+            return $this->mapAttributes($type, $min, $max);
+        }
+        return '';
     }
 
     /**
@@ -58,25 +62,72 @@ class Render
      */
     public function getFromProductArray(array $product): string
     {
-        ['delivery_time_type' => $type, 'delivery_time_min' => $min, 'delivery_time_max' => $max] = $product;
+        $attrs = [
+            AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE,
+            AddDeliveryTimeAttributes::DELIVERY_TIME_MIN,
+            AddDeliveryTimeAttributes::DELIVERY_TIME_MAX
+        ];
+        foreach ($attrs as $attr) {
+            if (!array_key_exists($attr, $product)) {
+                return '';
+            }
+        }
+        [$attrs[0] => $type, $attrs[1] => $min, $attrs[2] => $max] = $product;
         return $this->mapAttributes($type, $min, $max);
     }
 
     /**
-     * @param Item $item
+     * @param AbstractModel $item
      * @return string
      */
-    public function getFromOrderItem(Item $item): string
+    public function getFromOrderItem(AbstractModel $item): string
     {
         $id = $item->getId();
         $content = '';
         try {
-            $deliveryTime = $this->deliveryTimeRepository->getById($id);
-            $content = $deliveryTime->getContent();
+            if ($id) {
+                $deliveryTime = $this->deliveryTimeRepository->getByOrderItemId($id);
+                $content = $deliveryTime->getContent();
+            }
         } catch (NoSuchEntityException $e) {
             $this->logger->error($e->getMessage());
         }
         return $content;
+    }
+
+    /**
+     * @param string $layout
+     * @return bool
+     */
+    public function isEnabled(string $layout): bool
+    {
+        return $this->config->getEnableConfig() && in_array($layout, $this->config->getVisibilityConfig());
+    }
+
+    /**
+     * @param Product $product
+     * @param string $layout
+     * @return bool
+     */
+    public function isEnabledOnProduct(Product $product, string $layout): bool
+    {
+        return $this->isEnabled($layout) && $product->getDeliveryTimeType();
+    }
+
+    /**
+     * @param AbstractModel $item
+     * @param string $layout
+     * @return bool
+     */
+    public function isEnabledOnItem(AbstractModel $item, string $layout): bool
+    {
+        $deliveryTime = false;
+        try {
+            $deliveryTime = $this->deliveryTimeRepository->getByOrderItemId($item->getId());
+        } catch (NoSuchEntityException $e) {
+            $this->logger->error($e->getMessage());
+        }
+        return $this->isEnabled($layout) && $deliveryTime;
     }
 
     /**

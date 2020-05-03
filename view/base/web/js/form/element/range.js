@@ -89,7 +89,7 @@ define([
          * @param {Number} type
          */
         setConfig: function (type) {
-            this.isRange(type === 2);
+            this.isRange(type === 3);
             const deliveryTimeType = registry.get('index = delivery_time_type');
             deliveryTimeType.value(type);
         },
@@ -102,7 +102,7 @@ define([
             const deliveryTimeType = registry.get('index = delivery_time_type');
 
             if (!this.isRange()) {
-                const text = deliveryTimeType.value() ? 'From' : 'Up to';
+                const text = deliveryTimeType.value() === 2 ? 'From' : 'Up to';
                 return $.mage.__(`${text} ${value()} ${dateUnit}`);
             }
             return $.mage.__(`From ${values[0]()} to ${values[1]()} ${dateUnit}`);

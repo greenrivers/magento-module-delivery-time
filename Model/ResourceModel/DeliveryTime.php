@@ -12,7 +12,7 @@ use Unexpected\DeliveryTime\Api\Data\DeliveryTimeInterface;
 
 class DeliveryTime extends AbstractDb
 {
-    const DELIVERY_TIME_TABLE = 'unexpected_delivery_time_order_item';
+    const DELIVERY_TIME_TABLE = 'unexpected_delivery_time';
 
     /**
      * @inheritDoc

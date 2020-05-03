@@ -46,12 +46,22 @@ class DefaultRenderer
         return $result;
     }
 
+    /**
+     * @param Subject $subject
+     * @param array $result
+     * @return array
+     */
     public function afterGetColumns(Subject $subject, array $result): array
     {
-        return $this->orderView->addColumn(
-            $result,
-            [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'],
-            OrderView::POSITION
-        );
+        $item = $subject->getItem();
+        $layout = $subject->getRequest()->getFullActionName();
+        if ($this->render->isEnabledOnItem($item, $layout)) {
+            $result = $this->orderView->addColumn(
+                $result,
+                [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'],
+                OrderView::POSITION
+            );
+        }
+        return $result;
     }
 }

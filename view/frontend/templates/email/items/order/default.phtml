@@ -13,10 +13,12 @@ use Magento\Sales\Model\Order\Item;
 use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
 /** @var DefaultItems $block */
+$layout = $block->getLayout()->getUpdate()->getHandles()[0];
+
 /** @var DeliveryTime $viewModel */
 $viewModel = $block->getViewModel();
 
-/** @var $_item Item */
+/** @var Item $_item */
 $_item = $block->getItem();
 $_order = $_item->getOrder();
 ?>
@@ -41,7 +43,7 @@ $_order = $_item->getOrder();
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <?php if ($viewModel->isEnabled()): ?>
+    <?php if ($viewModel->isEnabledOnItem($_item, $layout)): ?>
         <td class="item-delivery-time"><?= $viewModel->renderFromItem($_item) ?></td>
     <?php endif; ?>
     <td class="item-qty"><?= (float)$_item->getQtyOrdered() ?></td>

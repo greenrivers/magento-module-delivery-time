@@ -31,6 +31,13 @@ interface DeliveryTimeRepositoryInterface
     public function getById(int $deliveryTimeId): DeliveryTimeInterface;
 
     /**
+     * @param int $orderItemId
+     * @return DeliveryTimeInterface
+     * @throws NoSuchEntityException
+     */
+    public function getByOrderItemId(int $orderItemId): DeliveryTimeInterface;
+
+    /**
      * @param SearchCriteriaInterface $searchCriteria
      * @return SearchResultInterface
      */
