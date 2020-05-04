@@ -1,0 +1,49 @@
+<?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+use Magento\Sales\Block\Order\Email\Items\DefaultItems;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
+
+/** @var DefaultItems $block */
+$_item = $block->getItem();
+$orderItem = $_item->getOrderItem();
+$_order = $block->getItem()->getOrder();
+$layout = $block->getLayout()->getUpdate()->getHandles()[0];
+
+/** @var DeliveryTime $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<tr>
+    <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
+        <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
+        <p class="sku"><?= $block->escapeHtml(__('SKU')) ?>: <?= $block->escapeHtml($block->getSku($_item)) ?></p>
+        <?php if ($block->getItemOptions()) : ?>
+            <dl>
+                <?php foreach ($block->getItemOptions() as $option) : ?>
+                    <dt><strong><em><?= $block->escapeHtml($option['label']) ?></em></strong></dt>
+                    <dd>
+                        <?= /* @noEscape */
+                        nl2br($block->escapeHtml($option['value'])) ?>
+                    </dd>
+                <?php endforeach; ?>
+            </dl>
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) : ?>
+            <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+    <?php if ($viewModel->isEnabledOnOrderItem($orderItem, $layout)) : ?>
+        <td class="item-delivery-time"><?= $block->escapeHtml($viewModel->renderFromItem($orderItem)) ?></td>
+    <?php endif; ?>
+    <td class="item-qty"><?= (float)$_item->getQty() ?></td>
+    <td class="item-price">
+        <?= /* @noEscape */
+        $block->getItemPrice($_item->getOrderItem()) ?>
+    </td>
+</tr>

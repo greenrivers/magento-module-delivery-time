@@ -1,0 +1,40 @@
+<?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+use Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
+
+/** @var $block DefaultRenderer */
+$_item = $block->getItem();
+$_item->setStoreId($_item->getCreditMemo()->getStoreId());
+$orderItem = $_item->getOrderItem();
+$block->setPriceDataObject($_item);
+$layout = $block->getRequest()->getFullActionName();
+
+/** @var DeliveryTime $viewModel */
+$viewModel = $block->getViewModel();
+?>
+<tr>
+    <td class="col-product"><?= $block->getColumnHtml($_item, 'name') ?></td>
+    <td class="col-price">
+        <?= $block->getColumnHtml($_item, 'price') ?>
+    </td>
+    <?php if ($viewModel->isEnabledOnOrderItem($orderItem, $layout)) : ?>
+        <td class="col-delivery-time"><?= $block->escapeHtml($viewModel->renderFromItem($orderItem)) ?></td>
+    <?php endif; ?>
+    <td class="col-qty"><?= (float)$_item->getQty() ?></td>
+    <td class="col-subtotal">
+        <?= $block->getColumnHtml($_item, 'subtotal') ?>
+    </td>
+    <td class="col-tax"><?= /* @noEscape */
+        $block->displayPriceAttribute('tax_amount') ?></td>
+    <td class="col-discount"><?= /* @noEscape */
+        $block->displayPriceAttribute('discount_amount') ?></td>
+    <td class="col-total last">
+        <?= $block->getColumnHtml($_item, 'total') ?>
+    </td>
+</tr>
