@@ -47,13 +47,10 @@ class Render
      */
     public function getFromProduct(Product $product): string
     {
-        $type = $product->getDeliveryTimeType();
-        $min = $product->getDeliveryTimeMin();
-        $max = $product->getDeliveryTimeMax();
-        if ($type && $min && $max) {
-            return $this->mapAttributes($type, $min, $max);
-        }
-        return '';
+        $type = $product->getDeliveryTimeType() ?? 0;
+        $min = $product->getDeliveryTimeMin() ?? 0;
+        $max = $product->getDeliveryTimeMax() ?? 0;
+        return $this->mapAttributes($type, $min, $max);
     }
 
     /**

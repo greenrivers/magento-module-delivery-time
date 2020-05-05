@@ -11,7 +11,7 @@
     <body>
         <referenceBlock name="items" template="Unexpected_DeliveryTime::email/shipment/items.phtml">
             <arguments>
-                <argument name="view_model" xsi:type="object">
+                <argument name="delivery_time" xsi:type="object">
                     Unexpected\DeliveryTime\ViewModel\DeliveryTime
                 </argument>
             </arguments>

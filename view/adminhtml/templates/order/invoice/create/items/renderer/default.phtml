@@ -17,15 +17,15 @@ $_item = $block->getItem();
 $orderItem = $_item->getOrderItem();
 $block->setPriceDataObject($_item);
 
-/** @var DeliveryTime $viewModel */
-$viewModel = $block->getViewModel();
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
 ?>
 <td class="col-product"><?= $block->getColumnHtml($_item, 'name') ?></td>
 <td class="col-price">
     <?= $block->getColumnHtml($_item, 'price') ?>
 </td>
-<?php if ($viewModel->isEnabledOnOrderItem($orderItem, $layout)): ?>
-    <td class="col-delivery-time"><?= $block->escapeHtml($viewModel->renderFromItem($orderItem)) ?></td>
+<?php if ($deliveryTime->isEnabledOnOrderItem($orderItem, $layout)): ?>
+    <td class="col-delivery-time"><?= $block->escapeHtml($deliveryTime->renderFromItem($orderItem)) ?></td>
 <?php endif; ?>
 <td class="col-qty"><?= $block->getColumnHtml($_item, 'qty') ?></td>
 <td class="col-qty-invoice">

@@ -13,14 +13,14 @@
         <referenceBlock name="checkout.cart.item.renderers">
             <referenceBlock name="checkout.cart.item.renderers.default">
                 <arguments>
-                    <argument name="view_model" xsi:type="object">
+                    <argument name="delivery_time" xsi:type="object">
                         Unexpected\DeliveryTime\ViewModel\DeliveryTime
                     </argument>
                 </arguments>
             </referenceBlock>
             <referenceBlock name="checkout.cart.item.renderers.simple">
                 <arguments>
-                    <argument name="view_model" xsi:type="object">
+                    <argument name="delivery_time" xsi:type="object">
                         Unexpected\DeliveryTime\ViewModel\DeliveryTime
                     </argument>
                 </arguments>

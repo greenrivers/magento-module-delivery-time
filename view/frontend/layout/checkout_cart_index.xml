@@ -15,7 +15,7 @@
                     <referenceContainer name="checkout.cart.container">
                         <referenceBlock name="checkout.cart.form" template="Unexpected_DeliveryTime::cart/form.phtml">
                             <arguments>
-                                <argument name="view_model" xsi:type="object">
+                                <argument name="delivery_time" xsi:type="object">
                                     Unexpected\DeliveryTime\ViewModel\DeliveryTime
                                 </argument>
                             </arguments>

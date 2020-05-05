@@ -13,7 +13,7 @@
             <referenceBlock name="sales.order.print.renderers.default"
                             template="Unexpected_DeliveryTime::order/items/renderer/default.phtml">
                 <arguments>
-                    <argument name="view_model" xsi:type="object">
+                    <argument name="delivery_time" xsi:type="object">
                         Unexpected\DeliveryTime\ViewModel\DeliveryTime
                     </argument>
                 </arguments>

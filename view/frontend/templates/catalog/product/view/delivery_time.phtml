@@ -12,15 +12,15 @@ use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 $product = $block->getProduct();
 $layout = $block->getRequest()->getFullActionName();
 
-/** @var DeliveryTime $viewModel */
-$viewModel = $block->getViewModel();
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
 ?>
-<?php if ($viewModel->isEnabledOnProduct($product, $layout)): ?>
+<?php if ($deliveryTime->isEnabledOnProduct($product, $layout)): ?>
     <div class="delivery-time">
         <div class="fieldset">
             <div class="field delivery_time">
                 <label class="label" for="delivery-time">
-                    <span><?= $viewModel->renderFromProduct($product) ?></span>
+                    <span><?= $deliveryTime->renderFromProduct($product) ?></span>
                 </label>
             </div>
         </div>

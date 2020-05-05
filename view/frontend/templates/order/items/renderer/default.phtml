@@ -17,8 +17,8 @@ if ($layout !== Visibility::ORDER_VIEW_PRINT) {
     $layout .= '_' . Area::AREA_FRONTEND;
 }
 
-/** @var DeliveryTime $viewModel */
-$viewModel = $block->getViewModel();
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
 ?>
 <tr id="order-item-row-<?= (int)$_item->getId() ?>">
     <td class="col name" data-th="<?= $block->escapeHtmlAttr(__('Product Name')) ?>">
@@ -56,9 +56,9 @@ $viewModel = $block->getViewModel();
     <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
         <?= $block->getItemPriceHtml() ?>
     </td>
-    <?php if ($viewModel->isEnabledOnOrderItem($_item, $layout)): ?>
+    <?php if ($deliveryTime->isEnabledOnOrderItem($_item, $layout)): ?>
         <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
-            <?= $viewModel->renderFromItem($_item) ?>
+            <?= $deliveryTime->renderFromItem($_item) ?>
         </td>
     <?php endif; ?>
     <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">

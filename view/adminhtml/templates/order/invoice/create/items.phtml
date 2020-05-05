@@ -11,8 +11,8 @@ use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 /** @var Items $block */
 $layout = $block->getRequest()->getFullActionName();
 
-/** @var DeliveryTime $viewModel */
-$viewModel = $block->getViewModel();
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
 ?>
 <section class="admin__page-section">
     <div class="admin__page-section-title">
@@ -26,7 +26,7 @@ $viewModel = $block->getViewModel();
                 <tr class="headings">
                     <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                     <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                    <?php if ($viewModel->isEnabled($layout)): ?>
+                    <?php if ($deliveryTime->isEnabled($layout)): ?>
                         <th class="col-delivery-time"><span><?= $block->escapeHtml(__('Delivery Time')) ?></span></th>
                     <?php endif; ?>
                     <th class="col-ordered-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>

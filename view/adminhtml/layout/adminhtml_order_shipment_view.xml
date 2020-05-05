@@ -16,13 +16,13 @@
                         <referenceBlock name="default"
                                         template="Unexpected_DeliveryTime::shipment/view/items/renderer/default.phtml">
                             <arguments>
-                                <argument name="view_model" xsi:type="object">
+                                <argument name="delivery_time" xsi:type="object">
                                     Unexpected\DeliveryTime\ViewModel\DeliveryTime
                                 </argument>
                             </arguments>
                         </referenceBlock>
                         <arguments>
-                            <argument name="view_model" xsi:type="object">
+                            <argument name="delivery_time" xsi:type="object">
                                 Unexpected\DeliveryTime\ViewModel\DeliveryTime
                             </argument>
                         </arguments>

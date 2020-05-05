@@ -25,7 +25,7 @@
                         <referenceBlock name="order_items.default"
                                         template="Unexpected_DeliveryTime::order/creditmemo/create/items/renderer/default.phtml">
                             <arguments>
-                                <argument name="view_model" xsi:type="object">
+                                <argument name="delivery_time" xsi:type="object">
                                     Unexpected\DeliveryTime\ViewModel\DeliveryTime
                                 </argument>
                             </arguments>

@@ -12,8 +12,8 @@ use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 /** @var DefaultItems $block */
 $layout = $block->getLayout()->getUpdate()->getHandles()[0];
 
-/** @var DeliveryTime $viewModel */
-$viewModel = $block->getViewModel();
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
 
 /** @var $_item Item */
 $_item = $block->getItem();
@@ -40,8 +40,8 @@ $orderItem = $_item->getOrderItem();
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <?php if ($viewModel->isEnabledOnOrderItem($orderItem, $layout)) : ?>
-        <td class="item-delivery-time"><?= $block->escapeHtml($viewModel->renderFromItem($orderItem)) ?></td>
+    <?php if ($deliveryTime->isEnabledOnOrderItem($orderItem, $layout)) : ?>
+        <td class="item-delivery-time"><?= $block->escapeHtml($deliveryTime->renderFromItem($orderItem)) ?></td>
     <?php endif; ?>
     <td class="item-qty"><?= (float)$_item->getQty() ?></td>
 </tr>

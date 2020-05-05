@@ -10,7 +10,7 @@ define([
     'jquery',
     'Magento_Ui/js/form/element/abstract',
     'Magento_Ui/js/lib/knockout/template/renderer',
-    'jquery-ui-modules/slider',
+    'Magento_Ui/js/form/element/abstract',
     'mage/translate'
 ], function (registry, ko, $, AbstractElement, renderer) {
     'use strict';

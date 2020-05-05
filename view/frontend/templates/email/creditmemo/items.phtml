@@ -13,8 +13,8 @@ $_creditmemo = $block->getCreditmemo();
 $_order = $block->getOrder();
 $layout = $block->getLayout()->getUpdate()->getHandles()[0];
 
-/** @var DeliveryTime $viewModel */
-$viewModel = $block->getViewModel();
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
 ?>
 <?php if ($_creditmemo && $_order) : ?>
     <table class="email-items">
@@ -23,7 +23,7 @@ $viewModel = $block->getViewModel();
             <th class="item-info">
                 <?= $block->escapeHtml(__('Items')) ?>
             </th>
-            <?php if ($viewModel->isEnabled($layout)): ?>
+            <?php if ($deliveryTime->isEnabled($layout)): ?>
                 <th class="item-delivery-time">
                     <?= $block->escapeHtml(__('Delivery Time')) ?>
                 </th>

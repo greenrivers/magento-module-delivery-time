@@ -38,6 +38,16 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
+    <type name="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Invoice">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Unexpected\DeliveryTime\Plugin\Model\DefaultInvoice">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
 
     <type name="Magento\Checkout\Block\Cart\AbstractCart">
         <plugin name="Unexpected_DeliveryTime::Block_AbstractCart"
@@ -47,7 +57,14 @@
         <plugin name="Unexpected_DeliveryTime::Model_DefaultConfigProvider"
                 type="Unexpected\DeliveryTime\Plugin\Model\DefaultConfigProvider"/>
     </type>
+    <type name="Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice">
+        <plugin name="Unexpected_DeliveryTime::Model_DefaultInvoice"
+                type="Unexpected\DeliveryTime\Plugin\Model\DefaultInvoice"/>
+    </type>
 
     <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
                 type="Unexpected\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>
+
+    <preference for="Magento\Sales\Model\Order\Pdf\Invoice"
+                type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Invoice"/>
 </config>

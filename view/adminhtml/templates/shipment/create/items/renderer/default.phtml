@@ -15,13 +15,13 @@ $_item = $block->getItem();
 $orderItem = $_item->getOrderItem();
 $layout = $block->getRequest()->getFullActionName();
 
-/** @var DeliveryTime $viewModel */
-$viewModel = $block->getViewModel();
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
 ?>
 <tr>
     <td class="col-product"><?= $block->getColumnHtml($_item, 'name') ?></td>
-    <?php if ($viewModel->isEnabledOnOrderItem($orderItem, $layout)) : ?>
-        <td class="col-product"><?= $block->escapeHtml($viewModel->renderFromItem($orderItem)) ?></td>
+    <?php if ($deliveryTime->isEnabledOnOrderItem($orderItem, $layout)) : ?>
+        <td class="col-product"><?= $block->escapeHtml($deliveryTime->renderFromItem($orderItem)) ?></td>
     <?php endif; ?>
     <td class="col-ordered-qty"><?= $block->getColumnHtml($_item, 'qty') ?></td>
     <td class="col-qty <?php if ($block->isShipmentRegular()) : ?>last<?php endif; ?>">
