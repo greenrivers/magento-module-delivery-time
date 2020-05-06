@@ -19,16 +19,20 @@ class Visibility implements OptionSourceInterface
     const ORDER_NEW_MAIL = 'sales_email_order_items';
     const INVOICE_NEW = 'sales_order_invoice_new';
     const INVOICE_VIEW = 'sales_order_invoice_view';
+    const INVOICE_PRINT = 'sales_order_invoice_print';
     const ORDER_VIEW_CUSTOMER_PAGE = 'sales_order_view_' . Area::AREA_FRONTEND;
     const ORDER_VIEW_PRINT = 'sales_order_print';
     const ORDER_VIEW_ADMIN_PAGE = 'sales_order_view_' . Area::AREA_ADMINHTML;
     const SHIPMENT_NEW = 'adminhtml_order_shipment_new';
     const SHIPMENT_VIEW = 'adminhtml_order_shipment_view';
+    const SHIPMENT_PRINT = 'sales_shipment_print';
     const SHIPMENT_NEW_MAIL = 'sales_email_order_shipment_items';
     const CREDITMEMO_NEW = 'sales_order_creditmemo_new';
     const CREDITMEMO_VIEW = 'sales_order_creditmemo_view';
+    const CREDITMEMO_PRINT = 'sales_order_creditmemo_print';
     const INVOICE_MAIL = 'sales_email_order_invoice_items';
     const CREDITMEMO_MAIL = 'sales_email_order_creditmemo_items';
+    const ORDER_CREATE_ADMIN_PAGE = 'sales_order_create_index';
 
     /**
      * @inheritDoc
@@ -56,14 +60,15 @@ class Visibility implements OptionSourceInterface
             self::CART_PAGE => __('Cart'),
             self::CHECKOUT_PAGE => __('Checkout'),
             self::ORDER_NEW_MAIL => __('Order new mail'),
-            self::INVOICE_NEW . ',' . self::INVOICE_VIEW => __('Invoice'),
+            self::INVOICE_NEW . ',' . self::INVOICE_VIEW . ',' . self::INVOICE_PRINT => __('Invoice'),
             self::ORDER_VIEW_CUSTOMER_PAGE . ',' . self::ORDER_VIEW_PRINT => __('Order view customer'),
             self::ORDER_VIEW_ADMIN_PAGE => __('Order view adminhtml'),
-            self::SHIPMENT_NEW . ',' . self::SHIPMENT_VIEW => __('Shipment view adminhtml'),
+            self::SHIPMENT_NEW . ',' . self::SHIPMENT_VIEW . ',' . self::SHIPMENT_PRINT => __('Shipment view adminhtml'),
             self::SHIPMENT_NEW_MAIL => __('Shipment new mail'),
-            self::CREDITMEMO_NEW . ',' . self::CREDITMEMO_VIEW => __('Creditmemo'),
+            self::CREDITMEMO_NEW . ',' . self::CREDITMEMO_VIEW . ',' . self::CREDITMEMO_PRINT => __('Creditmemo'),
             self::INVOICE_MAIL => __('Invoice mail'),
-            self::CREDITMEMO_MAIL => __('Creditmemo mail')
+            self::CREDITMEMO_MAIL => __('Creditmemo mail'),
+            self::ORDER_CREATE_ADMIN_PAGE => __('Order create adminhtml')
         ];
     }
 }

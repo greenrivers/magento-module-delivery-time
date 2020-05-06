@@ -43,7 +43,27 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
+    <type name="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Shipment">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Creditmemo">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
     <type name="Unexpected\DeliveryTime\Plugin\Model\DefaultInvoice">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Unexpected\DeliveryTime\Plugin\Model\DefaultShipment">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Unexpected\DeliveryTime\Plugin\Model\DefaultCreditmemo">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
@@ -61,10 +81,22 @@
         <plugin name="Unexpected_DeliveryTime::Model_DefaultInvoice"
                 type="Unexpected\DeliveryTime\Plugin\Model\DefaultInvoice"/>
     </type>
+    <type name="Magento\Sales\Model\Order\Pdf\Items\Shipment\DefaultShipment">
+        <plugin name="Unexpected_DeliveryTime::Model_DefaultShipment"
+                type="Unexpected\DeliveryTime\Plugin\Model\DefaultShipment"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo">
+        <plugin name="Unexpected_DeliveryTime::Model_DefaultCreditmemot"
+                type="Unexpected\DeliveryTime\Plugin\Model\DefaultCreditmemo"/>
+    </type>
 
     <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
                 type="Unexpected\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>
 
     <preference for="Magento\Sales\Model\Order\Pdf\Invoice"
                 type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Invoice"/>
+    <preference for="Magento\Sales\Model\Order\Pdf\Shipment"
+                type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Shipment"/>
+    <preference for="Magento\Sales\Model\Order\Pdf\Creditmemo"
+                type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Creditmemo"/>
 </config>

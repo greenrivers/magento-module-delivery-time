@@ -18,14 +18,14 @@ use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Payment\Helper\Data;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Pdf\Config;
-use Magento\Sales\Model\Order\Pdf\Invoice as BaseInvoice;
+use Magento\Sales\Model\Order\Pdf\Shipment as BaseShipment;
 use Magento\Sales\Model\Order\Pdf\ItemsFactory;
 use Magento\Sales\Model\Order\Pdf\Total\Factory;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Helper\Render;
 
-class Invoice extends BaseInvoice
+class Shipment extends BaseShipment
 {
     /** @var Render */
     private $render;
@@ -110,23 +110,17 @@ class Invoice extends BaseInvoice
         $page->setFillColor(new \Zend_Pdf_Color_Rgb(0, 0, 0));
 
         //columns headers
-        $lines[0][] = ['text' => __('Products'), 'feed' => 35];
-
-        $lines[0][] = ['text' => __('SKU'), 'feed' => 290, 'align' => 'right'];
+        $lines[0][] = ['text' => __('Products'), 'feed' => 100];
 
         if ($this->render->isEnabled($layout)) {
-            $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 220, 'align' => 'right'];
+            $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 300];
         }
 
-        $lines[0][] = ['text' => __('Qty'), 'feed' => 435, 'align' => 'right'];
+        $lines[0][] = ['text' => __('Qty'), 'feed' => 35];
 
-        $lines[0][] = ['text' => __('Price'), 'feed' => 360, 'align' => 'right'];
+        $lines[0][] = ['text' => __('SKU'), 'feed' => 565, 'align' => 'right'];
 
-        $lines[0][] = ['text' => __('Tax'), 'feed' => 495, 'align' => 'right'];
-
-        $lines[0][] = ['text' => __('Subtotal'), 'feed' => 565, 'align' => 'right'];
-
-        $lineBlock = ['lines' => $lines, 'height' => 5];
+        $lineBlock = ['lines' => $lines, 'height' => 10];
 
         try {
             $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);

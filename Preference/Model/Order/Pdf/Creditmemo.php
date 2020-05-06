@@ -18,14 +18,14 @@ use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Payment\Helper\Data;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Pdf\Config;
-use Magento\Sales\Model\Order\Pdf\Invoice as BaseInvoice;
+use Magento\Sales\Model\Order\Pdf\Creditmemo as BaseCreditmemo;
 use Magento\Sales\Model\Order\Pdf\ItemsFactory;
 use Magento\Sales\Model\Order\Pdf\Total\Factory;
 use Magento\Store\Model\StoreManagerInterface;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Helper\Render;
 
-class Invoice extends BaseInvoice
+class Creditmemo extends BaseCreditmemo
 {
     /** @var Render */
     private $render;
@@ -72,7 +72,8 @@ class Invoice extends BaseInvoice
         Http $request,
         LoggerInterface $logger,
         array $data = []
-    ) {
+    )
+    {
         $this->render = $render;
         $this->request = $request;
         $this->logger = $logger;
@@ -100,33 +101,58 @@ class Invoice extends BaseInvoice
     {
         $layout = $this->request->getFullActionName();
 
-        /* Add table head */
         $this->_setFontRegular($page, 10);
         $page->setFillColor(new \Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
         $page->setLineColor(new \Zend_Pdf_Color_GrayScale(0.5));
         $page->setLineWidth(0.5);
-        $page->drawRectangle(25, $this->y, 570, $this->y - 15);
+        $page->drawRectangle(25, $this->y, 570, $this->y - 30);
         $this->y -= 10;
         $page->setFillColor(new \Zend_Pdf_Color_Rgb(0, 0, 0));
 
         //columns headers
         $lines[0][] = ['text' => __('Products'), 'feed' => 35];
 
-        $lines[0][] = ['text' => __('SKU'), 'feed' => 290, 'align' => 'right'];
-
         if ($this->render->isEnabled($layout)) {
-            $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 220, 'align' => 'right'];
+            $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 140];
         }
 
-        $lines[0][] = ['text' => __('Qty'), 'feed' => 435, 'align' => 'right'];
+        $lines[0][] = [
+            'text' => $this->string->split(__('SKU'), 12, true, true),
+            'feed' => 255,
+            'align' => 'right',
+        ];
 
-        $lines[0][] = ['text' => __('Price'), 'feed' => 360, 'align' => 'right'];
+        $lines[0][] = [
+            'text' => $this->string->split(__('Total (ex)'), 12, true, true),
+            'feed' => 330,
+            'align' => 'right',
+        ];
 
-        $lines[0][] = ['text' => __('Tax'), 'feed' => 495, 'align' => 'right'];
+        $lines[0][] = [
+            'text' => $this->string->split(__('Discount'), 12, true, true),
+            'feed' => 380,
+            'align' => 'right',
+        ];
 
-        $lines[0][] = ['text' => __('Subtotal'), 'feed' => 565, 'align' => 'right'];
+        $lines[0][] = [
+            'text' => $this->string->split(__('Qty'), 12, true, true),
+            'feed' => 445,
+            'align' => 'right',
+        ];
 
-        $lineBlock = ['lines' => $lines, 'height' => 5];
+        $lines[0][] = [
+            'text' => $this->string->split(__('Tax'), 12, true, true),
+            'feed' => 495,
+            'align' => 'right',
+        ];
+
+        $lines[0][] = [
+            'text' => $this->string->split(__('Total (inc)'), 12, true, true),
+            'feed' => 565,
+            'align' => 'right',
+        ];
+
+        $lineBlock = ['lines' => $lines, 'height' => 10];
 
         try {
             $this->drawLineBlocks($page, [$lineBlock], ['table_header' => true]);

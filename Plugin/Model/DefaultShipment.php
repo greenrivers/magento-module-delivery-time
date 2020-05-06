@@ -1,23 +1,18 @@
 <?php
-/**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
- */
 
 namespace Unexpected\DeliveryTime\Plugin\Model;
 
-use Magento\Framework\App\Request\Http;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Filter\FilterManager;
 use Magento\Framework\Stdlib\StringUtils;
-use Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice as Subject;
-use Magento\Sales\Model\Order\Invoice\Item;
+use Magento\Sales\Model\Order\Shipment\Item;
+use Magento\Sales\Model\Order\Pdf\Items\Shipment\DefaultShipment as Subject;
+use Magento\Framework\App\Request\Http;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
 use Unexpected\DeliveryTime\Helper\Render;
 
-class DefaultInvoice
+class DefaultShipment
 {
     /** @var StringUtils */
     private $string;
@@ -38,7 +33,7 @@ class DefaultInvoice
     private $logger;
 
     /**
-     * DefaultInvoice constructor.
+     * DefaultShipment constructor.
      * @param StringUtils $string
      * @param FilterManager $filterManager
      * @param DeliveryTimeRepositoryInterface $deliveryTimeRepository
@@ -69,12 +64,11 @@ class DefaultInvoice
     public function aroundDraw(Subject $subject, callable $proceed): void
     {
         try {
-            $order = $subject->getOrder();
             /** @var Item $item */
             $item = $subject->getItem();
+            $orderItem = $item->getOrderItem();
             $pdf = $subject->getPdf();
             $page = $subject->getPage();
-            $orderItem = $item->getOrderItem();
             $layout = $this->request->getFullActionName();
             $lines = [];
 
@@ -82,17 +76,9 @@ class DefaultInvoice
             $lines[0] = [
                 [
                     // phpcs:ignore Magento2.Functions.DiscouragedFunction
-                    'text' => $this->string->split(html_entity_decode($item->getName()), 35, true, true),
-                    'feed' => 35
+                    'text' => $this->string->split(html_entity_decode($item->getName()), 60, true, true),
+                    'feed' => 100
                 ]
-            ];
-
-            // draw SKU
-            $lines[0][] = [
-                // phpcs:ignore Magento2.Functions.DiscouragedFunction
-                'text' => $this->string->split(html_entity_decode($subject->getSku($item)), 17),
-                'feed' => 290,
-                'align' => 'right',
             ];
 
             // draw Delivery Time
@@ -100,73 +86,42 @@ class DefaultInvoice
                 $deliveryTime = $this->deliveryTimeRepository->getByOrderItemId($orderItem->getId());
                 $lines[0][] = [
                     'text' => $deliveryTime->getContent(),
-                    'feed' => 220,
-                    'align' => 'right'
+                    'feed' => 300
                 ];
             }
 
             // draw QTY
-            $lines[0][] = ['text' => $item->getQty() * 1, 'feed' => 435, 'align' => 'right'];
+            $lines[0][] = ['text' => $item->getQty() * 1, 'feed' => 35];
 
-            // draw item Prices
-            $i = 0;
-            $prices = $subject->getItemPricesForDisplay();
-            $feedPrice = 395;
-            $feedSubtotal = $feedPrice + 170;
-            foreach ($prices as $priceData) {
-                if (isset($priceData['label'])) {
-                    // draw Price label
-                    $lines[$i][] = ['text' => $priceData['label'], 'feed' => $feedPrice, 'align' => 'right'];
-                    // draw Subtotal label
-                    $lines[$i][] = ['text' => $priceData['label'], 'feed' => $feedSubtotal, 'align' => 'right'];
-                    $i++;
-                }
-                // draw Price
-                $lines[$i][] = [
-                    'text' => $priceData['price'],
-                    'feed' => $feedPrice,
-                    'font' => 'bold',
-                    'align' => 'right',
-                ];
-                // draw Subtotal
-                $lines[$i][] = [
-                    'text' => $priceData['subtotal'],
-                    'feed' => $feedSubtotal,
-                    'font' => 'bold',
-                    'align' => 'right',
-                ];
-                $i++;
-            }
-
-            // draw Tax
+            // draw SKU
             $lines[0][] = [
-                'text' => $order->formatPriceTxt($item->getTaxAmount()),
-                'feed' => 495,
-                'font' => 'bold',
+                // phpcs:ignore Magento2.Functions.DiscouragedFunction
+                'text' => $this->string->split(html_entity_decode($subject->getSku($item)), 25),
+                'feed' => 565,
                 'align' => 'right',
             ];
 
-            // custom options
+            // Custom options
             $options = $subject->getItemOptions();
             if ($options) {
                 foreach ($options as $option) {
                     // draw options label
                     $lines[][] = [
-                        'text' => $this->string->split($this->filterManager->stripTags($option['label']), 40, true, true),
+                        'text' => $this->string->split($this->filterManager->stripTags($option['label']), 70, true, true),
                         'font' => 'italic',
-                        'feed' => 35,
+                        'feed' => 110,
                     ];
 
-                    // Checking whether option value is not null
+                    // draw options value
                     if ($option['value'] !== null) {
-                        if (isset($option['print_value'])) {
-                            $printValue = $option['print_value'];
-                        } else {
-                            $printValue = $this->filterManager->stripTags($option['value']);
-                        }
+                        $printValue = isset(
+                            $option['print_value']
+                        ) ? $option['print_value'] : $this->filterManager->stripTags(
+                            $option['value']
+                        );
                         $values = explode(', ', $printValue);
                         foreach ($values as $value) {
-                            $lines[][] = ['text' => $this->string->split($value, 30, true, true), 'feed' => 40];
+                            $lines[][] = ['text' => $this->string->split($value, 50, true, true), 'feed' => 115];
                         }
                     }
                 }
