@@ -16,8 +16,8 @@ define([
     'use strict';
 
     const sliderFn = 'slider';
-    const deliveryTimeMinScale = registry.get('index = delivery_time_min');
-    const deliveryTimeMaxScale = registry.get('index = delivery_time_max');
+    const deliveryTimeMin = registry.get('index = delivery_time_min');
+    const deliveryTimeMax = registry.get('index = delivery_time_max');
 
     ko.bindingHandlers.sliderRange = {
         init: function (element, valueAccessor) {
@@ -31,8 +31,8 @@ define([
                     slide: function (event, ui) {
                         values[0](ui.values[0]);
                         values[1](ui.values[1]);
-                        deliveryTimeMinScale.value(ui.values[0]);
-                        deliveryTimeMaxScale.value(ui.values[1]);
+                        deliveryTimeMin.value(ui.values[0]);
+                        deliveryTimeMax.value(ui.values[1]);
                     }
                 });
             } else {
@@ -43,9 +43,9 @@ define([
                         value(ui.value);
                         const deliveryTimeType = registry.get('index = delivery_time_type');
                         if (deliveryTimeType.value() === 0) {
-                            deliveryTimeMinScale.value(value());
+                            deliveryTimeMin.value(value());
                         } else {
-                            deliveryTimeMaxScale.value(value());
+                            deliveryTimeMax.value(value());
                         }
                     }
                 });
@@ -64,9 +64,9 @@ define([
             maxScale: 100,
             scaleStep: 1,
             scale: 1,
-            value: ko.observable(20),
-            values: [ko.observable(7), ko.observable(50)],
-            isRange: ko.observable(true),
+            value: ko.observable(1),
+            values: [ko.observable(1), ko.observable(100)],
+            isRange: ko.observable(false),
             range: true,
             dateUnit: null
         },
@@ -81,8 +81,8 @@ define([
             this.minScale = parseInt(minScale);
             this.maxScale = parseInt(maxScale);
             this.scaleStep = parseInt(scaleStep);
-            this.values[0](this.minScale);
-            this.values[1](this.maxScale);
+            this.values[0](deliveryTimeMin.value() || this.minScale);
+            this.values[1](deliveryTimeMax.value() || this.maxScale);
         },
 
         /**
@@ -100,9 +100,15 @@ define([
         getRange: function () {
             const {value, values, dateUnit} = this;
             const deliveryTimeType = registry.get('index = delivery_time_type');
+            const typeValue = parseInt(deliveryTimeType.value());
+            const minValue = deliveryTimeMin.value() || this.minScale;
+            const maxValue = deliveryTimeMax.value() || this.maxScale;
+
+            this.isRange(typeValue === 3);
+            this.value(typeValue === 2 ? minValue : maxValue);
 
             if (!this.isRange()) {
-                const text = deliveryTimeType.value() === 2 ? 'From' : 'Up to';
+                const text = typeValue === 2 ? 'From' : 'Up to';
                 return $.mage.__(`${text} ${value()} ${dateUnit}`);
             }
             return $.mage.__(`From ${values[0]()} to ${values[1]()} ${dateUnit}`);
