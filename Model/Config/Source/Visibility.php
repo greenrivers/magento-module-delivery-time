@@ -35,6 +35,8 @@ class Visibility implements OptionSourceInterface
     const ORDER_CREATE_ADMIN_PAGE = 'sales_order_create_index';
     const INVOICE_VIEW_CUSTOMER_PAGE = 'sales_order_invoice';
     const INVOICE_PRINT_CUSTOMER_PAGE = 'sales_order_printInvoice';
+    const SHIPMENT_VIEW_CUSTOMER_PAGE = 'sales_order_shipment';
+    const SHIPMENT_PRINT_CUSTOMER_PAGE = 'sales_order_printShipment';
 
     /**
      * @inheritDoc
@@ -71,7 +73,8 @@ class Visibility implements OptionSourceInterface
             self::INVOICE_MAIL => __('Invoice mail'),
             self::CREDITMEMO_MAIL => __('Creditmemo mail'),
             self::ORDER_CREATE_ADMIN_PAGE => __('Order create adminhtml'),
-            self::INVOICE_VIEW_CUSTOMER_PAGE . ',' . self::INVOICE_PRINT_CUSTOMER_PAGE => __('Invoice view customer')
+            self::INVOICE_VIEW_CUSTOMER_PAGE . ',' . self::INVOICE_PRINT_CUSTOMER_PAGE => __('Invoice view customer'),
+            self::SHIPMENT_VIEW_CUSTOMER_PAGE . ',' . self::SHIPMENT_PRINT_CUSTOMER_PAGE => __('Shipment view customer')
         ];
     }
 }
