@@ -75,9 +75,11 @@ class Config extends AbstractHelper
      */
     public function getVisibilityConfig(): array
     {
+        $visibility =
+            $this->scopeConfig->getValue(self::XML_VISIBILITY_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
         return explode(
             ',',
-            $this->scopeConfig->getValue(self::XML_VISIBILITY_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            str_replace(' ', ',', $visibility)
         );
     }
 }
