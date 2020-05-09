@@ -26,7 +26,7 @@ $deliveryTime = $block->getDeliveryTime();
             <th class="item-info">
                 <?= $block->escapeHtml(__('Items')) ?>
             </th>
-            <?php if ($deliveryTime->isEnabled($layout)): ?>
+            <?php if ($deliveryTime->canShowOnProducts($layout, $_items)): ?>
                 <th class="item-delivery-time">
                     <?= $block->escapeHtml(__('Delivery Time')) ?>
                 </th>

@@ -17,6 +17,8 @@ $layout = $block->getRequest()->getFullActionName();
 if ($layout !== Visibility::ORDER_VIEW_PRINT) {
     $layout .= '_' . Area::AREA_FRONTEND;
 }
+$items = $block->getItems();
+
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
 ?>
@@ -36,14 +38,13 @@ $deliveryTime = $block->getDeliveryTime();
             <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
             <th class="col sku"><?= $block->escapeHtml(__('SKU')) ?></th>
             <th class="col price"><?= $block->escapeHtml(__('Price')) ?></th>
-            <?php if ($deliveryTime->isEnabled($layout)): ?>
+            <?php if ($deliveryTime->canShowOnItems($layout, $items)): ?>
                 <th class="col delivery-time"><?= $block->escapeHtml(__('Delivery Time')) ?></th>
             <?php endif; ?>
             <th class="col qty"><?= $block->escapeHtml(__('Qty')) ?></th>
             <th class="col subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
         </tr>
         </thead>
-        <?php $items = $block->getItems(); ?>
         <?php $giftMessage = '' ?>
         <?php foreach ($items as $item) :
             if ($item->getParentItem()) :

@@ -9,7 +9,9 @@ namespace Unexpected\DeliveryTime\Plugin\Block;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer as Subject;
+use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Helper\OrderView;
 use Unexpected\DeliveryTime\Helper\Render;
 
@@ -21,15 +23,20 @@ class DefaultRenderer
     /** @var OrderView */
     private $orderView;
 
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
      * DefaultRenderer constructor.
      * @param Render $render
      * @param OrderView $orderView
+     * @param LoggerInterface $logger
      */
-    public function __construct(Render $render, OrderView $orderView)
+    public function __construct(Render $render, OrderView $orderView, LoggerInterface $logger)
     {
         $this->render = $render;
         $this->orderView = $orderView;
+        $this->logger = $logger;
     }
 
     /**
@@ -54,14 +61,19 @@ class DefaultRenderer
      */
     public function afterGetColumns(Subject $subject, array $result): array
     {
-        $item = $subject->getItem();
-        $layout = $subject->getRequest()->getFullActionName() . '_' . Area::AREA_ADMINHTML;
-        if ($this->render->isEnabledOnOrderItem($item, $layout)) {
-            $result = $this->orderView->addColumn(
-                $result,
-                [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'],
-                OrderView::POSITION
-            );
+        try {
+            $layout = $subject->getRequest()->getFullActionName() . '_' . Area::AREA_ADMINHTML;
+            $order = $subject->getOrder();
+            $items = $order->getItems();
+            if ($this->render->canShowOnItems($layout, $items)) {
+                $result = $this->orderView->addColumn(
+                    $result,
+                    [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'],
+                    OrderView::POSITION
+                );
+            }
+        } catch (LocalizedException $e) {
+            $this->logger->error($e->getMessage());
         }
         return $result;
     }

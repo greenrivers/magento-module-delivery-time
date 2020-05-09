@@ -12,7 +12,6 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Model\Order\Item;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
-use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class Render
 {
@@ -54,26 +53,6 @@ class Render
     }
 
     /**
-     * @param array $product
-     * @return string
-     */
-    public function getFromProductArray(array $product): string
-    {
-        $attrs = [
-            AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE,
-            AddDeliveryTimeAttributes::DELIVERY_TIME_MIN,
-            AddDeliveryTimeAttributes::DELIVERY_TIME_MAX
-        ];
-        foreach ($attrs as $attr) {
-            if (!array_key_exists($attr, $product)) {
-                return '';
-            }
-        }
-        [$attrs[0] => $type, $attrs[1] => $min, $attrs[2] => $max] = $product;
-        return $this->mapAttributes($type, $min, $max);
-    }
-
-    /**
      * @param Item $item
      * @return string
      */
@@ -94,29 +73,64 @@ class Render
 
     /**
      * @param string $layout
+     * @param Product $product
      * @return bool
      */
-    public function isEnabled(string $layout): bool
+    public function canShowOnProduct(string $layout, Product $product): bool
     {
-        return $this->config->getEnableConfig() && in_array($layout, $this->config->getVisibilityConfig());
+        return $this->isEnabled() && $this->isEnabledOnLayout($layout) && $this->isEnabledOnProduct($product);
+    }
+
+    /**
+     * @param string $layout
+     * @param array $items
+     * @return bool
+     */
+    public function canShowOnProducts(string $layout, array $items): bool
+    {
+        return $this->isEnabled() && $this->isEnabledOnLayout($layout) && $this->isEnabledOnProducts($items);
+    }
+
+    /**
+     * @param string $layout
+     * @param array $items
+     * @return bool
+     */
+    public function canShowOnItems(string $layout, array $items): bool
+    {
+        return $this->isEnabled() && $this->isEnabledOnLayout($layout) && $this->isEnabledOnItems($items);
     }
 
     /**
      * @param Product $product
-     * @param string $layout
      * @return bool
      */
-    public function isEnabledOnProduct(Product $product, string $layout): bool
+    public function isEnabledOnProduct(Product $product): bool
     {
-        return $this->isEnabled($layout) && $product->getDeliveryTimeType();
+        return $product->getDeliveryTimeType() || 0;
+    }
+
+    /**
+     * @param array $items
+     * @return bool
+     */
+    public function isEnabledOnProducts(array $items): bool
+    {
+        foreach ($items as $item) {
+            /** @var Item $item */
+            $product = $item->getProduct();
+            if ($this->isEnabledOnProduct($product)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
      * @param Item $item
-     * @param string $layout
      * @return bool
      */
-    public function isEnabledOnOrderItem(Item $item, string $layout): bool
+    public function isEnabledOnItem(Item $item): bool
     {
         $deliveryTime = false;
         try {
@@ -124,7 +138,39 @@ class Render
         } catch (NoSuchEntityException $e) {
             $this->logger->error($e->getMessage());
         }
-        return $this->isEnabled($layout) && $deliveryTime;
+        return $deliveryTime || 0;
+    }
+
+    /**
+     * @param array $items
+     * @return bool
+     */
+    public function isEnabledOnItems(array $items): bool
+    {
+        foreach ($items as $item) {
+            /** @var Item $item */
+            if ($this->isEnabledOnItem($item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isEnabled(): bool
+    {
+        return $this->config->getEnableConfig();
+    }
+
+    /**
+     * @param string $layout
+     * @return bool
+     */
+    private function isEnabledOnLayout(string $layout): bool
+    {
+        return in_array($layout, $this->config->getVisibilityConfig());
     }
 
     /**

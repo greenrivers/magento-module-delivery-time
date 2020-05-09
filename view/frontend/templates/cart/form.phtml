@@ -12,7 +12,9 @@ use Magento\Tax\Helper\Data;
 use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
 /** @var Grid $block */
+$items = $block->getItems();
 $layout = $block->getRequest()->getFullActionName();
+
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
 ?>
@@ -42,7 +44,7 @@ $deliveryTime = $block->getDeliveryTime();
             <tr>
                 <th class="col item" scope="col"><span><?= $block->escapeHtml(__('Item')) ?></span></th>
                 <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                <?php if ($deliveryTime->isEnabled($layout)): ?>
+                <?php if ($deliveryTime->canShowOnProducts($layout, $items)): ?>
                     <th class="col delivery-time" scope="col">
                         <span><?= $block->escapeHtml(__('Delivery Time')) ?></span>
                     </th>

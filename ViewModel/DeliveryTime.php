@@ -32,29 +32,34 @@ class DeliveryTime implements ArgumentInterface
         $this->render = $render;
     }
 
-    public function isEnabled(string $layout): bool
-    {
-        return $this->render->isEnabled($layout);
-    }
-
     /**
+     * @param string $layout
      * @param Product $product
-     * @param string $layout
      * @return bool
      */
-    public function isEnabledOnProduct(Product $product, string $layout): bool
+    public function canShowOnProduct(string $layout, Product $product): bool
     {
-        return $this->render->isEnabledOnProduct($product, $layout);
+        return $this->render->canShowOnProduct($layout, $product);
     }
 
     /**
-     * @param Item $item
      * @param string $layout
+     * @param array $items
      * @return bool
      */
-    public function isEnabledOnOrderItem(Item $item, string $layout): bool
+    public function canShowOnProducts(string $layout, array $items): bool
     {
-        return $this->render->isEnabledOnOrderItem($item, $layout);
+        return $this->render->canShowOnProducts($layout, $items);
+    }
+
+    /**
+     * @param string $layout
+     * @param array $items
+     * @return bool
+     */
+    public function canShowOnItems(string $layout, array $items): bool
+    {
+        return $this->render->canShowOnItems($layout, $items);
     }
 
     /**

@@ -15,7 +15,7 @@ $layout = $block->getRequest()->getFullActionName();
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
 ?>
-<?php if ($deliveryTime->isEnabledOnProduct($product, $layout)): ?>
+<?php if ($deliveryTime->canShowOnProduct($layout, $product)): ?>
     <div class="delivery-time">
         <div class="fieldset">
             <div class="field delivery_time">

@@ -14,7 +14,9 @@ $layout = $block->getRequest()->getFullActionName();
 
 /** @var Item $_item */
 $_item = $block->getItem();
+$items = $block->getInvoice()->getAllItems();
 $orderItem = $_item->getOrderItem();
+$orderItems = $block->getOrder()->getAllItems();
 $block->setPriceDataObject($_item);
 
 /** @var DeliveryTime $deliveryTime */
@@ -24,7 +26,7 @@ $deliveryTime = $block->getDeliveryTime();
 <td class="col-price">
     <?= $block->getColumnHtml($_item, 'price') ?>
 </td>
-<?php if ($deliveryTime->isEnabledOnOrderItem($orderItem, $layout)): ?>
+<?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
     <td class="col-delivery-time"><?= $block->escapeHtml($deliveryTime->renderFromItem($orderItem)) ?></td>
 <?php endif; ?>
 <td class="col-qty"><?= $block->getColumnHtml($_item, 'qty') ?></td>

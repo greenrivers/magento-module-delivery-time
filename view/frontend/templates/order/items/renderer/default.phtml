@@ -16,6 +16,8 @@ $layout = $block->getRequest()->getFullActionName();
 if ($layout !== Visibility::ORDER_VIEW_PRINT) {
     $layout .= '_' . Area::AREA_FRONTEND;
 }
+$order = $block->getOrder();
+$items = $order->getItems();
 
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
@@ -56,7 +58,7 @@ $deliveryTime = $block->getDeliveryTime();
     <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
         <?= $block->getItemPriceHtml() ?>
     </td>
-    <?php if ($deliveryTime->isEnabledOnOrderItem($_item, $layout)): ?>
+    <?php if ($deliveryTime->canShowOnItems($layout, $items)): ?>
         <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
             <?= $deliveryTime->renderFromItem($_item) ?>
         </td>

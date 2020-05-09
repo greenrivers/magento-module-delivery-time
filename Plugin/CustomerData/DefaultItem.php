@@ -47,7 +47,7 @@ class DefaultItem
     {
         $layout = $this->request->getFullActionName();
         $product = $item->getProduct();
-        if ($this->render->isEnabledOnProduct($product, $layout)) {
+        if ($this->render->canShowOnProduct($layout, $product)) {
             $result['delivery_time'] = $this->render->getFromProduct($product);
         }
         return $result;

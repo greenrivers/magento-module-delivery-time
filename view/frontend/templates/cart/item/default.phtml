@@ -12,11 +12,12 @@ use Magento\Checkout\Block\Cart\Item\Renderer;
 use Magento\Msrp\Helper\Data;
 use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
-/** @var $block Renderer */
+/** @var Renderer $block */
 $_item = $block->getItem();
 $product = $_item->getProduct();
 $isVisibleProduct = $product->isVisibleInSiteVisibility();
 $layout = $block->getRequest()->getFullActionName();
+$items = $block->getCheckoutSession()->getQuote()->getItems();
 
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
@@ -104,7 +105,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
         </td>
     <?php endif; ?>
 
-    <?php if ($deliveryTime->isEnabledOnProduct($product, $layout)) : ?>
+    <?php if ($deliveryTime->canShowOnProducts($layout, $items)) : ?>
         <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
             <div class="field delivery-time">
                 <div class="control delivery-time">

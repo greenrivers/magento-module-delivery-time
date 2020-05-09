@@ -6,11 +6,15 @@
  */
 
 use Magento\Sales\Block\Order\Email\Invoice\Items;
+use Magento\Sales\Model\Order;
 use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
 /** @var Items $block */
 $_invoice = $block->getInvoice();
+
+/** @var Order $_order */
 $_order = $block->getOrder();
+$items = $_order->getAllItems();
 $layout = $block->getLayout()->getUpdate()->getHandles()[0];
 
 /** @var DeliveryTime $deliveryTime */
@@ -23,7 +27,7 @@ $deliveryTime = $block->getDeliveryTime();
             <th class="item-info">
                 <?= $block->escapeHtml(__('Items')) ?>
             </th>
-            <?php if ($deliveryTime->isEnabled($layout)) : ?>
+            <?php if ($deliveryTime->canShowOnItems($layout, $items)) : ?>
                 <th class="item-delivery-time">
                     <?= $block->escapeHtml(__('Delivery Time')) ?>
                 </th>
