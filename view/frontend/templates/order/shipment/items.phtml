@@ -15,6 +15,7 @@ use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
 /** @var Items $block */
 $_order = $block->getOrder();
+$orderItems = $_order->getAllItems();
 $layout = $block->getRequest()->getFullActionName();
 
 /** @var DeliveryTime $deliveryTime */
@@ -79,7 +80,7 @@ $deliveryTime = $block->getDeliveryTime();
             <tr>
                 <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
                 <th class="col sku"><?= $block->escapeHtml(__('SKU')) ?></th>
-                <?php if ($deliveryTime->isEnabled($layout)): ?>
+                <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
                     <th class="col delivery-time"><?= $block->escapeHtml(__('Delivery Time')) ?></th>
                 <?php endif; ?>
                 <th class="col qty"><?= $block->escapeHtml(__('Qty Shipped')) ?></th>

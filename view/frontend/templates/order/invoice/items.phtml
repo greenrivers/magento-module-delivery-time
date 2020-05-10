@@ -9,12 +9,13 @@ use Magento\Sales\Block\Order\Invoice\Items;
 use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 
 /** @var Items $block */
+$_order = $block->getOrder();
+$orderItems = $_order->getAllItems();
 $layout = $block->getRequest()->getFullActionName();
 
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
 ?>
-<?php $_order = $block->getOrder() ?>
 <div class="actions-toolbar">
     <a href="<?= $block->escapeUrl($block->getPrintAllInvoicesUrl($_order)) ?>"
        class="action print"
@@ -41,7 +42,7 @@ $deliveryTime = $block->getDeliveryTime();
                 <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
                 <th class="col sku"><?= $block->escapeHtml(__('SKU')) ?></th>
                 <th class="col price"><?= $block->escapeHtml(__('Price')) ?></th>
-                <?php if ($deliveryTime->isEnabled($layout)): ?>
+                <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
                     <th class="col delivery-time"><?= $block->escapeHtml(__('Delivery Time')) ?></th>
                 <?php endif; ?>
                 <th class="col qty"><?= $block->escapeHtml(__('Qty Invoiced')) ?></th>

@@ -11,7 +11,7 @@
     <body>
         <referenceContainer name="content">
             <referenceBlock name="sales.order.shipment">
-                <referenceBlock name="shipment_items" template="Unexpected_DeliveryTime::shipment/items.phtml">
+                <referenceBlock name="shipment_items" template="Unexpected_DeliveryTime::order/shipment/items.phtml">
                     <arguments>
                         <argument name="delivery_time" xsi:type="object">
                             Unexpected\DeliveryTime\ViewModel\DeliveryTime
