@@ -18,6 +18,7 @@ $deliveryTime = $block->getDeliveryTime();
 /** @var $_item Item */
 $_item = $block->getItem();
 $orderItem = $_item->getOrderItem();
+$orderItems = $orderItem->getOrder()->getAllItems();
 ?>
 <tr>
     <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
@@ -40,7 +41,7 @@ $orderItem = $_item->getOrderItem();
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <?php if ($deliveryTime->isEnabledOnOrderItem($orderItem, $layout)) : ?>
+    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)) : ?>
         <td class="item-delivery-time"><?= $block->escapeHtml($deliveryTime->renderFromItem($orderItem)) ?></td>
     <?php endif; ?>
     <td class="item-qty"><?= (float)$_item->getQty() ?></td>

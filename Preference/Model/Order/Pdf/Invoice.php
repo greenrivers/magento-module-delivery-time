@@ -16,6 +16,7 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\Stdlib\StringUtils;
 use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Payment\Helper\Data;
+use Magento\Sales\Api\InvoiceRepositoryInterface;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Pdf\Config;
 use Magento\Sales\Model\Order\Pdf\Invoice as BaseInvoice;
@@ -32,6 +33,9 @@ class Invoice extends BaseInvoice
 
     /** @var Http */
     private $request;
+
+    /** @var InvoiceRepositoryInterface */
+    private $invoiceRepository;
 
     /** @var LoggerInterface */
     private $logger;
@@ -51,6 +55,7 @@ class Invoice extends BaseInvoice
      * @param ResolverInterface $localeResolver
      * @param Render $render
      * @param Http $request
+     * @param InvoiceRepositoryInterface $invoiceRepository
      * @param LoggerInterface $logger
      * @param array $data
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -70,11 +75,13 @@ class Invoice extends BaseInvoice
         ResolverInterface $localeResolver,
         Render $render,
         Http $request,
+        InvoiceRepositoryInterface $invoiceRepository,
         LoggerInterface $logger,
         array $data = []
     ) {
         $this->render = $render;
         $this->request = $request;
+        $this->invoiceRepository = $invoiceRepository;
         $this->logger = $logger;
         parent::__construct(
             $paymentData,
@@ -99,6 +106,8 @@ class Invoice extends BaseInvoice
     protected function _drawHeader(\Zend_Pdf_Page $page): void
     {
         $layout = $this->request->getFullActionName();
+        $id = $this->request->getParam('invoice_id');
+        $items = $this->getItems($id);
 
         /* Add table head */
         $this->_setFontRegular($page, 10);
@@ -114,7 +123,7 @@ class Invoice extends BaseInvoice
 
         $lines[0][] = ['text' => __('SKU'), 'feed' => 290, 'align' => 'right'];
 
-        if ($this->render->isEnabled($layout)) {
+        if ($this->render->canShowOnItems($layout, $items)) {
             $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 220, 'align' => 'right'];
         }
 
@@ -135,5 +144,16 @@ class Invoice extends BaseInvoice
         }
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0));
         $this->y -= 20;
+    }
+
+    /**
+     * @param int $invoiceId
+     * @return array
+     */
+    private function getItems(int $invoiceId): array
+    {
+        $invoice = $this->invoiceRepository->get($invoiceId);
+        $order = $invoice->getOrder();
+        return $order->getAllItems();
     }
 }

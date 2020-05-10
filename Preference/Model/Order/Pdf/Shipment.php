@@ -16,6 +16,7 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\Stdlib\StringUtils;
 use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Payment\Helper\Data;
+use Magento\Sales\Api\ShipmentRepositoryInterface;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Pdf\Config;
 use Magento\Sales\Model\Order\Pdf\Shipment as BaseShipment;
@@ -32,6 +33,9 @@ class Shipment extends BaseShipment
 
     /** @var Http */
     private $request;
+
+    /** @var ShipmentRepositoryInterface */
+    private $shipmentRepository;
 
     /** @var LoggerInterface */
     private $logger;
@@ -51,6 +55,7 @@ class Shipment extends BaseShipment
      * @param ResolverInterface $localeResolver
      * @param Render $render
      * @param Http $request
+     * @param ShipmentRepositoryInterface $shipmentRepository
      * @param LoggerInterface $logger
      * @param array $data
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -70,11 +75,13 @@ class Shipment extends BaseShipment
         ResolverInterface $localeResolver,
         Render $render,
         Http $request,
+        ShipmentRepositoryInterface $shipmentRepository,
         LoggerInterface $logger,
         array $data = []
     ) {
         $this->render = $render;
         $this->request = $request;
+        $this->shipmentRepository = $shipmentRepository;
         $this->logger = $logger;
         parent::__construct(
             $paymentData,
@@ -99,6 +106,8 @@ class Shipment extends BaseShipment
     protected function _drawHeader(\Zend_Pdf_Page $page): void
     {
         $layout = $this->request->getFullActionName();
+        $id = $this->request->getParam('shipment_id');
+        $items = $this->getItems($id);
 
         /* Add table head */
         $this->_setFontRegular($page, 10);
@@ -112,7 +121,7 @@ class Shipment extends BaseShipment
         //columns headers
         $lines[0][] = ['text' => __('Products'), 'feed' => 100];
 
-        if ($this->render->isEnabled($layout)) {
+        if ($this->render->canShowOnItems($layout, $items)) {
             $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 300];
         }
 
@@ -129,5 +138,16 @@ class Shipment extends BaseShipment
         }
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0));
         $this->y -= 20;
+    }
+
+    /**
+     * @param int $shipmentId
+     * @return array
+     */
+    private function getItems(int $shipmentId): array
+    {
+        $shipment = $this->shipmentRepository->get($shipmentId);
+        $order = $shipment->getOrder();
+        return $order->getAllItems();
     }
 }

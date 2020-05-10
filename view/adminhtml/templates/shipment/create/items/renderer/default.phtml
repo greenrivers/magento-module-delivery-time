@@ -13,6 +13,7 @@ use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 /** @var DefaultRenderer $block */
 $_item = $block->getItem();
 $orderItem = $_item->getOrderItem();
+$orderItems = $orderItem->getOrder()->getAllItems();
 $layout = $block->getRequest()->getFullActionName();
 
 /** @var DeliveryTime $deliveryTime */
@@ -20,7 +21,7 @@ $deliveryTime = $block->getDeliveryTime();
 ?>
 <tr>
     <td class="col-product"><?= $block->getColumnHtml($_item, 'name') ?></td>
-    <?php if ($deliveryTime->isEnabledOnOrderItem($orderItem, $layout)) : ?>
+    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)) : ?>
         <td class="col-product"><?= $block->escapeHtml($deliveryTime->renderFromItem($orderItem)) ?></td>
     <?php endif; ?>
     <td class="col-ordered-qty"><?= $block->getColumnHtml($_item, 'qty') ?></td>

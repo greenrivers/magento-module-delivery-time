@@ -16,6 +16,7 @@ use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 use Magento\Framework\Stdlib\StringUtils;
 use Magento\Framework\Translate\Inline\StateInterface;
 use Magento\Payment\Helper\Data;
+use Magento\Sales\Api\CreditmemoRepositoryInterface;
 use Magento\Sales\Model\Order\Address\Renderer;
 use Magento\Sales\Model\Order\Pdf\Config;
 use Magento\Sales\Model\Order\Pdf\Creditmemo as BaseCreditmemo;
@@ -32,6 +33,9 @@ class Creditmemo extends BaseCreditmemo
 
     /** @var Http */
     private $request;
+
+    /** @var CreditmemoRepositoryInterface */
+    private $creditmemoRepository;
 
     /** @var LoggerInterface */
     private $logger;
@@ -51,6 +55,7 @@ class Creditmemo extends BaseCreditmemo
      * @param ResolverInterface $localeResolver
      * @param Render $render
      * @param Http $request
+     * @param CreditmemoRepositoryInterface $creditmemoRepository
      * @param LoggerInterface $logger
      * @param array $data
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
@@ -70,12 +75,14 @@ class Creditmemo extends BaseCreditmemo
         ResolverInterface $localeResolver,
         Render $render,
         Http $request,
+        CreditmemoRepositoryInterface $creditmemoRepository,
         LoggerInterface $logger,
         array $data = []
     )
     {
         $this->render = $render;
         $this->request = $request;
+        $this->creditmemoRepository = $creditmemoRepository;
         $this->logger = $logger;
         parent::__construct(
             $paymentData,
@@ -100,6 +107,8 @@ class Creditmemo extends BaseCreditmemo
     protected function _drawHeader(\Zend_Pdf_Page $page): void
     {
         $layout = $this->request->getFullActionName();
+        $id = $this->request->getParam('creditmemo_id');
+        $items = $this->getItems($id);
 
         $this->_setFontRegular($page, 10);
         $page->setFillColor(new \Zend_Pdf_Color_Rgb(0.93, 0.92, 0.92));
@@ -112,7 +121,7 @@ class Creditmemo extends BaseCreditmemo
         //columns headers
         $lines[0][] = ['text' => __('Products'), 'feed' => 35];
 
-        if ($this->render->isEnabled($layout)) {
+        if ($this->render->canShowOnItems($layout, $items)) {
             $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 140];
         }
 
@@ -161,5 +170,16 @@ class Creditmemo extends BaseCreditmemo
         }
         $page->setFillColor(new \Zend_Pdf_Color_GrayScale(0));
         $this->y -= 20;
+    }
+
+    /**
+     * @param int $creditmemoId
+     * @return array
+     */
+    private function getItems(int $creditmemoId): array
+    {
+        $creditmemo = $this->creditmemoRepository->get($creditmemoId);
+        $order = $creditmemo->getOrder();
+        return $order->getAllItems();
     }
 }

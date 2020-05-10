@@ -75,6 +75,7 @@ class DefaultInvoice
             $pdf = $subject->getPdf();
             $page = $subject->getPage();
             $orderItem = $item->getOrderItem();
+            $orderItems = $order->getAllItems();
             $layout = $this->request->getFullActionName();
             $lines = [];
 
@@ -96,7 +97,7 @@ class DefaultInvoice
             ];
 
             // draw Delivery Time
-            if ($this->render->isEnabledOnOrderItem($orderItem, $layout)) {
+            if ($this->render->canShowOnItems($layout, $orderItems)) {
                 $deliveryTime = $this->deliveryTimeRepository->getByOrderItemId($orderItem->getId());
                 $lines[0][] = [
                     'text' => $deliveryTime->getContent(),

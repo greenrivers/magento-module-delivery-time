@@ -27,7 +27,7 @@ $deliveryTime = $block->getDeliveryTime();
                 <tr class="headings">
                     <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                     <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                    <?php if ($deliveryTime->isEnabled($layout)) : ?>
+                    <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
                         <th class="col-delivery-time"><span><?= $block->escapeHtml(__('Delivery Time')) ?></span></th>
                     <?php endif; ?>
                     <th class="col-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
@@ -57,7 +57,7 @@ $deliveryTime = $block->getDeliveryTime();
             <tr class="headings">
                 <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                 <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                <?php if ($deliveryTime->isEnabled($layout)) : ?>
+                <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
                     <th class="col-delivery-time"><span><?= $block->escapeHtml(__('Delivery Time')) ?></span></th>
                 <?php endif; ?>
                 <th class="col-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
@@ -135,7 +135,7 @@ $deliveryTime = $block->getDeliveryTime();
                                class="input-text item-price admin__control-text"/>
                     </td>
                     <?php $product = $_item->getProduct(); ?>
-                    <?php if ($deliveryTime->isEnabledOnProduct($product, $layout)) : ?>
+                    <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
                         <td class="col-delivery-time">
                             <?= $block->escapeHtml($deliveryTime->renderFromProduct($product)) ?>
                         </td>
