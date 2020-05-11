@@ -68,6 +68,7 @@ class DefaultCreditmemo
             /** @var Item $item */
             $item = $subject->getItem();
             $orderItem = $item->getOrderItem();
+            $orderItems = $order->getAllItems();
             $pdf = $subject->getPdf();
             $page = $subject->getPage();
             $layout = $this->request->getFullActionName();
@@ -83,7 +84,7 @@ class DefaultCreditmemo
             ];
 
             // draw Delivery Time
-            if ($this->render->isEnabledOnOrderItem($orderItem, $layout)) {
+            if ($this->render->canShowOnItems($layout, $orderItems)) {
                 $deliveryTime = $this->deliveryTimeRepository->getByOrderItemId($orderItem->getId());
                 $lines[0][] = [
                     'text' => $deliveryTime->getContent(),

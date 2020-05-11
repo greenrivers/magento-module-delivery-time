@@ -50,6 +50,7 @@ class DefaultConfigProvider
                 $totalsDataItems[$i]['delivery_time'] = $result['quoteItemData'][$i]['delivery_time'] = $deliveryTime;
             }
             $result['totalsData']['items'] = $totalsDataItems;
+            $result['quoteData']['label_delivery_time'] = $this->render->getLabel();
         }
         return $result;
     }

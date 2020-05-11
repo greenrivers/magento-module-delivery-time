@@ -29,7 +29,7 @@ $deliveryTime = $block->getDeliveryTime();
             </th>
             <?php if ($deliveryTime->canShowOnItems($layout, $items)) : ?>
                 <th class="item-delivery-time">
-                    <?= $block->escapeHtml(__('Delivery Time')) ?>
+                    <?= $block->escapeHtml($deliveryTime->getLabel()) ?>
                 </th>
             <?php endif; ?>
             <th class="item-qty">

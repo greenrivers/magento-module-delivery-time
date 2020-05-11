@@ -21,7 +21,9 @@ $deliveryTime = $block->getDeliveryTime();
         <tr class="headings">
             <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
             <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)) : ?>
-                <th class="col-delivery-time"><span><?= $block->escapeHtml(__('Delivery Time')) ?></span></th>
+                <th class="col-delivery-time">
+                    <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
+                </th>
             <?php endif; ?>
             <th class="col-qty last"><span><?= $block->escapeHtml(__('Qty Shipped')) ?></span></th>
         </tr>

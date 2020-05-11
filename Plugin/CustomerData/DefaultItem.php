@@ -48,6 +48,7 @@ class DefaultItem
         $layout = $this->request->getFullActionName();
         $product = $item->getProduct();
         if ($this->render->canShowOnProduct($layout, $product)) {
+            $result['label_delivery_time'] = $this->render->getLabel();
             $result['delivery_time'] = $this->render->getFromProduct($product);
         }
         return $result;

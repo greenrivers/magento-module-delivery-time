@@ -28,7 +28,9 @@ $deliveryTime = $block->getDeliveryTime();
                     <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                     <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
                     <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
-                        <th class="col-delivery-time"><span><?= $block->escapeHtml(__('Delivery Time')) ?></span></th>
+                        <th class="col-delivery-time">
+                            <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
+                        </th>
                     <?php endif; ?>
                     <th class="col-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
                     <th class="col-subtotal"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>
@@ -58,7 +60,9 @@ $deliveryTime = $block->getDeliveryTime();
                 <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                 <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
                 <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
-                    <th class="col-delivery-time"><span><?= $block->escapeHtml(__('Delivery Time')) ?></span></th>
+                    <th class="col-delivery-time">
+                        <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
+                    </th>
                 <?php endif; ?>
                 <th class="col-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
                 <th class="col-subtotal"><span><?= $block->escapeHtml(__('Subtotal')) ?></span></th>

@@ -102,10 +102,18 @@ class Render
     }
 
     /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->config->getLabelConfig();
+    }
+
+    /**
      * @param Product $product
      * @return bool
      */
-    public function isEnabledOnProduct(Product $product): bool
+    private function isEnabledOnProduct(Product $product): bool
     {
         return $product->getDeliveryTimeType() || 0;
     }
@@ -114,7 +122,7 @@ class Render
      * @param array $items
      * @return bool
      */
-    public function isEnabledOnProducts(array $items): bool
+    private function isEnabledOnProducts(array $items): bool
     {
         foreach ($items as $item) {
             /** @var Item $item */
@@ -130,7 +138,7 @@ class Render
      * @param Item $item
      * @return bool
      */
-    public function isEnabledOnItem(Item $item): bool
+    private function isEnabledOnItem(Item $item): bool
     {
         $deliveryTime = false;
         try {
@@ -145,7 +153,7 @@ class Render
      * @param array $items
      * @return bool
      */
-    public function isEnabledOnItems(array $items): bool
+    private function isEnabledOnItems(array $items): bool
     {
         foreach ($items as $item) {
             /** @var Item $item */

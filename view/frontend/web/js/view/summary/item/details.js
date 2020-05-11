@@ -9,7 +9,7 @@ define([
 ], function (Component) {
     'use strict';
 
-    const {quoteItemData} = window.checkoutConfig;
+    const {quoteItemData, quoteData} = window.checkoutConfig;
 
     return Component.extend({
         defaults: {
@@ -22,6 +22,13 @@ define([
          */
         getValue: function (quoteItem) {
             return quoteItem.name;
+        },
+
+        /**
+         * @returns {String}
+         */
+        getLabelDeliveryTime: function() {
+            return quoteData.label_delivery_time;
         },
 
         /**

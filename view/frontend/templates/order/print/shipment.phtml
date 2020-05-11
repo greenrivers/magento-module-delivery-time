@@ -31,7 +31,7 @@ $deliveryTime = $block->getDeliveryTime();
                         <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
                         <th class="col sku"><?= $block->escapeHtml(__('SKU')) ?></th>
                         <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
-                            <th class="col delivery-time"><?= $block->escapeHtml(__('Delivery Time')) ?></th>
+                            <th class="col delivery-time"><?= $block->escapeHtml($deliveryTime->getLabel()) ?></th>
                         <?php endif; ?>
                         <th class="col price"><?= $block->escapeHtml(__('Qty Shipped')) ?></th>
                     </tr>

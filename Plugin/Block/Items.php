@@ -52,7 +52,7 @@ class Items
             if ($this->render->canShowOnItems($layout, $items)) {
                 $result = $this->orderView->addColumn(
                     $result,
-                    [OrderView::DELIVERY_TIME_COLUMN => 'Delivery Time'],
+                    [OrderView::DELIVERY_TIME_COLUMN => $this->render->getLabel()],
                     OrderView::POSITION
                 );
             }

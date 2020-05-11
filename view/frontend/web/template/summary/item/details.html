@@ -15,7 +15,8 @@
         <div class="product-item-name-block">
             <strong class="product-item-name" data-bind="html: $parent.name"></strong>
             <!-- ko if: (getItemDeliveryTime($parent))-->
-            <strong class="product-item-delivery-time" data-bind="html: getItemDeliveryTime($parent)"></strong>
+            <strong class="product-item-delivery-time"
+                    data-bind="html: getLabelDeliveryTime($parent) + ': ' + getItemDeliveryTime($parent)"></strong>
             <!-- /ko -->
             <div class="details-qty">
                 <span class="label"><!-- ko i18n: 'Qty' --><!-- /ko --></span>

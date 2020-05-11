@@ -124,7 +124,7 @@ class Invoice extends BaseInvoice
         $lines[0][] = ['text' => __('SKU'), 'feed' => 290, 'align' => 'right'];
 
         if ($this->render->canShowOnItems($layout, $items)) {
-            $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 220, 'align' => 'right'];
+            $lines[0][] = ['text' => $this->render->getLabel(), 'feed' => 220, 'align' => 'right'];
         }
 
         $lines[0][] = ['text' => __('Qty'), 'feed' => 435, 'align' => 'right'];

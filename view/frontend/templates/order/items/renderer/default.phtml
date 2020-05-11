@@ -59,7 +59,7 @@ $deliveryTime = $block->getDeliveryTime();
         <?= $block->getItemPriceHtml() ?>
     </td>
     <?php if ($deliveryTime->canShowOnItems($layout, $items)): ?>
-        <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
+        <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr($deliveryTime->getLabel()) ?>">
             <?= $deliveryTime->renderFromItem($_item) ?>
         </td>
     <?php endif; ?>

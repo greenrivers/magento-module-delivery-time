@@ -63,6 +63,14 @@ class DeliveryTime implements ArgumentInterface
     }
 
     /**
+     * @return string
+     */
+    public function getLabel(): string
+    {
+        return $this->render->getLabel();
+    }
+
+    /**
      * @param Product $product
      * @return string
      */

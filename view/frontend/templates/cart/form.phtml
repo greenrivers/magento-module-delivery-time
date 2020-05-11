@@ -46,7 +46,7 @@ $deliveryTime = $block->getDeliveryTime();
                 <th class="col price" scope="col"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
                 <?php if ($deliveryTime->canShowOnProducts($layout, $items)): ?>
                     <th class="col delivery-time" scope="col">
-                        <span><?= $block->escapeHtml(__('Delivery Time')) ?></span>
+                        <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
                     </th>
                 <?php endif; ?>
                 <th class="col qty" scope="col"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>

@@ -106,7 +106,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
     <?php endif; ?>
 
     <?php if ($deliveryTime->canShowOnProducts($layout, $items)) : ?>
-        <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
+        <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr($deliveryTime->getLabel()) ?>">
             <div class="field delivery-time">
                 <div class="control delivery-time">
                     <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-delivery-time">

@@ -122,7 +122,7 @@ class Creditmemo extends BaseCreditmemo
         $lines[0][] = ['text' => __('Products'), 'feed' => 35];
 
         if ($this->render->canShowOnItems($layout, $items)) {
-            $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 140];
+            $lines[0][] = ['text' => $this->render->getLabel(), 'feed' => 140];
         }
 
         $lines[0][] = [

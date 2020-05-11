@@ -122,7 +122,7 @@ class Shipment extends BaseShipment
         $lines[0][] = ['text' => __('Products'), 'feed' => 100];
 
         if ($this->render->canShowOnItems($layout, $items)) {
-            $lines[0][] = ['text' => __('Delivery Time'), 'feed' => 300];
+            $lines[0][] = ['text' => $this->render->getLabel(), 'feed' => 300];
         }
 
         $lines[0][] = ['text' => __('Qty'), 'feed' => 35];

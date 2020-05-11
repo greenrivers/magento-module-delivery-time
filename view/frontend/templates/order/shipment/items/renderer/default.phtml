@@ -56,7 +56,7 @@ $deliveryTime = $block->getDeliveryTime();
     <td class="col sku" data-th="<?= $block->escapeHtmlAttr(__('SKU')) ?>"><?= /* @noEscape */
         $block->prepareSku($block->getSku()) ?></td>
     <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
-        <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr(__('Delivery Time')) ?>">
+        <td class="col delivery-time" data-th="<?= $block->escapeHtmlAttr($deliveryTime->getLabel()) ?>">
             <?= $deliveryTime->renderFromItem($orderItem) ?>
         </td>
     <?php endif; ?>
