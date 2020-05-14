@@ -7,7 +7,10 @@
 
 namespace Unexpected\DeliveryTime\Ui\DataProvider\Product\Form\Modifier;
 
+use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
+use Magento\ConfigurableProduct\Api\LinkManagementInterface;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Ui\Component\Form\Element\DataType\Text;
 use Magento\Ui\Component\Form\Element\Input;
 use Magento\Ui\Component\Form\Element\RadioSet;
@@ -24,15 +27,29 @@ class AddFields extends AbstractModifier
     /** @var RadioOptions */
     private $radioOptions;
 
+    /** @var LocatorInterface */
+    private $locator;
+
+    /** @var LinkManagementInterface */
+    private $linkManagement;
+
     /**
      * AddFields constructor.
      * @param Config $config
      * @param RadioOptions $radioOptions
+     * @param LocatorInterface $locator
+     * @param LinkManagementInterface $linkManagement
      */
-    public function __construct(Config $config, RadioOptions $radioOptions)
-    {
+    public function __construct(
+        Config $config,
+        RadioOptions $radioOptions,
+        LocatorInterface $locator,
+        LinkManagementInterface $linkManagement
+    ) {
         $this->config = $config;
         $this->radioOptions = $radioOptions;
+        $this->locator = $locator;
+        $this->linkManagement = $linkManagement;
     }
 
     /**
@@ -48,6 +65,8 @@ class AddFields extends AbstractModifier
      */
     public function modifyMeta(array $meta): array
     {
+        $product = $this->locator->getProduct();
+
         if (!$this->config->getEnableConfig()) {
             $meta['delivery-time']['arguments']['data']['config']['visible'] = false;
         }
@@ -66,13 +85,44 @@ class AddFields extends AbstractModifier
             [
                 'delivery-time' => [
                     'children' => [
-                        AddDeliveryTimeAttributes::DELIVERY_TIME_MIN => $this->setVisibleConfig(false),
-                        AddDeliveryTimeAttributes::DELIVERY_TIME_MAX => $this->setVisibleConfig(false),
-                        AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE => $this->setVisibleConfig(false)
+                        AddDeliveryTimeAttributes::DELIVERY_TIME_MIN => $this->setConfig('visible', false),
+                        AddDeliveryTimeAttributes::DELIVERY_TIME_MAX => $this->setConfig('visible', false),
+                        AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE => $this->setConfig('visible', false)
                     ]
                 ],
             ]
         );
+
+        if ($product->getTypeId() === Configurable::TYPE_CODE) {
+            $sku = $product->getSku();
+            $childProducts = $this->linkManagement->getChildren($sku);
+            $deliveryTimeFromSimple = $product->getDeliveryTimeFromSimple();
+            $filterProducts = array_filter($childProducts, function ($childProduct){
+                return !$childProduct->getDeliveryTimeType();
+            });
+
+            $meta = array_replace_recursive(
+                $meta,
+                [
+                    'delivery-time' => [
+                        'children' => [
+                            AddDeliveryTimeAttributes::DELIVERY_TIME_INHERIT => $this->setConfig(
+                                'disabled',
+                                count($filterProducts) === 0
+                            ),
+                            AddDeliveryTimeAttributes::DELIVERY_TIME_FROM_SIMPLE => $this->setConfig(
+                                'disabled',
+                                count($filterProducts) === count($childProducts)
+                            ),
+                            AddDeliveryTimeAttributes::DELIVERY_TIME_PRODUCT_SIMPLE => $this->setConfig(
+                                'visible',
+                                $deliveryTimeFromSimple | 0
+                            )
+                        ]
+                    ],
+                ]
+            );
+        }
 
         return $meta;
     }
@@ -96,7 +146,7 @@ class AddFields extends AbstractModifier
                             'label' => __('Type'),
                             'fit' => true,
                             'additionalClasses' => 'admin__field-small',
-                            'sortOrder' => 10,
+                            'sortOrder' => 40,
                             'switcherConfig' => [
                                 'rules' => [
                                     '0' => [
@@ -152,7 +202,7 @@ class AddFields extends AbstractModifier
                             'formElement' => Input::NAME,
                             'dataScope' => 'range',
                             'dataType' => Text::NAME,
-                            'sortOrder' => 20,
+                            'sortOrder' => 50,
                             'visible' => false,
                             'slider' => [
                                 'dateUnit' => $this->config->getDateUnitConfig(),
@@ -168,16 +218,17 @@ class AddFields extends AbstractModifier
     }
 
     /**
+     * @param string $param
      * @param bool $visible
      * @return array
      */
-    private function setVisibleConfig(bool $visible): array
+    private function setConfig(string $param, bool $visible): array
     {
         return [
             'arguments' => [
                 'data' => [
                     'config' => [
-                        'visible' => $visible
+                        $param => $visible
                     ]
                 ]
             ]

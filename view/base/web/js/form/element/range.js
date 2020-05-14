@@ -42,10 +42,10 @@ define([
                     slide: function (event, ui) {
                         value(ui.value);
                         const deliveryTimeType = registry.get('index = delivery_time_type');
-                        if (deliveryTimeType.value() === 0) {
-                            deliveryTimeMin.value(value());
+                        if (deliveryTimeType.value() === 1) {
+                            deliveryTimeMin.value(ui.value);
                         } else {
-                            deliveryTimeMax.value(value());
+                            deliveryTimeMax.value(ui.value);
                         }
                     }
                 });
@@ -105,7 +105,7 @@ define([
             const maxValue = deliveryTimeMax.value() || this.maxScale;
 
             this.isRange(typeValue === 3);
-            this.value(typeValue === 2 ? minValue : maxValue);
+            this.value(typeValue === 1 ? minValue : maxValue);
 
             if (!this.isRange()) {
                 const text = typeValue === 2 ? 'From' : 'Up to';

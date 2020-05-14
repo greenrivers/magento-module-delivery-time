@@ -9,14 +9,17 @@ namespace Unexpected\DeliveryTime\Setup\Patch\Data;
 
 use Exception;
 use Magento\Catalog\Model\Product;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Eav\Model\Entity\Attribute\Backend\ArrayBackend;
 use Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface;
+use Magento\Eav\Model\Entity\Attribute\Source\Boolean;
 use Magento\Eav\Setup\EavSetup;
 use Magento\Eav\Setup\EavSetupFactory;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Psr\Log\LoggerInterface;
+use Unexpected\DeliveryTime\Model\Source\ProductsSimple;
 use Unexpected\DeliveryTime\Model\Source\RadioOptions;
 
 class AddDeliveryTimeAttributes implements DataPatchInterface
@@ -24,6 +27,10 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
     const DELIVERY_TIME_TYPE = 'delivery_time_type';
     const DELIVERY_TIME_MIN = 'delivery_time_min';
     const DELIVERY_TIME_MAX = 'delivery_time_max';
+
+    const DELIVERY_TIME_INHERIT = 'delivery_time_inherit';
+    const DELIVERY_TIME_FROM_SIMPLE = 'delivery_time_from_simple';
+    const DELIVERY_TIME_PRODUCT_SIMPLE = 'delivery_time_product_simple';
 
     /** @var ModuleDataSetupInterface */
     private $moduleDataSetup;
@@ -149,6 +156,67 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'visible_on_front' => false,
                 'used_in_product_listing' => true,
                 'unique' => false
+            ]);
+
+            $eavSetup->addAttribute(Product::ENTITY, self::DELIVERY_TIME_INHERIT, [
+                'type' => 'int',
+                'sort_order' => 10,
+                'label' => 'Apply to simple products',
+                'input' => 'boolean',
+                'group' => $attributeGroupName,
+                'source' => Boolean::class,
+                'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => false,
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'used_in_product_listing' => true,
+                'unique' => false,
+                'apply_to' => Configurable::TYPE_CODE
+            ]);
+
+            $eavSetup->addAttribute(Product::ENTITY, self::DELIVERY_TIME_FROM_SIMPLE, [
+                'type' => 'int',
+                'sort_order' => 20,
+                'label' => 'Apply from simple product',
+                'input' => 'boolean',
+                'group' => $attributeGroupName,
+                'source' => Boolean::class,
+                'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => false,
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'used_in_product_listing' => true,
+                'unique' => false,
+                'apply_to' => Configurable::TYPE_CODE
+            ]);
+
+            $eavSetup->addAttribute(Product::ENTITY, self::DELIVERY_TIME_PRODUCT_SIMPLE, [
+                'type' => 'int',
+                'sort_order' => 30,
+                'backend' => ArrayBackend::class,
+                'label' => 'Select product',
+                'input' => 'select',
+                'group' => $attributeGroupName,
+                'source' => ProductsSimple::class,
+                'global' => ScopedAttributeInterface::SCOPE_GLOBAL,
+                'visible' => true,
+                'required' => false,
+                'user_defined' => false,
+                'searchable' => false,
+                'filterable' => false,
+                'comparable' => false,
+                'visible_on_front' => false,
+                'used_in_product_listing' => true,
+                'unique' => false,
+                'apply_to' => Configurable::TYPE_CODE
             ]);
         } catch (Exception $e) {
             $this->logger->error($e->getMessage());
