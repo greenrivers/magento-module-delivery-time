@@ -21,7 +21,7 @@ $items = $block->getCheckoutSession()->getQuote()->getItems();
 
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
-$simpleProduct = $deliveryTime->getProduct($_item);
+$simpleProduct = $deliveryTime->getProductFromQuoteItem($_item);
 
 /** @var Data $helper */
 $helper = $this->helper(Data::class);

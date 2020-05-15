@@ -7,11 +7,9 @@
 
 namespace Unexpected\DeliveryTime\Plugin\Model;
 
-use Magento\Catalog\Model\Product;
 use Magento\Checkout\Model\DefaultConfigProvider as Subject;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Request\Http as Request;
-use Magento\Quote\Model\Quote\Item;
+use Unexpected\DeliveryTime\Helper\ProductType;
 use Unexpected\DeliveryTime\Helper\Render;
 
 class DefaultConfigProvider
@@ -19,17 +17,22 @@ class DefaultConfigProvider
     /** @var Render */
     private $render;
 
+    /** @var ProductType */
+    private $productType;
+
     /** @var Request */
     private $request;
 
     /**
      * DefaultConfigProvider constructor.
      * @param Render $render
+     * @param ProductType $productType
      * @param Request $request
      */
-    public function __construct(Render $render, Request $request)
+    public function __construct(Render $render, ProductType $productType, Request $request)
     {
         $this->render = $render;
+        $this->productType = $productType;
         $this->request = $request;
     }
 
@@ -46,7 +49,7 @@ class DefaultConfigProvider
         if ($this->render->canShowOnProducts($layout, $items)) {
             for ($i = 0; $i < count($items); $i++) {
                 $item = $result['quoteData']['items'][$i];
-                $product = $this->getProduct($item);
+                $product = $this->productType->getProductFromQuoteItem($item);
                 $deliveryTime = $this->render->getFromProduct($product);
                 $totalsDataItems[$i]['delivery_time'] = $result['quoteItemData'][$i]['delivery_time'] = $deliveryTime;
             }
@@ -54,15 +57,5 @@ class DefaultConfigProvider
             $result['quoteData']['label_delivery_time'] = $this->render->getLabel();
         }
         return $result;
-    }
-
-    /**
-     * @param Item $item
-     * @return Product
-     */
-    private function getProduct(Item $item): Product
-    {
-        return $item->getProductType() === Configurable::TYPE_CODE ?
-            $item->getOptionByCode('simple_product')->getProduct() : $item->getProduct();
     }
 }

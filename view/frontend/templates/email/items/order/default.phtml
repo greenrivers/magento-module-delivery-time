@@ -22,7 +22,7 @@ $items = $_order->getAllItems();
 
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
-$product = $deliveryTime->getProductFromOrderItem($_item);
+$product = $deliveryTime->getProductFromItem($_item);
 ?>
 <tr>
     <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">

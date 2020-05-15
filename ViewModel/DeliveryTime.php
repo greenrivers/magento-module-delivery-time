@@ -8,10 +8,11 @@
 namespace Unexpected\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Model\Product;
-use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Magento\Sales\Model\Order\Item;
 use Unexpected\DeliveryTime\Helper\Config;
+use Unexpected\DeliveryTime\Helper\ProductType;
 use Unexpected\DeliveryTime\Helper\Render;
 
 class DeliveryTime implements ArgumentInterface
@@ -22,15 +23,20 @@ class DeliveryTime implements ArgumentInterface
     /** @var Render */
     private $render;
 
+    /** @var ProductType */
+    private $productType;
+
     /**
      * DeliveryTime constructor.
      * @param Config $config
      * @param Render $render
+     * @param ProductType $productType
      */
-    public function __construct(Config $config, Render $render)
+    public function __construct(Config $config, Render $render, ProductType $productType)
     {
         $this->config = $config;
         $this->render = $render;
+        $this->productType = $productType;
     }
 
     /**
@@ -72,23 +78,21 @@ class DeliveryTime implements ArgumentInterface
     }
 
     /**
-     * @param $item
+     * @param QuoteItem $item
      * @return Product
      */
-    public function getProduct($item): Product
+    public function getProductFromQuoteItem(QuoteItem $item): Product
     {
-        return $item->getProductType() === Configurable::TYPE_CODE ?
-            $item->getOptionByCode('simple_product')->getProduct() : $item->getProduct();
+        return $this->productType->getProductFromQuoteItem($item);
     }
 
     /**
-     * @param $item
+     * @param Item $item
      * @return Product
      */
-    public function getProductFromOrderItem($item): Product
+    public function getProductFromItem(Item $item): Product
     {
-        return $item->getProductType() === Configurable::TYPE_CODE ?
-            $item->getChildrenItems()[0]->getProduct() : $item->getProduct();
+        return $this->productType->getProductFromItem($item);
     }
 
     /**

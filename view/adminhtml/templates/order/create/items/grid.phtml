@@ -138,7 +138,7 @@ $deliveryTime = $block->getDeliveryTime();
                             <?php endif; ?>
                                class="input-text item-price admin__control-text"/>
                     </td>
-                    <?php $product = $deliveryTime->getProduct($_item); ?>
+                    <?php $product = $deliveryTime->getProductFromQuoteItem($_item); ?>
                     <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
                         <td class="col-delivery-time">
                             <?= $block->escapeHtml($deliveryTime->renderFromProduct($product)) ?>
