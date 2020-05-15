@@ -7,9 +7,11 @@
 
 namespace Unexpected\DeliveryTime\Plugin\Model;
 
+use Magento\Catalog\Model\Product;
 use Magento\Checkout\Model\DefaultConfigProvider as Subject;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Request\Http as Request;
-use Magento\Sales\Model\Order\Item;
+use Magento\Quote\Model\Quote\Item;
 use Unexpected\DeliveryTime\Helper\Render;
 
 class DefaultConfigProvider
@@ -43,9 +45,8 @@ class DefaultConfigProvider
         $totalsDataItems = $result['totalsData']['items'];
         if ($this->render->canShowOnProducts($layout, $items)) {
             for ($i = 0; $i < count($items); $i++) {
-                /** @var Item $item */
                 $item = $result['quoteData']['items'][$i];
-                $product = $item->getProduct();
+                $product = $this->getProduct($item);
                 $deliveryTime = $this->render->getFromProduct($product);
                 $totalsDataItems[$i]['delivery_time'] = $result['quoteItemData'][$i]['delivery_time'] = $deliveryTime;
             }
@@ -53,5 +54,15 @@ class DefaultConfigProvider
             $result['quoteData']['label_delivery_time'] = $this->render->getLabel();
         }
         return $result;
+    }
+
+    /**
+     * @param Item $item
+     * @return Product
+     */
+    private function getProduct(Item $item): Product
+    {
+        return $item->getProductType() === Configurable::TYPE_CODE ?
+            $item->getOptionByCode('simple_product')->getProduct() : $item->getProduct();
     }
 }

@@ -15,14 +15,14 @@ use Unexpected\DeliveryTime\ViewModel\DeliveryTime;
 /** @var DefaultItems $block */
 $layout = $block->getLayout()->getUpdate()->getHandles()[0];
 
-/** @var DeliveryTime $deliveryTime */
-$deliveryTime = $block->getDeliveryTime();
-
 /** @var Item $_item */
 $_item = $block->getItem();
 $_order = $_item->getOrder();
 $items = $_order->getAllItems();
-$product = $_item->getProduct();
+
+/** @var DeliveryTime $deliveryTime */
+$deliveryTime = $block->getDeliveryTime();
+$product = $deliveryTime->getProductFromOrderItem($_item);
 ?>
 <tr>
     <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">

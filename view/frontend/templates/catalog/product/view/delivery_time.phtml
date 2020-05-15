@@ -20,10 +20,8 @@ $deliveryTime = $block->getDeliveryTime();
         <div class="fieldset">
             <div class="field delivery_time">
                 <label class="label" for="delivery-time">
-                    <span>
-                        <?= $deliveryTime->getLabel() ?>:
-                        <?= $deliveryTime->renderFromProduct($product) ?>
-                    </span>
+                    <span><?= $deliveryTime->getLabel() ?>:</span>
+                    <span class="value"><?= $deliveryTime->renderFromProduct($product) ?></span>
                 </label>
             </div>
         </div>

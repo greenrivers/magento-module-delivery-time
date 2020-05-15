@@ -1,0 +1,50 @@
+<?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+namespace Unexpected\DeliveryTime\Plugin\Block;
+
+use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable as Subject;
+use Magento\Framework\Serialize\Serializer\Json;
+use Unexpected\DeliveryTime\Helper\Render;
+
+class Configurable
+{
+    /** @var Json */
+    private $json;
+
+    /** @var Render */
+    private $render;
+
+    /**
+     * Configurable constructor.
+     * @param Json $json
+     * @param Render $render
+     */
+    public function __construct(Json $json, Render $render)
+    {
+        $this->json = $json;
+        $this->render = $render;
+    }
+
+    /**
+     * @param Subject $subject
+     * @param string $result
+     * @return string
+     */
+    public function afterGetJsonConfig(Subject $subject, string $result): string
+    {
+        $jsonResult = $this->json->unserialize($result);
+
+        $jsonResult['deliveryTime']['configurable'] =
+            $this->render->getFromProduct($subject->getProduct());
+        foreach ($subject->getAllowProducts() as $simpleProduct) {
+            $jsonResult['deliveryTime'][$simpleProduct->getId()] = $this->render->getFromProduct($simpleProduct);
+        }
+
+        return $this->json->serialize($jsonResult);
+    }
+}

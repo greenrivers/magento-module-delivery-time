@@ -104,6 +104,10 @@
         <plugin name="Unexpected_DeliveryTime::Model_DefaultCreditmemot"
                 type="Unexpected\DeliveryTime\Plugin\Model\DefaultCreditmemo"/>
     </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="Unexpected_DeliveryTime::Block_Configurable"
+                type="Unexpected\DeliveryTime\Plugin\Block\Configurable"/>
+    </type>
 
     <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
                 type="Unexpected\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>

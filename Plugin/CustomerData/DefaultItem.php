@@ -7,7 +7,9 @@
 
 namespace Unexpected\DeliveryTime\Plugin\CustomerData;
 
+use Magento\Catalog\Model\Product;
 use Magento\Checkout\CustomerData\DefaultItem as Subject;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\App\Request\Http as Request;
 use Magento\Quote\Model\Quote\Item;
 use Unexpected\DeliveryTime\Helper\Config;
@@ -46,11 +48,21 @@ class DefaultItem
     public function afterGetItemData(Subject $subject, array $result, Item $item): array
     {
         $layout = $this->request->getFullActionName();
-        $product = $item->getProduct();
+        $product = $this->getProduct($item);
         if ($this->render->canShowOnProduct($layout, $product)) {
             $result['label_delivery_time'] = $this->render->getLabel();
             $result['delivery_time'] = $this->render->getFromProduct($product);
         }
         return $result;
+    }
+
+    /**
+     * @param Item $item
+     * @return Product
+     */
+    private function getProduct(Item $item): Product
+    {
+        return $item->getProductType() === Configurable::TYPE_CODE ?
+            $item->getOptionByCode('simple_product')->getProduct() : $item->getProduct();
     }
 }

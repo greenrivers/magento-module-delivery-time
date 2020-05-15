@@ -21,6 +21,7 @@ $items = $block->getCheckoutSession()->getQuote()->getItems();
 
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
+$simpleProduct = $deliveryTime->getProduct($_item);
 
 /** @var Data $helper */
 $helper = $this->helper(Data::class);
@@ -110,7 +111,7 @@ $canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinima
             <div class="field delivery-time">
                 <div class="control delivery-time">
                     <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-delivery-time">
-                        <span class="label"><?= $block->escapeHtml($deliveryTime->renderFromProduct($product)) ?></span>
+                        <span class="label"><?= $block->escapeHtml($deliveryTime->renderFromProduct($simpleProduct)) ?></span>
                     </label>
                 </div>
             </div>

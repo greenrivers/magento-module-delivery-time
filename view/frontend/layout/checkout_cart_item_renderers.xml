@@ -25,6 +25,13 @@
                     </argument>
                 </arguments>
             </referenceBlock>
+            <referenceBlock name="checkout.cart.item.renderers.configurable">
+                <arguments>
+                    <argument name="delivery_time" xsi:type="object">
+                        Unexpected\DeliveryTime\ViewModel\DeliveryTime
+                    </argument>
+                </arguments>
+            </referenceBlock>
         </referenceBlock>
     </body>
 </page>

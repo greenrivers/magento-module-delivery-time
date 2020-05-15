@@ -8,6 +8,7 @@
 namespace Unexpected\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Model\Product;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Sales\Model\Order\Item;
 use Unexpected\DeliveryTime\Helper\Config;
@@ -68,6 +69,26 @@ class DeliveryTime implements ArgumentInterface
     public function getLabel(): string
     {
         return $this->render->getLabel();
+    }
+
+    /**
+     * @param $item
+     * @return Product
+     */
+    public function getProduct($item): Product
+    {
+        return $item->getProductType() === Configurable::TYPE_CODE ?
+            $item->getOptionByCode('simple_product')->getProduct() : $item->getProduct();
+    }
+
+    /**
+     * @param $item
+     * @return Product
+     */
+    public function getProductFromOrderItem($item): Product
+    {
+        return $item->getProductType() === Configurable::TYPE_CODE ?
+            $item->getChildrenItems()[0]->getProduct() : $item->getProduct();
     }
 
     /**
