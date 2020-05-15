@@ -5,12 +5,12 @@
  * @package Unexpected_DeliveryTime
  */
 
-use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
+use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\EnableSwitch;
 
-/** @var ToggleSwitch $block */
+/** @var EnableSwitch $block */
 ?>
 
-<div id="switcher" data-bind="scope: 'toggleSwitch-scope'">
+<div id="enable-switcher" data-bind="scope: 'enableSwitch-scope'">
     <label class="switch">
         <input type="hidden" name="groups[general][fields][enable][value]"
                data-bind="value: getValue()"/>
@@ -22,11 +22,11 @@ use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
 
 <script type="text/x-magento-init">
 {
-  "#switcher": {
+  "#enable-switcher": {
         "Magento_Ui/js/core/app": {
         "components":{
-          "toggleSwitch-scope":{
-            "component":"Unexpected_DeliveryTime/js/system/config/toggle-switch",
+          "enableSwitch-scope":{
+            "component":"Unexpected_DeliveryTime/js/system/config/enable-switch",
             "isChecked": <?= json_encode($block->getValue()) ?>
           }
         }

@@ -12,10 +12,10 @@ use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Unexpected\DeliveryTime\Helper\Config;
 
-class ToggleSwitch extends Field
+class EnableSwitch extends Field
 {
     /** @var string */
-    protected $_template = 'Unexpected_DeliveryTime::system/config/toggle_switch.phtml';
+    protected $_template = 'Unexpected_DeliveryTime::system/config/enable_switch.phtml';
 
     /** @var Config */
     private $config;
@@ -45,6 +45,7 @@ class ToggleSwitch extends Field
      */
     public function render(AbstractElement $element): string
     {
-        return $this->_decorateRowHtml($element, "<td class='label'>Enable</td><td>" . $this->toHtml() . '</td><td></td>');
+        $html = "<td class='label'>" . $element->getLabel() . '</td><td>' . $this->toHtml() . '</td><td></td>';
+        return $this->_decorateRowHtml($element, $html);
     }
 }

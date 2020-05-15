@@ -1,0 +1,36 @@
+<?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\RoundUpSwitch;
+
+/** @var RoundUpSwitch $block */
+?>
+
+<div id="round-up-switcher" data-bind="scope: 'roundUpSwitch-scope'">
+    <label class="switch">
+        <input type="hidden" name="groups[frontend][fields][round_up][value]"
+               data-bind="value: getValue()"/>
+        <input type="checkbox" data-bind="checked: isChecked">
+        <span data-bind="css: { sliderOne: isChecked, slider: !isChecked() }" class="round" id="spa"></span>
+    </label>
+    <span id="toggle" data-bind="text: text"></span>
+</div>
+
+<script type="text/x-magento-init">
+{
+  "#round-up-switcher": {
+        "Magento_Ui/js/core/app": {
+        "components":{
+          "roundUpSwitch-scope":{
+            "component":"Unexpected_DeliveryTime/js/system/config/round-up-switch",
+            "isChecked": <?= json_encode($block->getValue()) ?>
+          }
+        }
+      }
+  }
+}
+</script>
