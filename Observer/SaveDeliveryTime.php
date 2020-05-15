@@ -7,9 +7,12 @@
 
 namespace Unexpected\DeliveryTime\Observer;
 
+use Magento\Catalog\Model\Product;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
+use Magento\Sales\Model\Order\Item;
 use Magento\Sales\Model\Order;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
@@ -68,7 +71,7 @@ class SaveDeliveryTime implements ObserverInterface
             $items = $order->getAllVisibleItems();
 
             foreach ($items as $item) {
-                $product = $item->getProduct();
+                $product = $this->getProduct($item);
                 $content = $this->render->getFromProduct($product);
                 /** @var DeliveryTime $deliveryTime */
                 $deliveryTime = $this->deliveryTimeFactory->create();
@@ -81,5 +84,15 @@ class SaveDeliveryTime implements ObserverInterface
                 }
             }
         }
+    }
+
+    /**
+     * @param Item $item
+     * @return Product
+     */
+    private function getProduct(Item $item): Product
+    {
+        return $item->getProductType() === Configurable::TYPE_CODE ?
+            $item->getChildrenItems()[0]->getProduct() : $item->getProduct();
     }
 }
