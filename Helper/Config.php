@@ -21,12 +21,14 @@ class Config extends AbstractHelper
 
     const XML_LABEL_CONFIG_PATH = 'delivery_time/frontend/label';
     const XML_ROUND_UP_CONFIG_PATH = 'delivery_time/frontend/round_up';
+    const XML_SORT_CONFIG_PATH = 'delivery_time/frontend/sort';
+    const XML_FILTER_CONFIG_PATH = 'delivery_time/frontend/filter';
     const XML_VISIBILITY_CONFIG_PATH = 'delivery_time/frontend/visibility';
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getEnableConfig(): int
+    public function getEnableConfig(): bool
     {
         return $this->scopeConfig->getValue(self::XML_ENABLE_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
@@ -72,11 +74,27 @@ class Config extends AbstractHelper
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function getRoundUpConfig(): int
+    public function getRoundUpConfig(): bool
     {
         return $this->scopeConfig->getValue(self::XML_ROUND_UP_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSortConfig(): bool
+    {
+        return $this->scopeConfig->getValue(self::XML_SORT_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getFilterConfig(): bool
+    {
+        return $this->scopeConfig->getValue(self::XML_FILTER_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
 
     /**

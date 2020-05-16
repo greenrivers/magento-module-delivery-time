@@ -5,14 +5,15 @@
  * @package Unexpected_DeliveryTime
  */
 
-use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\EnableSwitch;
+use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
 
-/** @var EnableSwitch $block */
+/** @var ToggleSwitch $block */
+$component = $block->getComponent();
 ?>
 
-<div id="enable-switcher" data-bind="scope: 'enableSwitch-scope'">
+<div id="<?= $component['id'] ?>" data-bind="scope: '<?= $component['id'] ?>-scope'">
     <label class="switch">
-        <input type="hidden" name="groups[general][fields][enable][value]"
+        <input type="hidden" name="<?= $component['name'] ?>"
                data-bind="value: getValue()"/>
         <input type="checkbox" data-bind="checked: isChecked">
         <span data-bind="css: { sliderOne: isChecked, slider: !isChecked() }" class="round" id="spa"></span>
@@ -22,12 +23,12 @@ use Unexpected\DeliveryTime\Block\Adminhtml\System\Config\EnableSwitch;
 
 <script type="text/x-magento-init">
 {
-  "#enable-switcher": {
+  "#<?= $component['id'] ?>": {
         "Magento_Ui/js/core/app": {
         "components":{
-          "enableSwitch-scope":{
-            "component":"Unexpected_DeliveryTime/js/system/config/enable-switch",
-            "isChecked": <?= json_encode($block->getValue()) ?>
+          "<?= $component['id'] ?>-scope":{
+            "component":"Unexpected_DeliveryTime/js/system/config/<?= $component['id'] ?>",
+            "isChecked": <?= json_encode($component['value']) ?>
           }
         }
       }

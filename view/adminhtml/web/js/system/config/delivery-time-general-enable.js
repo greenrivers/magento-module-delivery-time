@@ -14,7 +14,7 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Unexpected_DeliveryTime/system/config/round_up_switch',
+            template: 'Unexpected_DeliveryTime/system/config/toggle_switch',
             text: ko.observable('Yes'),
             isChecked: ko.observable(true)
         },
@@ -38,9 +38,14 @@ define([
 
             this.isChecked.subscribe(function (value) {
                 this.text(value ? 'Yes' : 'No');
+                this.toggleElements(value);
             }, this);
 
             return this;
+        },
+
+        toggleElements: function () {
+            $('.section-config:not(:first)').toggle();
         },
 
         /**
