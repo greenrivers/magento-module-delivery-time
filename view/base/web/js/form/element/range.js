@@ -42,7 +42,7 @@ define([
                     slide: function (event, ui) {
                         value(ui.value);
                         const deliveryTimeType = registry.get('index = delivery_time_type');
-                        if (deliveryTimeType.value() === 1) {
+                        if (deliveryTimeType.value() === 2) {
                             deliveryTimeMin.value(ui.value);
                         } else {
                             deliveryTimeMax.value(ui.value);
@@ -89,7 +89,7 @@ define([
          * @param {Number} type
          */
         setConfig: function (type) {
-            this.isRange(type === 3);
+            this.isRange(type === 1);
             const deliveryTimeType = registry.get('index = delivery_time_type');
             deliveryTimeType.value(type);
         },
@@ -98,20 +98,25 @@ define([
          * @returns {String}
          */
         getRange: function () {
-            const {value, values, dateUnit} = this;
+            const {values, dateUnit} = this;
             const deliveryTimeType = registry.get('index = delivery_time_type');
             const typeValue = parseInt(deliveryTimeType.value());
             const minValue = deliveryTimeMin.value() || this.minScale;
             const maxValue = deliveryTimeMax.value() || this.maxScale;
 
-            this.isRange(typeValue === 3);
-            this.value(typeValue === 1 ? minValue : maxValue);
-
-            if (!this.isRange()) {
-                const text = typeValue === 2 ? 'From' : 'Up to';
-                return $.mage.__(`${text} ${value()} ${dateUnit}`);
+            switch (typeValue) {
+                case 0:
+                    this.value(maxValue);
+                    return $.mage.__(`To ${maxValue} ${dateUnit}`);
+                case 1:
+                    this.isRange(true);
+                    return $.mage.__(`From ${values[0]()} to ${values[1]()} ${dateUnit}`);
+                case 2:
+                    this.value(minValue);
+                    return $.mage.__(`From ${minValue} ${dateUnit}`);
+                default:
+                    return '';
             }
-            return $.mage.__(`From ${values[0]()} to ${values[1]()} ${dateUnit}`);
         }
     });
 });

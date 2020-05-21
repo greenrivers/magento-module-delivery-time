@@ -1,4 +1,9 @@
 <?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
 
 namespace Unexpected\DeliveryTime\Plugin\Model;
 

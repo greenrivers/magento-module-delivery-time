@@ -150,6 +150,7 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'visible' => true,
                 'required' => false,
                 'user_defined' => false,
+                'default' => 3,
                 'searchable' => false,
                 'filterable' => false,
                 'comparable' => false,

@@ -192,12 +192,12 @@ class Render
         $dateUnit = $this->config->getDateUnitConfig();
 
         switch ($type) {
+            case 0:
+                return __('To') . " {$min} {$dateUnit}";
             case 1:
-                return __('Up to') . " {$min} {$dateUnit}";
+                return __('From') . " {$min} {$dateUnit} " . __('To') . " {$max} {$dateUnit}";
             case 2:
                 return __('From') . " {$max} {$dateUnit}";
-            case 3:
-                return __('From') . " {$min} {$dateUnit} " . __('To') . " {$max} {$dateUnit}";
             default:
                 return '';
         }

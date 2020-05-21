@@ -83,6 +83,11 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
+    <type name="Unexpected\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\AddFields">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
 
     <type name="Magento\Checkout\Block\Cart\AbstractCart">
         <plugin name="Unexpected_DeliveryTime::Block_AbstractCart"
@@ -107,6 +112,16 @@
     <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
         <plugin name="Unexpected_DeliveryTime::Block_Configurable"
                 type="Unexpected\DeliveryTime\Plugin\Block\Configurable"/>
+    </type>
+    <type name="Magento\Catalog\Model\Config">
+        <plugin name="Unexpected_DeliveryTime::Model_Config" type="Unexpected\DeliveryTime\Plugin\Model\Config"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin name="Unexpected_DeliveryTime::Block_Toolbar" type="Unexpected\DeliveryTime\Plugin\Block\Toolbar"/>
+    </type>
+    <type name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
+        <plugin name="Unexpected_DeliveryTime::Model_Collection"
+                type="Unexpected\DeliveryTime\Plugin\Model\Collection"/>
     </type>
 
     <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"

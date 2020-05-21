@@ -7,14 +7,17 @@
 
 namespace Unexpected\DeliveryTime\Ui\DataProvider\Product\Form\Modifier;
 
+use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\AbstractModifier;
 use Magento\ConfigurableProduct\Api\LinkManagementInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Ui\Component\Form\Element\DataType\Text;
 use Magento\Ui\Component\Form\Element\Input;
 use Magento\Ui\Component\Form\Element\RadioSet;
 use Magento\Ui\Component\Form\Field;
+use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Model\Source\RadioOptions;
 use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
@@ -33,23 +36,35 @@ class AddFields extends AbstractModifier
     /** @var LinkManagementInterface */
     private $linkManagement;
 
+    /** @var ProductAttributeRepositoryInterface */
+    private $productAttributeRepository;
+
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
      * AddFields constructor.
      * @param Config $config
      * @param RadioOptions $radioOptions
      * @param LocatorInterface $locator
      * @param LinkManagementInterface $linkManagement
+     * @param ProductAttributeRepositoryInterface $productAttributeRepository
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Config $config,
         RadioOptions $radioOptions,
         LocatorInterface $locator,
-        LinkManagementInterface $linkManagement
+        LinkManagementInterface $linkManagement,
+        ProductAttributeRepositoryInterface $productAttributeRepository,
+        LoggerInterface $logger
     ) {
         $this->config = $config;
         $this->radioOptions = $radioOptions;
         $this->locator = $locator;
         $this->linkManagement = $linkManagement;
+        $this->productAttributeRepository = $productAttributeRepository;
+        $this->logger = $logger;
     }
 
     /**
@@ -57,6 +72,20 @@ class AddFields extends AbstractModifier
      */
     public function modifyData(array $data): array
     {
+        $product = $this->locator->getProduct();
+        $id = $product->getId();
+        $productData = $data[$id][self::DATA_SOURCE_DEFAULT];
+        if (!array_key_exists(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE, $productData)) {
+            try {
+                $value = $this->productAttributeRepository
+                    ->get(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE)
+                    ->getDefaultValue();
+                $productData[AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE] = $value;
+                $data[$id][self::DATA_SOURCE_DEFAULT] = $productData;
+            } catch (NoSuchEntityException $e) {
+                $this->logger->error($e->getMessage());
+            }
+        }
         return $data;
     }
 
@@ -97,7 +126,7 @@ class AddFields extends AbstractModifier
             $sku = $product->getSku();
             $childProducts = $this->linkManagement->getChildren($sku);
             $deliveryTimeFromSimple = $product->getDeliveryTimeFromSimple();
-            $filterProducts = array_filter($childProducts, function ($childProduct){
+            $filterProducts = array_filter($childProducts, function ($childProduct) {
                 return !$childProduct->getDeliveryTimeType();
             });
 
@@ -154,7 +183,7 @@ class AddFields extends AbstractModifier
                                         'actions' => [
                                             '0' => [
                                                 'target' => 'product_form.product_form.delivery-time.range',
-                                                'callback' => 'hide'
+                                                'callback' => 'show'
                                             ]
                                         ]
                                     ],
@@ -181,7 +210,7 @@ class AddFields extends AbstractModifier
                                         'actions' => [
                                             '0' => [
                                                 'target' => 'product_form.product_form.delivery-time.range',
-                                                'callback' => 'show'
+                                                'callback' => 'hide'
                                             ]
                                         ]
                                     ]
