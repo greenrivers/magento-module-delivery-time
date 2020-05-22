@@ -12,6 +12,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Model\Order\Item;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class Render
 {
@@ -115,7 +116,8 @@ class Render
      */
     private function isEnabledOnProduct(Product $product): bool
     {
-        return $product->getDeliveryTimeType() || 0;
+        return $product->getDeliveryTimeType() !== null &&
+            $product->getDeliveryTimeType() !== AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_NONE_VALUE;
     }
 
     /**
