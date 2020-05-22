@@ -7,11 +7,35 @@
 
 namespace Unexpected\DeliveryTime\Plugin\Block;
 
+use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Block\Product\ProductList\Toolbar as Subject;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Psr\Log\LoggerInterface;
+use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 use Zend_Db_Expr;
+use Unexpected\DeliveryTime\Plugin\Model\Config;
 
 class Toolbar
 {
+    /** @var ProductAttributeRepositoryInterface */
+    private $productAttributeRepository;
+
+    /** @var LoggerInterface */
+    private $logger;
+
+    /**
+     * Toolbar constructor.
+     * @param ProductAttributeRepositoryInterface $productAttributeRepository
+     * @param LoggerInterface $logger
+     */
+    public function __construct(
+        ProductAttributeRepositoryInterface $productAttributeRepository,
+        LoggerInterface $logger
+    ) {
+        $this->productAttributeRepository = $productAttributeRepository;
+        $this->logger = $logger;
+    }
+
     /**
      * @param Subject $subject
      * @param Subject $result
@@ -20,62 +44,34 @@ class Toolbar
     public function afterSetCollection(Subject $subject, Subject $result): Subject
     {
         $currentOrder = $subject->getCurrentOrder();
+        $currentDirection = $subject->getCurrentDirection();
 
-        $cond = 'MAX(
-                                        CASE WHEN catalog_product_entity_int.attribute_id = 186
-                                            THEN catalog_product_entity_int.value END
-                                        )';
-        $max = 'MAX(
-                                        CASE WHEN catalog_product_entity_int.attribute_id = 185
-                                            THEN catalog_product_entity_int.value END
-                                        )';
-        $min = 'MAX(
-                                        CASE WHEN catalog_product_entity_int.attribute_id = 184
-                                            THEN catalog_product_entity_int.value END
-                                        )';
+        if ($currentOrder && $currentOrder === Config::DELIVERY_TIME_SORT_ORDER) {
+            $deliveryTimeType = $this->getCondition(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE);
+            $deliveryTimeMin = $this->getCondition(AddDeliveryTimeAttributes::DELIVERY_TIME_MIN);
+            $deliveryTimeMax = $this->getCondition(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
 
-        if ($currentOrder) {
-            if ($currentOrder == 'delivery_time') {
-                $subject->getCollection()->getSelect()
-                    ->join(
-                        'catalog_product_entity_int',
-                        "e.entity_id = catalog_product_entity_int.entity_id",
-                        ['delivery_time' => 'value']
+            $subject->getCollection()->getSelect()
+                ->join(
+                    'catalog_product_entity_int',
+                    "e.entity_id = catalog_product_entity_int.entity_id",
+                    [Config::DELIVERY_TIME_SORT_ORDER => 'value']
+                )
+                ->group('e.entity_id')
+                ->columns([
+                    AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE => new Zend_Db_Expr($deliveryTimeType),
+                    AddDeliveryTimeAttributes::DELIVERY_TIME_MIN => new Zend_Db_Expr($deliveryTimeMin),
+                    AddDeliveryTimeAttributes::DELIVERY_TIME_MAX => new Zend_Db_Expr($deliveryTimeMax)
+                ])
+                ->order(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE . ' ' . $currentDirection)
+                ->order(
+                    new Zend_Db_Expr(
+                        "CASE WHEN ${deliveryTimeType} = 0 THEN ${deliveryTimeMax}
+                                        WHEN ${deliveryTimeType} = 1 THEN ${deliveryTimeMax}
+                                        WHEN ${deliveryTimeType} = 2 THEN ${deliveryTimeMin}
+                                        END ${currentDirection}"
                     )
-                    ->group('e.entity_id')
-                    ->columns([
-                        'delivery_time_type' => new Zend_Db_Expr(
-                            "MAX(
-                                        CASE WHEN catalog_product_entity_int.attribute_id = 186
-                                            THEN catalog_product_entity_int.value END
-                                        )"
-                        ),
-                        'delivery_time_min' => new Zend_Db_Expr(
-                            "MAX(
-                                        CASE WHEN catalog_product_entity_int.attribute_id = 184
-                                            THEN catalog_product_entity_int.value END
-                                        )"
-                        ),
-                        'delivery_time_max' => new Zend_Db_Expr(
-                            "MAX(
-                                        CASE WHEN catalog_product_entity_int.attribute_id = 185
-                                            THEN catalog_product_entity_int.value END
-                                        )"
-                        ),
-                    ])
-                    ->order('delivery_time_type')
-                    ->order(
-                        new Zend_Db_Expr(
-                            "CASE WHEN ${cond} = 0 THEN ${max}
-                                            WHEN ${cond} = 1 THEN ${max}
-                                            WHEN ${cond} = 2 THEN ${min} END"
-                        )
-                    );
-
-//                $str = $subject->getCollection()->getSelect()->__toString();
-//                var_dump($str);
-//                exit();
-            }
+                );
         }
 
         return $result;
@@ -89,5 +85,24 @@ class Toolbar
     public function afterGetTotalNum(Subject $subject, int $result): int
     {
         return count($subject->getCollection()->getAllIds());
+    }
+
+    /**
+     * @param string $attributeCode
+     * @return string
+     */
+    private function getCondition(string $attributeCode): string
+    {
+        $cond = '';
+        try {
+            $id = $this->productAttributeRepository->get($attributeCode)->getAttributeId();
+            $cond = "MAX(
+                CASE WHEN catalog_product_entity_int.attribute_id = ${id}
+                THEN catalog_product_entity_int.value END
+            )";
+        } catch (NoSuchEntityException $e) {
+            $this->logger->error($e->getMessage());
+        }
+        return $cond;
     }
 }

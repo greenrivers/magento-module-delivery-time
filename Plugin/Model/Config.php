@@ -12,6 +12,8 @@ use Unexpected\DeliveryTime\Helper\Config as ConfigHelper;
 
 class Config
 {
+    const DELIVERY_TIME_SORT_ORDER = 'delivery_time';
+
     /** @var ConfigHelper */
     private $config;
 
@@ -24,9 +26,16 @@ class Config
         $this->config = $config;
     }
 
+    /**
+     * @param Subject $subject
+     * @param array $result
+     * @return array
+     */
     public function afterGetAttributeUsedForSortByArray(Subject $subject, array $result): array
     {
-        $result['delivery_time'] = $this->config->getLabelConfig();
+        if ($this->config->getSortConfig()) {
+            $result[self::DELIVERY_TIME_SORT_ORDER] = $this->config->getLabelConfig();
+        }
         return $result;
     }
 }

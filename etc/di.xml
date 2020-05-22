@@ -88,6 +88,11 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
+    <type name="Unexpected\DeliveryTime\Plugin\Block\Toolbar">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
 
     <type name="Magento\Checkout\Block\Cart\AbstractCart">
         <plugin name="Unexpected_DeliveryTime::Block_AbstractCart"

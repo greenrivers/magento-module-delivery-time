@@ -32,6 +32,8 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
     const DELIVERY_TIME_FROM_SIMPLE = 'delivery_time_from_simple';
     const DELIVERY_TIME_PRODUCT_SIMPLE = 'delivery_time_product_simple';
 
+    const DELIVERY_TIME_TYPE_NONE_VALUE = 3;
+
     /** @var ModuleDataSetupInterface */
     private $moduleDataSetup;
 
@@ -150,7 +152,7 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'visible' => true,
                 'required' => false,
                 'user_defined' => false,
-                'default' => 3,
+                'default' => self::DELIVERY_TIME_TYPE_NONE_VALUE,
                 'searchable' => false,
                 'filterable' => false,
                 'comparable' => false,
