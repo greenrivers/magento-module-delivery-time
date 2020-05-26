@@ -138,4 +138,7 @@
                 type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Shipment"/>
     <preference for="Magento\Sales\Model\Order\Pdf\Creditmemo"
                 type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Creditmemo"/>
+
+    <preference for="Magento\CatalogSearch\Model\Layer\Filter\Attribute"
+                type="Unexpected\DeliveryTime\Preference\Model\Layer\Filter\Attribute"/>
 </config>

@@ -1,0 +1,143 @@
+<?php
+/**
+ * @author Unexpected Team
+ * @copyright Copyright (c) 2020 Unexpected
+ * @package Unexpected_DeliveryTime
+ */
+
+use Magento\LayeredNavigation\Block\Navigation;
+use Unexpected\DeliveryTime\ViewModel\DeliveryTimeFilter;
+
+/**
+ * Category layered navigation
+ *
+ * @var Navigation $block
+ */
+$categoryId = $block->getLayer()->getCurrentCategory()->getId();
+
+/** @var DeliveryTimeFilter $deliveryTimeFilter */
+$deliveryTimeFilter = $block->getDeliveryTimeFilter();
+?>
+
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter" id="layered-filter-block" data-mage-init='
+    {
+        "collapsible":
+        {
+            "openedState": "active",
+            "collapsible": true,
+            "active": false,
+            "collateral":
+            {
+                "openedState": "filter-active",
+                "element": "body"
+            }
+        }
+    }'>
+        <?php $filtered = count($block->getLayer()->getState()->getFilters()) ?>
+        <div class="block-title filter-title" data-count="<?= /* @noEscape */
+        $filtered ?>">
+            <strong data-role="title"><?= $block->escapeHtml(__('Shop By')); ?></strong>
+        </div>
+        <div class="block-content filter-content">
+            <?= $block->getChildHtml('state') ?>
+
+            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                <div class="block-actions filter-actions">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear">
+                        <span><?= $block->escapeHtml(__('Clear All')) ?></span>
+                    </a>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($block->getFilters() as $filter) : ?>
+        <?php if ($filter->getItemsCount()) : ?>
+        <?php if (!$wrapOptions) : ?>
+            <strong role="heading" aria-level="2"
+                    class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Shopping Options')) ?></strong>
+            <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='
+                        {
+                            "accordion":
+                            {
+                                "openedState": "active",
+                                "collapsible": true,
+                                "active": false,
+                                "multipleCollapsible": false
+                            }
+                        }'>
+                <?php $wrapOptions = true;
+                endif; ?>
+                <div data-role="collapsible" class="filter-options-item">
+                    <div data-role="title"
+                         class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></div>
+                    <div data-role="content" class="filter-options-content"><?= /* @noEscape */
+                        $block->getChildBlock('renderer')->render($filter) ?></div>
+                </div>
+                <?php endif; ?>
+                <?php endforeach; ?>
+                <?php if ($deliveryTimeFilter->canShowOnFilters($categoryId)) : ?>
+                    <div data-role="collapsible" class="filter-options-item delivery-time">
+                        <div data-role="title"
+                             class="filter-options-title"><?= $block->escapeHtml($deliveryTimeFilter->getLabel()) ?></div>
+                        <div data-role="content" class="filter-options-content">
+                            <p>
+                                <input type="text" id="values" readonly style="border:0; font-weight:bold;">
+                            </p>
+                            <div id="slider-range"></div>
+                            <p>
+                                <a id="btn" href="<?= $block->escapeUrl($deliveryTimeFilter->getUrl()) ?>">
+                                    <span>Apply filter</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <?php if ($wrapOptions) : ?>
+            </div>
+        <?php else : ?>
+            <script>
+                require([
+                    'jquery'
+                ], function ($) {
+                    $('#layered-filter-block').addClass('filter-no-options');
+                });
+            </script>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($deliveryTimeFilter->canShowOnFilters($categoryId)): ?>
+    <?php
+    $minValue = $deliveryTimeFilter->getMinValue($categoryId);
+    $maxValue = $deliveryTimeFilter->getMaxValue($categoryId);
+    ?>
+    <script>
+        require([
+            'jquery',
+            'jquery/ui'
+        ], function ($) {
+            $(function () {
+                const sliderRange = $('.delivery-time #slider-range');
+                const values = $('.delivery-time #values');
+                const btn = $('.delivery-time #btn');
+
+                sliderRange.slider({
+                    range: true,
+                    min: <?= $minValue ?>,
+                    max: <?= $maxValue ?>,
+                    values: [<?= $minValue ?>, <?= $maxValue ?>],
+                    slide: function (event, ui) {
+                        values.val(`From ${ui.values[0]} - to ${ui.values[1]}`);
+                        let href = btn.prop('href');
+                        href = href.replace(/delivery_time_min=\d+/g, 'delivery_time_min=' + ui.values[0]);
+                        href = href.replace(/delivery_time_max=\d+/g, 'delivery_time_max=' + ui.values[1]);
+                        btn.prop('href', href);
+                    }
+                });
+                values.val("From " + sliderRange.slider("values", 0) +
+                    " - to " + sliderRange.slider("values", 1));
+            });
+        });
+    </script>
+<?php endif; ?>
