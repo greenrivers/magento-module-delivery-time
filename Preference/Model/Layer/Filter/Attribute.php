@@ -30,22 +30,14 @@ class Attribute extends BaseAttribute
 
         if ($this->_requestVar === AddDeliveryTimeAttributes::DELIVERY_TIME_MIN) {
             $productCollection
-                ->addAttributeToFilter([
-                    [
-                        'attribute' => AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE,
-                        'eq' => AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE
-                    ],
+                ->addAttributeToFilter(
                     ['attribute' => $attribute->getAttributeCode(), 'gteq' => $attributeValue]
-                ]);
+                );
         } else if ($this->_requestVar === AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) {
             $productCollection
-                ->addAttributeToFilter([
-                    [
-                        'attribute' => AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE,
-                        'eq' => AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_TO_VALUE
-                    ],
+                ->addAttributeToFilter(
                     ['attribute' => $attribute->getAttributeCode(), 'lteq' => $attributeValue]
-                ]);
+                );
         } else {
             $productCollection->addFieldToFilter($attribute->getAttributeCode(), $attributeValue);
         }

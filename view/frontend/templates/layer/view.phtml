@@ -76,7 +76,17 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
                 <?php endif; ?>
                 <?php endforeach; ?>
                 <?php if ($deliveryTimeFilter->canShowOnFilters($categoryId)) : ?>
-                    <div data-role="collapsible" class="filter-options-item delivery-time">
+                    <div data-role="collapsible" class="filter-options-item delivery-time"
+                         data-mage-init='{
+                             "sliderRange": {
+                                    "divSlider": ".delivery-time #slider-range",
+                                    "inputValues": ".delivery-time #values",
+                                    "aBtn": ".delivery-time #btn",
+                                    "minValue": <?= $deliveryTimeFilter->getMinValue($categoryId) ?>,
+                                    "maxValue": <?= $deliveryTimeFilter->getMaxValue($categoryId) ?>
+                                }
+                             }'
+                    >
                         <div data-role="title"
                              class="filter-options-title"><?= $block->escapeHtml($deliveryTimeFilter->getLabel()) ?></div>
                         <div data-role="content" class="filter-options-content">
@@ -105,39 +115,4 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
             <?php endif; ?>
         </div>
     </div>
-<?php endif; ?>
-
-<?php if ($deliveryTimeFilter->canShowOnFilters($categoryId)): ?>
-    <?php
-    $minValue = $deliveryTimeFilter->getMinValue($categoryId);
-    $maxValue = $deliveryTimeFilter->getMaxValue($categoryId);
-    ?>
-    <script>
-        require([
-            'jquery',
-            'jquery/ui'
-        ], function ($) {
-            $(function () {
-                const sliderRange = $('.delivery-time #slider-range');
-                const values = $('.delivery-time #values');
-                const btn = $('.delivery-time #btn');
-
-                sliderRange.slider({
-                    range: true,
-                    min: <?= $minValue ?>,
-                    max: <?= $maxValue ?>,
-                    values: [<?= $minValue ?>, <?= $maxValue ?>],
-                    slide: function (event, ui) {
-                        values.val(`From ${ui.values[0]} - to ${ui.values[1]}`);
-                        let href = btn.prop('href');
-                        href = href.replace(/delivery_time_min=\d+/g, 'delivery_time_min=' + ui.values[0]);
-                        href = href.replace(/delivery_time_max=\d+/g, 'delivery_time_max=' + ui.values[1]);
-                        btn.prop('href', href);
-                    }
-                });
-                values.val("From " + sliderRange.slider("values", 0) +
-                    " - to " + sliderRange.slider("values", 1));
-            });
-        });
-    </script>
 <?php endif; ?>

@@ -11,5 +11,10 @@ const config = {
                 'Unexpected_DeliveryTime/js/catalog/product/swatch-renderer': true
             }
         }
+    },
+    map: {
+        '*': {
+            sliderRange: 'Unexpected_DeliveryTime/js/layer/slider-range'
+        }
     }
 };
