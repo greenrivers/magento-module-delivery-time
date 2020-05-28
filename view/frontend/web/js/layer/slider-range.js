@@ -29,12 +29,12 @@ define([
                     values.val(`To ${value} ${dateUnit}`);
                 }
 
-                href = href.replace(/delivery_time_max=\d+/g, `delivery_time_max=${value}`);
+                href = href.replace(/delivery_time_max=-?\d+/g, `delivery_time_max=${value}`);
                 btn.prop('href', href);
             }
         });
 
-        if (deliveryTimeMax === -1) {
+        if (parseInt(deliveryTimeMax) === -1) {
             sliderRange.slider('value', maxValue + 1);
             values.val('Undefined delivery time');
         } else {
