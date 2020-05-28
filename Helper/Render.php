@@ -195,11 +195,11 @@ class Render
 
         switch ($type) {
             case 0:
-                return __('To') . " {$min} {$dateUnit}";
+                return __('To') . " {$max} {$dateUnit}";
             case 1:
                 return __('From') . " {$min} {$dateUnit} " . __('To') . " {$max} {$dateUnit}";
             case 2:
-                return __('From') . " {$max} {$dateUnit}";
+                return __('From') . " {$min} {$dateUnit}";
             default:
                 return '';
         }

@@ -5,28 +5,41 @@ define([
     'use strict';
 
     return config => {
-        const {divSlider, inputValues, aBtn, minValue, maxValue} = config;
+        const {divSlider, inputValues, aBtn, maxValue, dateUnit} = config;
         const sliderRange = $(divSlider);
         const values = $(inputValues);
         const btn = $(aBtn);
+        const urlParams = new URLSearchParams(location.search);
+        const deliveryTimeMax = urlParams.get('delivery_time_max') ?? 1;
 
         sliderRange.slider({
-            range: true,
-            min: minValue,
-            max: maxValue,
-            values: [minValue, maxValue],
+            range: 'max',
+            min: 1,
+            max: maxValue + 1,
+            value: 1,
+
             slide: (event, ui) => {
-                const [min, max] = ui.values;
+                let {value} = ui;
                 let href = btn.prop('href');
 
-                values.val(`From ${min} - to ${max}`);
-                href = href.replace(/delivery_time_min=\d+/g, `delivery_time_min=${min}`);
-                href = href.replace(/delivery_time_max=\d+/g, `delivery_time_max=${max}`);
+                if (value === maxValue + 1) {
+                    values.val('Undefined delivery time');
+                    value = -1;
+                } else {
+                    values.val(`To ${value} ${dateUnit}`);
+                }
+
+                href = href.replace(/delivery_time_max=\d+/g, `delivery_time_max=${value}`);
                 btn.prop('href', href);
             }
         });
 
-        const [min, max] = sliderRange.slider('values');
-        values.val(`From ${min} - to ${max}`);
+        if (deliveryTimeMax === -1) {
+            sliderRange.slider('value', maxValue + 1);
+            values.val('Undefined delivery time');
+        } else {
+            sliderRange.slider('value', deliveryTimeMax);
+            values.val(`To ${deliveryTimeMax} ${dateUnit}`);
+        }
     }
 });

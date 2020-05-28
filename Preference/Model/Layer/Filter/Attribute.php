@@ -14,6 +14,8 @@ use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class Attribute extends BaseAttribute
 {
+    const UNDEFINED_DELIVERY_TIME = -1;
+
     /**
      * @inheritDoc
      */
@@ -28,16 +30,12 @@ class Attribute extends BaseAttribute
         $productCollection = $this->getLayer()
             ->getProductCollection();
 
-        if ($this->_requestVar === AddDeliveryTimeAttributes::DELIVERY_TIME_MIN) {
-            $productCollection
-                ->addAttributeToFilter(
-                    ['attribute' => $attribute->getAttributeCode(), 'gteq' => $attributeValue]
-                );
-        } else if ($this->_requestVar === AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) {
-            $productCollection
-                ->addAttributeToFilter(
-                    ['attribute' => $attribute->getAttributeCode(), 'lteq' => $attributeValue]
-                );
+        if ($this->_requestVar === AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) {
+            if ((int)$attributeValue !== self::UNDEFINED_DELIVERY_TIME) {
+                $productCollection
+                    ->addAttributeToFilter(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE, ['in' => [0, 1]])
+                    ->addAttributeToFilter($attribute->getAttributeCode(), ['lteq' => $attributeValue]);
+            }
         } else {
             $productCollection->addFieldToFilter($attribute->getAttributeCode(), $attributeValue);
         }

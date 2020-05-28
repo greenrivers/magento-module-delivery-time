@@ -10,6 +10,7 @@ namespace Unexpected\DeliveryTime\ViewModel;
 use Magento\Catalog\Api\Data\ProductSearchResultsInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Unexpected\DeliveryTime\Helper\Config;
@@ -26,6 +27,9 @@ class DeliveryTimeFilter implements ArgumentInterface
     /** @var SearchCriteriaBuilder */
     private $searchCriteriaBuilder;
 
+    /** @var Http */
+    private $request;
+
     /** @var UrlInterface */
     private $url;
 
@@ -34,17 +38,20 @@ class DeliveryTimeFilter implements ArgumentInterface
      * @param Config $config
      * @param ProductRepositoryInterface $productRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
+     * @param Http $request
      * @param UrlInterface $url
      */
     public function __construct(
         Config $config,
         ProductRepositoryInterface $productRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
+        Http $request,
         UrlInterface $url
     ) {
         $this->config = $config;
         $this->productRepository = $productRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->request = $request;
         $this->url = $url;
     }
 
@@ -54,6 +61,14 @@ class DeliveryTimeFilter implements ArgumentInterface
     public function getLabel(): string
     {
         return $this->config->getLabelConfig();
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateUnit(): string
+    {
+        return $this->config->getDateUnitConfig();
     }
 
     /**
@@ -77,45 +92,14 @@ class DeliveryTimeFilter implements ArgumentInterface
      * @param int $categoryId
      * @return int
      */
-    public function getMinValue(int $categoryId): int
-    {
-        $collection = $this->getProductCollection($categoryId);
-        $deliveryTimeCollection = $this->getProductCollectionByDeliveryTime(
-            $categoryId, [AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_TO_VALUE]
-        );
-        $products = $collection->getItems();
-        $min = reset($products)->getDeliveryTimeMin();
-        if ($deliveryTimeCollection->getTotalCount()) {
-            $min = $this->config->getMinScaleConfig();
-        } else {
-            foreach ($products as $product) {
-                if ($min > $product->getDeliveryTimeMin()) {
-                    $min = $product->getDeliveryTimeMin();
-                }
-            }
-        }
-        return $min;
-    }
-
-    /**
-     * @param int $categoryId
-     * @return int
-     */
     public function getMaxValue(int $categoryId): int
     {
         $collection = $this->getProductCollection($categoryId);
-        $deliveryTimeCollection = $this->getProductCollectionByDeliveryTime(
-            $categoryId, [AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE]
-        );
         $products = $collection->getItems();
         $max = reset($products)->getDeliveryTimeMax();
-        if ($deliveryTimeCollection->getTotalCount()) {
-            $max = $this->config->getMaxScaleConfig();
-        } else {
-            foreach ($products as $product) {
-                if ($max < $product->getDeliveryTimeMax()) {
-                    $max = $product->getDeliveryTimeMax();
-                }
+        foreach ($products as $product) {
+            if ($max < $product->getDeliveryTimeMax()) {
+                $max = $product->getDeliveryTimeMax();
             }
         }
         return $max;
@@ -127,8 +111,9 @@ class DeliveryTimeFilter implements ArgumentInterface
     public function getUrl(): string
     {
         $query = [
-            AddDeliveryTimeAttributes::DELIVERY_TIME_MIN => $this->config->getMinScaleConfig(),
-            AddDeliveryTimeAttributes::DELIVERY_TIME_MAX => $this->config->getMaxScaleConfig()
+            AddDeliveryTimeAttributes::DELIVERY_TIME_MAX =>
+                $this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) ?
+                    $this->request->get(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) : 1
         ];
         return $this->url->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
     }

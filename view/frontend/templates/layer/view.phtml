@@ -82,8 +82,8 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
                                     "divSlider": ".delivery-time #slider-range",
                                     "inputValues": ".delivery-time #values",
                                     "aBtn": ".delivery-time #btn",
-                                    "minValue": <?= $deliveryTimeFilter->getMinValue($categoryId) ?>,
-                                    "maxValue": <?= $deliveryTimeFilter->getMaxValue($categoryId) ?>
+                                    "maxValue": <?= $deliveryTimeFilter->getMaxValue($categoryId) ?>,
+                                    "dateUnit": <?= json_encode($deliveryTimeFilter->getDateUnit()) ?>
                                 }
                              }'
                     >
