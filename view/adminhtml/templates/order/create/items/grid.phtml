@@ -19,7 +19,7 @@ $layout = $block->getRequest()->getFullActionName();
 $deliveryTime = $block->getDeliveryTime();
 ?>
 
-<?php if (empty($_items)) : ?>
+<?php if (empty($_items)): ?>
     <div id="order-items_grid">
         <div class="admin__table-wrapper">
             <table class="data-table admin__table-primary order-tables">
@@ -27,7 +27,7 @@ $deliveryTime = $block->getDeliveryTime();
                 <tr class="headings">
                     <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                     <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                    <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
+                    <?php if ($deliveryTime->canShowOnProducts($layout, $_items)): ?>
                         <th class="col-delivery-time">
                             <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
                         </th>
@@ -47,9 +47,9 @@ $deliveryTime = $block->getDeliveryTime();
             </table>
         </div>
     </div>
-<?php else : ?>
+<?php else: ?>
     <div class="admin__table-wrapper" id="order-items_grid">
-        <?php if (count($_items) > 10) : ?>
+        <?php if (count($_items) > 10): ?>
             <div class="actions update actions-update">
                 <?= $block->getButtonHtml(__('Update Items and Quantities'), 'order.itemsUpdate()', 'action-secondary') ?>
             </div>
@@ -85,7 +85,7 @@ $deliveryTime = $block->getDeliveryTime();
             </tr>
             </tfoot>
             <?php $i = 0 ?>
-            <?php foreach ($_items as $_item) : $i++ ?>
+            <?php foreach ($_items as $_item): $i++ ?>
                 <tbody class="<?= /* @noEscape */
                 ($i % 2) ? 'even' : 'odd' ?>">
                 <tr>
@@ -106,22 +106,28 @@ $deliveryTime = $block->getDeliveryTime();
                         <?= $block->getItemUnitPriceHtml($_item) ?>
 
                         <?php $_isCustomPrice = $block->usedCustomPriceForItem($_item) ?>
-                        <?php if ($_tier = $block->getTierHtml($_item)) : ?>
+                        <?php if ($_tier = $block->getTierHtml($_item)): ?>
                             <div
-                                id="item_tier_block_<?= (int)$_item->getId() ?>"<?php if ($_isCustomPrice) : ?> style="display:none"<?php endif; ?>>
+                                id="item_tier_block_<?= (int)$_item->getId() ?>"<?php if ($_isCustomPrice): ?> style="display:none"<?php endif; ?>>
                                 <a href="#"
-                                   onclick="$('item_tier_<?= (int)$_item->getId() ?>').toggle();return false;"><?= $block->escapeHtml(__('Tier Pricing')) ?></a>
+                                   onclick="$('item_tier_<?= (int)$_item->getId() ?>').toggle();return false;">
+                                    <?= $block->escapeHtml(__('Tier Pricing')) ?>
+                                </a>
                                 <div style="display:none" id="item_tier_<?= (int)$_item->getId() ?>"><?= /* @noEscape */
                                     $_tier ?></div>
                             </div>
                         <?php endif; ?>
-                        <?php if ($block->canApplyCustomPrice($_item)) : ?>
+                        <?php if ($block->canApplyCustomPrice($_item)): ?>
                             <div class="custom-price-block">
                                 <input type="checkbox"
                                        class="admin__control-checkbox"
                                        id="item_use_custom_price_<?= (int)$_item->getId() ?>"
-                                    <?php if ($_isCustomPrice) : ?> checked="checked"<?php endif; ?>
-                                       onclick="order.toggleCustomPrice(this, 'item_custom_price_<?= (int)$_item->getId() ?>', 'item_tier_block_<?= (int)$_item->getId() ?>');"/>
+                                    <?php if ($_isCustomPrice): ?> checked="checked"<?php endif; ?>
+                                       onclick="order.toggleCustomPrice(
+                                           this,
+                                           'item_custom_price_<?= (int)$_item->getId() ?>',
+                                           'item_tier_block_<?= (int)$_item->getId() ?>'
+                                           );"/>
                                 <label
                                     class="normal admin__field-label"
                                     for="item_use_custom_price_<?= (int)$_item->getId() ?>">
@@ -130,16 +136,15 @@ $deliveryTime = $block->getDeliveryTime();
                         <?php endif; ?>
                         <input id="item_custom_price_<?= (int)$_item->getId() ?>"
                                name="item[<?= (int)$_item->getId() ?>][custom_price]"
-                               value="<?= /* @noEscape */
-                               sprintf("%.2f", $block->getOriginalEditablePrice($_item)) ?>"
-                            <?php if (!$_isCustomPrice) : ?>
+                               value="<?= /* @noEscape */ sprintf("%.2f", $block->getOriginalEditablePrice($_item)) ?>"
+                            <?php if (!$_isCustomPrice): ?>
                                 style="display:none"
                                 disabled="disabled"
                             <?php endif; ?>
                                class="input-text item-price admin__control-text"/>
                     </td>
                     <?php $product = $deliveryTime->getProductFromQuoteItem($_item); ?>
-                    <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
+                    <?php if ($deliveryTime->canShowOnProducts($layout, $_items)): ?>
                         <td class="col-delivery-time">
                             <?= $block->escapeHtml($deliveryTime->renderFromProduct($product)) ?>
                         </td>
@@ -160,7 +165,7 @@ $deliveryTime = $block->getDeliveryTime();
                             <input id="item_use_discount_<?= (int)$_item->getId() ?>"
                                    class="admin__control-checkbox"
                                    name="item[<?= (int)$_item->getId() ?>][use_discount]"
-                                   <?php if (!$_item->getNoDiscount()) : ?>checked="checked"<?php endif; ?>
+                                   <?php if (!$_item->getNoDiscount()): ?>checked="checked"<?php endif; ?>
                                    value="1"
                                    type="checkbox"/>
                             <label
@@ -177,18 +182,20 @@ $deliveryTime = $block->getDeliveryTime();
                         <select class="admin__control-select" name="item[<?= (int)$_item->getId() ?>][action]">
                             <option value=""><?= $block->escapeHtml(__('Please select')) ?></option>
                             <option value="remove"><?= $block->escapeHtml(__('Remove')) ?></option>
-                            <?php if ($block->getCustomerId() && $block->getMoveToCustomerStorage()) : ?>
+                            <?php if ($block->getCustomerId() && $block->getMoveToCustomerStorage()): ?>
                                 <option value="cart"><?= $block->escapeHtml(__('Move to Shopping Cart')) ?></option>
-                                <?php if ($block->isMoveToWishlistAllowed($_item)) : ?>
+                                <?php if ($block->isMoveToWishlistAllowed($_item)): ?>
                                     <?php $wishlists = $block->getCustomerWishlists(); ?>
-                                    <?php if (count($wishlists) <= 1) : ?>
+                                    <?php if (count($wishlists) <= 1): ?>
                                         <option
                                             value="wishlist"><?= $block->escapeHtml(__('Move to Wish List')) ?></option>
-                                    <?php else : ?>
+                                    <?php else: ?>
                                         <optgroup label="<?= $block->escapeHtmlAttr(__('Move to Wish List')) ?>">
-                                            <?php foreach ($wishlists as $wishlist) : ?>
-                                                <option
-                                                    value="wishlist_<?= (int)$wishlist->getId() ?>"><?= $block->escapeHtml($wishlist->getName()) ?></option>
+                                            <?php foreach ($wishlists as $wishlist): ?>
+                                                <option value="wishlist_
+                                                <?= (int)$wishlist->getId() ?>">
+                                                <?= $block->escapeHtml($wishlist->getName()) ?>
+                                                </option>
                                             <?php endforeach; ?>
                                         </optgroup>
                                     <?php endif; ?>
@@ -199,22 +206,27 @@ $deliveryTime = $block->getDeliveryTime();
                 </tr>
 
                 <?php $hasMessageError = false; ?>
-                <?php foreach ($_item->getMessage(false) as $messageError) : ?>
-                    <?php if (!empty($messageError)) :
+                <?php foreach ($_item->getMessage(false) as $messageError): ?>
+                    <?php if (!empty($messageError)):
                         $hasMessageError = true;
                     endif; ?>
                 <?php endforeach; ?>
 
-                <?php if ($hasMessageError) : ?>
+                <?php if ($hasMessageError): ?>
                     <tr class="row-messages-error">
                         <td colspan="100"> <!-- ToDo UI: remove the 100 -->
-                            <?php foreach ($_item->getMessage(false) as $message) :
+                            <?php foreach ($_item->getMessage(false) as $message):
                                 if (empty($message)) {
                                     continue;
                                 }
                                 ?>
-                                <div
-                                    class="message <?php if ($_item->getHasError()) : ?>message-error<?php else : ?>message-notice<?php endif; ?>">
+                                <div class="message
+                                    <?php if ($_item->getHasError()): ?>
+                                    message-error
+                                    <?php else: ?>
+                                    message-notice
+                                    <?php endif; ?>
+                                ">
                                     <?= $block->escapeHtml($message) ?>
                                 </div>
                             <?php endforeach; ?>
@@ -241,7 +253,7 @@ $deliveryTime = $block->getDeliveryTime();
             order.itemsOnchangeBind()
         });
     </script>
-    <?php if ($block->isGiftMessagesAvailable()) : ?>
+    <?php if ($block->isGiftMessagesAvailable()): ?>
         <script>
             require([
                 "prototype",

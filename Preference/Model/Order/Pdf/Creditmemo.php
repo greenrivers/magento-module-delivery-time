@@ -78,8 +78,7 @@ class Creditmemo extends BaseCreditmemo
         CreditmemoRepositoryInterface $creditmemoRepository,
         LoggerInterface $logger,
         array $data = []
-    )
-    {
+    ) {
         $this->render = $render;
         $this->request = $request;
         $this->creditmemoRepository = $creditmemoRepository;

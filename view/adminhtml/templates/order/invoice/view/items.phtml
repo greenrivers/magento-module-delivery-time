@@ -35,10 +35,10 @@ $deliveryTime = $block->getDeliveryTime();
         </thead>
         <?php $_items = $block->getInvoice()->getAllItems() ?>
         <?php $i = 0;
-        foreach ($_items as $_item) : ?>
-            <?php if ($_item->getOrderItem()->getParentItem()) :
+        foreach ($_items as $_item): ?>
+            <?php if ($_item->getOrderItem()->getParentItem()):
                 continue;
-            else :
+            else:
                 $i++;
             endif; ?>
             <tbody class="<?= /* @noEscape */

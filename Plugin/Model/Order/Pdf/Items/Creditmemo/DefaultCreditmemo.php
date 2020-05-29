@@ -150,7 +150,8 @@ class DefaultCreditmemo
                 foreach ($options as $option) {
                     // draw options label
                     $lines[][] = [
-                        'text' => $this->string->split($this->filterManager->stripTags($option['label']), 40, true, true),
+                        'text' =>
+                            $this->string->split($this->filterManager->stripTags($option['label']), 40, true, true),
                         'font' => 'italic',
                         'feed' => 35,
                     ];

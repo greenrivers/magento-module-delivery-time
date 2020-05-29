@@ -160,8 +160,10 @@ class DeliveryTimeFilter implements ArgumentInterface
      * @param array $deliveryTimeTypes
      * @return ProductSearchResultsInterface
      */
-    private function getProductCollectionByDeliveryTime(int $categoryId, array $deliveryTimeTypes): ProductSearchResultsInterface
-    {
+    private function getProductCollectionByDeliveryTime(
+        int $categoryId,
+        array $deliveryTimeTypes
+    ): ProductSearchResultsInterface {
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter('category_id', $categoryId, 'eq')
             ->addFilter(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE, $deliveryTimeTypes, 'in')

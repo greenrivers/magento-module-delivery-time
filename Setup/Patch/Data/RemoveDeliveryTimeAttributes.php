@@ -82,6 +82,4 @@ class RemoveDeliveryTimeAttributes implements PatchRevertableInterface
             }
         }
     }
-
-
 }

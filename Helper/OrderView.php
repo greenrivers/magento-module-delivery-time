@@ -31,7 +31,7 @@ class OrderView
      */
     private function insertArrayAtPosition(array $array, array $insert, int $position): array
     {
-        return array_slice($array, 0, $position, TRUE)
-            + $insert + array_slice($array, $position, NULL, TRUE);
+        return array_slice($array, 0, $position, true)
+            + $insert + array_slice($array, $position, null, true);
     }
 }

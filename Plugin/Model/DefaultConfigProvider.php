@@ -45,9 +45,10 @@ class DefaultConfigProvider
     {
         $layout = $this->request->getFullActionName();
         $items = $result['quoteData']['items'];
+        $itemsSize = count($items);
         $totalsDataItems = $result['totalsData']['items'];
         if ($this->render->canShowOnProducts($layout, $items)) {
-            for ($i = 0; $i < count($items); $i++) {
+            for ($i = 0; $i < $itemsSize; $i++) {
                 $item = $result['quoteData']['items'][$i];
                 $product = $this->productType->getProductFromQuoteItem($item);
                 $deliveryTime = $this->render->getFromProduct($product);

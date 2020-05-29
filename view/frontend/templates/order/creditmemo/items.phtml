@@ -24,9 +24,12 @@ $deliveryTime = $block->getDeliveryTime();
         <span><?= $block->escapeHtml(__('Print All Refunds')) ?></span>
     </a>
 </div>
-<?php foreach ($_order->getCreditmemosCollection() as $_creditmemo) : ?>
+<?php foreach ($_order->getCreditmemosCollection() as $_creditmemo): ?>
     <div class="order-title">
-        <strong><?= $block->escapeHtml(__('Refund #')) ?><?= $block->escapeHtml($_creditmemo->getIncrementId()) ?> </strong>
+        <strong>
+            <?= $block->escapeHtml(__('Refund #')) ?>
+            <?= $block->escapeHtml($_creditmemo->getIncrementId()) ?>
+        </strong>
         <a href="<?= $block->escapeUrl($block->getPrintCreditmemoUrl($_creditmemo)) ?>"
            class="action print"
            target="_blank"
@@ -53,8 +56,8 @@ $deliveryTime = $block->getDeliveryTime();
             </tr>
             </thead>
             <?php $_items = $_creditmemo->getAllItems(); ?>
-            <?php foreach ($_items as $_item) : ?>
-                <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+            <?php foreach ($_items as $_item): ?>
+                <?php if (!$_item->getOrderItem()->getParentItem()): ?>
                     <tbody>
                     <?= $block->getItemHtml($_item) ?>
                     </tbody>

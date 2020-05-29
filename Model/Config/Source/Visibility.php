@@ -72,11 +72,15 @@ class Visibility implements OptionSourceInterface
             self::INVOICE_NEW . ' ' . self::INVOICE_VIEW . ' ' . self::INVOICE_PRINT => __('Invoice view adminhtml'),
             self::INVOICE_VIEW_CUSTOMER_PAGE . ' ' . self::INVOICE_PRINT_CUSTOMER_PAGE => __('Invoice view customer'),
             self::SHIPMENT_MAIL => __('Shipment mail'),
-            self::SHIPMENT_NEW . ' ' . self::SHIPMENT_VIEW . ' ' . self::SHIPMENT_PRINT => __('Shipment view adminhtml'),
-            self::SHIPMENT_VIEW_CUSTOMER_PAGE . ' ' . self::SHIPMENT_PRINT_CUSTOMER_PAGE => __('Shipment view customer'),
+            self::SHIPMENT_NEW . ' ' . self::SHIPMENT_VIEW . ' ' . self::SHIPMENT_PRINT =>
+                __('Shipment view adminhtml'),
+            self::SHIPMENT_VIEW_CUSTOMER_PAGE . ' ' . self::SHIPMENT_PRINT_CUSTOMER_PAGE =>
+                __('Shipment view customer'),
             self::CREDITMEMO_MAIL => __('Creditmemo mail'),
-            self::CREDITMEMO_NEW . ' ' . self::CREDITMEMO_VIEW . ' ' . self::CREDITMEMO_PRINT => __('Creditmemo view adminhtml'),
-            self::CREDITMEMO_VIEW_CUSTOMER_PAGE . ' ' . self::CREDITMEMO_PRINT_CUSTOMER_PAGE => __('Creditmemo view customer'),
+            self::CREDITMEMO_NEW . ' ' . self::CREDITMEMO_VIEW . ' ' . self::CREDITMEMO_PRINT =>
+                __('Creditmemo view adminhtml'),
+            self::CREDITMEMO_VIEW_CUSTOMER_PAGE . ' ' . self::CREDITMEMO_PRINT_CUSTOMER_PAGE =>
+                __('Creditmemo view customer'),
             self::ORDER_CREATE_ADMIN_PAGE => __('Order create adminhtml')
         ];
     }

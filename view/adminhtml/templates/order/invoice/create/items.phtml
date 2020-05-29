@@ -17,7 +17,9 @@ $deliveryTime = $block->getDeliveryTime();
 ?>
 <section class="admin__page-section">
     <div class="admin__page-section-title">
-        <?php $_itemsGridLabel = $block->getForcedShipmentCreate() ? 'Items to Invoice and Ship' : 'Items to Invoice'; ?>
+        <?php
+        $_itemsGridLabel = $block->getForcedShipmentCreate() ? 'Items to Invoice and Ship' : 'Items to Invoice';
+        ?>
         <span class="title"><?= $block->escapeHtml(__('%1', $_itemsGridLabel)) ?></span>
     </div>
     <div class="admin__page-section-content grid">
@@ -40,7 +42,7 @@ $deliveryTime = $block->getDeliveryTime();
                     <th class="col-total last"><span><?= $block->escapeHtml(__('Row Total')) ?></span></th>
                 </tr>
                 </thead>
-                <?php if ($block->canEditQty()) : ?>
+                <?php if ($block->canEditQty()): ?>
                     <tfoot>
                     <tr>
                         <td colspan="3">&nbsp;</td>
@@ -51,10 +53,10 @@ $deliveryTime = $block->getDeliveryTime();
                 <?php endif; ?>
                 <?php $_items = $block->getInvoice()->getAllItems() ?>
                 <?php $_i = 0;
-                foreach ($_items as $_item) : ?>
-                    <?php if ($_item->getOrderItem()->getParentItem()) :
+                foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()):
                         continue;
-                    else :
+                    else:
                         $_i++;
                     endif; ?>
                     <tbody class="<?= /* @noEscape */
@@ -70,7 +72,7 @@ $deliveryTime = $block->getDeliveryTime();
 
 <?php $orderTotalBar = $block->getChildHtml('order_totalbar'); ?>
 
-<?php if (!empty($orderTotalBar)) : ?>
+<?php if (!empty($orderTotalBar)): ?>
     <section class="admin__page-section">
         <?= /* @noEscape */
         $orderTotalBar ?>
@@ -106,13 +108,14 @@ $deliveryTime = $block->getDeliveryTime();
             </div>
             <div class="admin__page-section-item-content order-totals-actions">
                 <?= $block->getChildHtml('invoice_totals') ?>
-                <?php if ($block->isCaptureAllowed()) : ?>
-                    <?php if ($block->canCapture()) : ?>
+                <?php if ($block->isCaptureAllowed()): ?>
+                    <?php if ($block->canCapture()): ?>
                         <div class="admin__field">
                             <?php
                             /*
                             <label for="invoice_do_capture" class="normal"><?= __('Capture Amount') ?></label>
-                            <input type="checkbox" name="invoice[do_capture]" id="invoice_do_capture" value="1" checked/>
+                            <input type="checkbox" name="invoice[do_capture]" id="invoice_do_capture"
+                             value="1" checked/>
                             */
                             ?>
                             <label for="invoice_do_capture"
@@ -123,9 +126,13 @@ $deliveryTime = $block->getDeliveryTime();
                                 <option value="not_capture"><?= $block->escapeHtml(__('Not Capture')) ?></option>
                             </select>
                         </div>
-                    <?php elseif ($block->isGatewayUsed()) : ?>
+                    <?php elseif ($block->isGatewayUsed()): ?>
                         <input type="hidden" name="invoice[capture_case]" value="offline"/>
-                        <div><?= $block->escapeHtml(__('The invoice will be created offline without the payment gateway.')) ?></div>
+                        <div>
+                            <?=
+                            $block->escapeHtml(__('The invoice will be created offline without the payment gateway.'))
+                            ?>
+                        </div>
                     <?php endif; ?>
                 <?php endif; ?>
                 <div class="admin__field admin__field-option field-append">
@@ -134,7 +141,7 @@ $deliveryTime = $block->getDeliveryTime();
                     <label class="admin__field-label"
                            for="notify_customer"><?= $block->escapeHtml(__('Append Comments')) ?></label>
                 </div>
-                <?php if ($block->canSendInvoiceEmail()) : ?>
+                <?php if ($block->canSendInvoiceEmail()): ?>
                     <div class="admin__field admin__field-option field-email">
                         <input id="send_email" name="invoice[send_email]" value="1" type="checkbox"
                                class="admin__control-checkbox"/>

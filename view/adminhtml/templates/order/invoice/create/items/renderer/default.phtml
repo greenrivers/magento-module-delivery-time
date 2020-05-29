@@ -31,11 +31,11 @@ $deliveryTime = $block->getDeliveryTime();
 <?php endif; ?>
 <td class="col-qty"><?= $block->getColumnHtml($_item, 'qty') ?></td>
 <td class="col-qty-invoice">
-    <?php if ($block->canEditQty()) : ?>
+    <?php if ($block->canEditQty()): ?>
         <input type="text" class="input-text admin__control-text qty-input"
                name="invoice[items][<?= (int)$_item->getOrderItemId() ?>]"
                value="<?= (float)$_item->getQty() ?>"/>
-    <?php else : ?>
+    <?php else: ?>
         <?= (float)$_item->getQty() ?>
     <?php endif; ?>
 </td>
