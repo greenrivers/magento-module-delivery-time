@@ -33,7 +33,15 @@ class Attribute extends BaseAttribute
         if ($this->_requestVar === AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) {
             if ((int)$attributeValue !== self::UNDEFINED_DELIVERY_TIME) {
                 $productCollection
-                    ->addAttributeToFilter(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE, ['in' => [0, 1]])
+                    ->addAttributeToFilter(
+                        AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE,
+                        [
+                            'in' => [
+                                AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_TO_VALUE,
+                                AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_RANGE_VALUE
+                            ]
+                        ]
+                    )
                     ->addAttributeToFilter($attribute->getAttributeCode(), ['lteq' => $attributeValue]);
             }
         } else {

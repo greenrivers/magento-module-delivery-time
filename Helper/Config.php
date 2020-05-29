@@ -20,7 +20,6 @@ class Config extends AbstractHelper
     const XML_SCALE_STEP_CONFIG_PATH = 'delivery_time/backend/scale_step';
 
     const XML_LABEL_CONFIG_PATH = 'delivery_time/frontend/label';
-    const XML_ROUND_UP_CONFIG_PATH = 'delivery_time/frontend/round_up';
     const XML_SORT_CONFIG_PATH = 'delivery_time/frontend/sort';
     const XML_FILTER_CONFIG_PATH = 'delivery_time/frontend/filter';
     const XML_VISIBILITY_CONFIG_PATH = 'delivery_time/frontend/visibility';
@@ -71,14 +70,6 @@ class Config extends AbstractHelper
     public function getLabelConfig(): string
     {
         return $this->scopeConfig->getValue(self::XML_LABEL_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
-    }
-
-    /**
-     * @return bool
-     */
-    public function getRoundUpConfig(): bool
-    {
-        return $this->scopeConfig->getValue(self::XML_ROUND_UP_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
 
     /**

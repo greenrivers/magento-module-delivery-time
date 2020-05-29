@@ -14,9 +14,6 @@
                 <enable>1</enable>
                 <date_unit>0</date_unit>
             </general>
-            <frontend>
-                <round_up>0</round_up>
-            </frontend>
         </delivery_time>
     </default>
 </config>

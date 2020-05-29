@@ -60,12 +60,6 @@
                     <label>Label</label>
                     <validate>required-entry</validate>
                 </field>
-                <field id="round_up" translate="label" type="checkbox" sortOrder="20" showInDefault="1"
-                       showInWebsite="1"
-                       showInStore="1">
-                    <label>Round up date units</label>
-                    <frontend_model>Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch</frontend_model>
-                </field>
                 <field id="sort" translate="label" type="checkbox" sortOrder="30" showInDefault="1"
                        showInWebsite="1"
                        showInStore="1">

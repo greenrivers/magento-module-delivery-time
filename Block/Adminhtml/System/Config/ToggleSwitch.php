@@ -15,7 +15,6 @@ use Unexpected\DeliveryTime\Helper\Config;
 class ToggleSwitch extends Field
 {
     const DELIVERY_TIME_GENERAL_ENABLE = 'delivery-time-general-enable';
-    const DELIVERY_TIME_FRONTEND_ROUND_UP = 'delivery-time-frontend-round-up';
     const DELIVERY_TIME_FRONTEND_SORT = 'delivery-time-frontend-sort';
     const DELIVERY_TIME_FRONTEND_FILTER = 'delivery-time-frontend-filter';
 
@@ -53,9 +52,6 @@ class ToggleSwitch extends Field
         switch ($id) {
             case self::DELIVERY_TIME_GENERAL_ENABLE:
                 $component['value'] = $this->config->getEnableConfig();
-                break;
-            case self::DELIVERY_TIME_FRONTEND_ROUND_UP:
-                $component['value'] = $this->config->getRoundUpConfig();
                 break;
             case self::DELIVERY_TIME_FRONTEND_SORT:
                 $component['value'] = $this->config->getSortConfig();
