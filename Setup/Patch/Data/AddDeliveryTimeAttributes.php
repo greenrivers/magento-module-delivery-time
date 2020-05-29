@@ -121,8 +121,8 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
     {
         try {
             $attrs = [
-                self::DELIVERY_TIME_MIN => 'Min',
-                self::DELIVERY_TIME_MAX => 'Max'
+                self::DELIVERY_TIME_MIN => 'Delivery time min',
+                self::DELIVERY_TIME_MAX => 'Delivery time max'
             ];
 
             foreach ($attrs as $attr => $label) {
@@ -137,9 +137,11 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                     'user_defined' => false,
                     'searchable' => true,
                     'filterable' => true,
-                    'comparable' => true,
+                    'comparable' => false,
                     'visible_on_front' => true,
                     'used_in_product_listing' => true,
+                    'is_used_in_grid' => true,
+                    'is_filterable_in_grid' => true,
                     'unique' => false
                 ]);
             }
@@ -147,7 +149,7 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
             $eavSetup->addAttribute(Product::ENTITY, self::DELIVERY_TIME_TYPE, [
                 'type' => 'int',
                 'backend' => ArrayBackend::class,
-                'label' => 'Type',
+                'label' => 'Delivery time type',
                 'input' => 'select',
                 'group' => $attributeGroupName,
                 'source' => RadioOptions::class,
@@ -157,10 +159,12 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'user_defined' => false,
                 'default' => self::DELIVERY_TIME_TYPE_NONE_VALUE,
                 'searchable' => false,
-                'filterable' => false,
+                'filterable' => true,
                 'comparable' => false,
                 'visible_on_front' => false,
                 'used_in_product_listing' => true,
+                'is_used_in_grid' => true,
+                'is_filterable_in_grid' => true,
                 'unique' => false
             ]);
 
@@ -180,6 +184,8 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'comparable' => false,
                 'visible_on_front' => false,
                 'used_in_product_listing' => true,
+                'is_used_in_grid' => false,
+                'is_filterable_in_grid' => false,
                 'unique' => false,
                 'apply_to' => Configurable::TYPE_CODE
             ]);
@@ -200,6 +206,8 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'comparable' => false,
                 'visible_on_front' => false,
                 'used_in_product_listing' => true,
+                'is_used_in_grid' => false,
+                'is_filterable_in_grid' => false,
                 'unique' => false,
                 'apply_to' => Configurable::TYPE_CODE
             ]);
@@ -221,6 +229,8 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'comparable' => false,
                 'visible_on_front' => false,
                 'used_in_product_listing' => true,
+                'is_used_in_grid' => false,
+                'is_filterable_in_grid' => false,
                 'unique' => false,
                 'apply_to' => Configurable::TYPE_CODE
             ]);
