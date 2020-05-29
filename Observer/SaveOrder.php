@@ -19,7 +19,7 @@ use Unexpected\DeliveryTime\Helper\Render;
 use Unexpected\DeliveryTime\Model\DeliveryTime;
 use Unexpected\DeliveryTime\Model\DeliveryTimeFactory;
 
-class SaveDeliveryTime implements ObserverInterface
+class SaveOrder implements ObserverInterface
 {
     /** @var DeliveryTimeFactory */
     private $deliveryTimeFactory;
@@ -40,7 +40,7 @@ class SaveDeliveryTime implements ObserverInterface
     private $logger;
 
     /**
-     * SaveDeliveryTime constructor.
+     * SaveOrder constructor.
      * @param DeliveryTimeFactory $deliveryTimeFactory
      * @param DeliveryTimeRepositoryInterface $deliveryTimeRepository
      * @param Config $config
@@ -77,6 +77,7 @@ class SaveDeliveryTime implements ObserverInterface
             foreach ($items as $item) {
                 $product = $this->productType->getProductFromItem($item);
                 $content = $this->render->getFromProduct($product);
+
                 /** @var DeliveryTime $deliveryTime */
                 $deliveryTime = $this->deliveryTimeFactory->create();
                 $deliveryTime->setOrderItemId($item->getItemId())

@@ -5,7 +5,7 @@
  * @package Unexpected_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Block;
+namespace Unexpected\DeliveryTime\Plugin\Block\Product\ProductList;
 
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Block\Product\ProductList\Toolbar as Subject;

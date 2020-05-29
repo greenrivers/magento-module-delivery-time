@@ -10,6 +10,6 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="checkout_submit_all_after">
         <observer name="unexpected_delivery_time_save_delivery_time"
-                  instance="Unexpected\DeliveryTime\Observer\SaveDeliveryTime"/>
+                  instance="Unexpected\DeliveryTime\Observer\SaveOrder"/>
     </event>
 </config>

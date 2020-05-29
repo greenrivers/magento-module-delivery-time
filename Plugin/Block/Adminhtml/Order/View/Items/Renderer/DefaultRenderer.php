@@ -5,37 +5,53 @@
  * @package Unexpected_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Block;
+namespace Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer;
 
 use Magento\Framework\App\Area;
+use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Sales\Block\Adminhtml\Order\View\Items as Subject;
+use Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer as Subject;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Helper\OrderView;
 use Unexpected\DeliveryTime\Helper\Render;
 
-class Items
+class DefaultRenderer
 {
-    /** @var OrderView */
-    private $orderView;
-
     /** @var Render */
     private $render;
+
+    /** @var OrderView */
+    private $orderView;
 
     /** @var LoggerInterface */
     private $logger;
 
     /**
-     * Items constructor.
-     * @param OrderView $orderView
+     * DefaultRenderer constructor.
      * @param Render $render
+     * @param OrderView $orderView
      * @param LoggerInterface $logger
      */
-    public function __construct(OrderView $orderView, Render $render, LoggerInterface $logger)
+    public function __construct(Render $render, OrderView $orderView, LoggerInterface $logger)
     {
-        $this->orderView = $orderView;
         $this->render = $render;
+        $this->orderView = $orderView;
         $this->logger = $logger;
+    }
+
+    /**
+     * @param Subject $subject
+     * @param string $result
+     * @param DataObject $item
+     * @param string $column
+     * @return string
+     */
+    public function afterGetColumnHtml(Subject $subject, string $result, DataObject $item, string $column): string
+    {
+        if ($column === OrderView::DELIVERY_TIME_COLUMN) {
+            $result = $this->render->getFromOrderItem($item);
+        }
+        return $result;
     }
 
     /**
@@ -52,7 +68,7 @@ class Items
             if ($this->render->canShowOnItems($layout, $items)) {
                 $result = $this->orderView->addColumn(
                     $result,
-                    [OrderView::DELIVERY_TIME_COLUMN => $this->render->getLabel()],
+                    [OrderView::DELIVERY_TIME_COLUMN => 'col-delivery-time'],
                     OrderView::POSITION
                 );
             }

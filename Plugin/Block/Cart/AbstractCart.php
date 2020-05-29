@@ -5,7 +5,7 @@
  * @package Unexpected_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Block;
+namespace Unexpected\DeliveryTime\Plugin\Block\Cart;
 
 use Magento\Checkout\Block\Cart\AbstractCart as Subject;
 use Magento\Framework\View\Element\Template;

@@ -23,10 +23,11 @@
     </virtualType>
 
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Items">
-        <plugin name="Unexpected_DeliveryTime::Block_Items" type="Unexpected\DeliveryTime\Plugin\Block\Items"/>
+        <plugin name="Unexpected_DeliveryTime::Block_Items"
+                type="Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items"/>
     </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
         <plugin name="Unexpected_DeliveryTime::Block_DefaultRenderer"
-                type="Unexpected\DeliveryTime\Plugin\Block\DefaultRenderer"/>
+                type="Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer"/>
     </type>
 </config>

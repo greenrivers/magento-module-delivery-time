@@ -28,7 +28,7 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Observer\SaveDeliveryTime">
+    <type name="Unexpected\DeliveryTime\Observer\SaveOrder">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
@@ -53,27 +53,27 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Model\DefaultInvoice">
+    <type name="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Invoice\DefaultInvoice">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Model\DefaultShipment">
+    <type name="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Shipment\DefaultShipment">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Model\DefaultCreditmemo">
+    <type name="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Block\DefaultRenderer">
+    <type name="Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Block\Items">
+    <type name="Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
@@ -88,7 +88,7 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Block\Toolbar">
+    <type name="Unexpected\DeliveryTime\Plugin\Block\Product\ProductList\Toolbar">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
@@ -101,7 +101,7 @@
 
     <type name="Magento\Checkout\Block\Cart\AbstractCart">
         <plugin name="Unexpected_DeliveryTime::Block_AbstractCart"
-                type="Unexpected\DeliveryTime\Plugin\Block\AbstractCart"/>
+                type="Unexpected\DeliveryTime\Plugin\Block\Cart\AbstractCart"/>
     </type>
     <type name="Magento\Checkout\Model\DefaultConfigProvider">
         <plugin name="Unexpected_DeliveryTime::Model_DefaultConfigProvider"
@@ -109,29 +109,30 @@
     </type>
     <type name="Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice">
         <plugin name="Unexpected_DeliveryTime::Model_DefaultInvoice"
-                type="Unexpected\DeliveryTime\Plugin\Model\DefaultInvoice"/>
+                type="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Invoice\DefaultInvoice"/>
     </type>
     <type name="Magento\Sales\Model\Order\Pdf\Items\Shipment\DefaultShipment">
         <plugin name="Unexpected_DeliveryTime::Model_DefaultShipment"
-                type="Unexpected\DeliveryTime\Plugin\Model\DefaultShipment"/>
+                type="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Shipment\DefaultShipment"/>
     </type>
     <type name="Magento\Sales\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo">
         <plugin name="Unexpected_DeliveryTime::Model_DefaultCreditmemot"
-                type="Unexpected\DeliveryTime\Plugin\Model\DefaultCreditmemo"/>
+                type="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo"/>
     </type>
     <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
         <plugin name="Unexpected_DeliveryTime::Block_Configurable"
-                type="Unexpected\DeliveryTime\Plugin\Block\Configurable"/>
+                type="Unexpected\DeliveryTime\Plugin\Block\Product\View\Type\Configurable"/>
     </type>
     <type name="Magento\Catalog\Model\Config">
         <plugin name="Unexpected_DeliveryTime::Model_Config" type="Unexpected\DeliveryTime\Plugin\Model\Config"/>
     </type>
     <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
-        <plugin name="Unexpected_DeliveryTime::Block_Toolbar" type="Unexpected\DeliveryTime\Plugin\Block\Toolbar"/>
+        <plugin name="Unexpected_DeliveryTime::Block_Toolbar"
+                type="Unexpected\DeliveryTime\Plugin\Block\Product\ProductList\Toolbar"/>
     </type>
     <type name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
         <plugin name="Unexpected_DeliveryTime::Model_Collection"
-                type="Unexpected\DeliveryTime\Plugin\Model\Collection"/>
+                type="Unexpected\DeliveryTime\Plugin\Model\ResourceModel\Fulltext\Collection"/>
     </type>
 
     <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"

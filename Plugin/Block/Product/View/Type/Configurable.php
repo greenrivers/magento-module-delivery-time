@@ -5,7 +5,7 @@
  * @package Unexpected_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Block;
+namespace Unexpected\DeliveryTime\Plugin\Block\Product\View\Type;
 
 use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable as Subject;
 use Magento\Framework\Serialize\Serializer\Json;

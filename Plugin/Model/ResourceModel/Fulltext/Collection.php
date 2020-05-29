@@ -5,7 +5,7 @@
  * @package Unexpected_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Model;
+namespace Unexpected\DeliveryTime\Plugin\Model\ResourceModel\Fulltext;
 
 use Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection as Subject;
 
