@@ -9,10 +9,13 @@ namespace Unexpected\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Api\Data\ProductSearchResultsInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\Catalog\Model\Layer\Filter\Item;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\App\Request\Http;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
+use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
@@ -33,6 +36,9 @@ class DeliveryTimeFilter implements ArgumentInterface
     /** @var UrlInterface */
     private $url;
 
+    /** @var LoggerInterface */
+    private $logger;
+
     /**
      * DeliveryTimeFilter constructor.
      * @param Config $config
@@ -40,19 +46,22 @@ class DeliveryTimeFilter implements ArgumentInterface
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param Http $request
      * @param UrlInterface $url
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Config $config,
         ProductRepositoryInterface $productRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         Http $request,
-        UrlInterface $url
+        UrlInterface $url,
+        LoggerInterface $logger
     ) {
         $this->config = $config;
         $this->productRepository = $productRepository;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->request = $request;
         $this->url = $url;
+        $this->logger = $logger;
     }
 
     /**
@@ -85,7 +94,8 @@ class DeliveryTimeFilter implements ArgumentInterface
                     AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_RANGE_VALUE,
                     AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE
                 ]
-            )->getTotalCount();
+            )->getTotalCount() &&
+            !$this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
     }
 
     /**
@@ -116,6 +126,21 @@ class DeliveryTimeFilter implements ArgumentInterface
                     $this->request->get(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) : 1
         ];
         return $this->url->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
+    }
+
+    /**
+     * @param Item $item
+     * @return bool
+     */
+    public function isDeliveryTime(Item $item): bool
+    {
+        $attr = '';
+        try {
+            $attr = $item->getFilter()->getAttributeModel()->getAttributeCode();
+        } catch (LocalizedException $e) {
+            $this->logger->error($e->getMessage());
+        }
+        return $attr === AddDeliveryTimeAttributes::DELIVERY_TIME_MAX;
     }
 
     /**

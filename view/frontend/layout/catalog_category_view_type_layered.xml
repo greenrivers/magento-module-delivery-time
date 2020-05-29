@@ -11,6 +11,13 @@
     <body>
         <referenceContainer name="sidebar.main">
             <referenceBlock name="catalog.leftnav" template="Unexpected_DeliveryTime::layer/view.phtml">
+                <referenceBlock name="catalog.navigation.state" template="Unexpected_DeliveryTime::layer/state.phtml">
+                    <arguments>
+                        <argument name="delivery_time_filter" xsi:type="object">
+                            Unexpected\DeliveryTime\ViewModel\DeliveryTimeFilter
+                        </argument>
+                    </arguments>
+                </referenceBlock>
                 <arguments>
                     <argument name="delivery_time_filter" xsi:type="object">
                         Unexpected\DeliveryTime\ViewModel\DeliveryTimeFilter
