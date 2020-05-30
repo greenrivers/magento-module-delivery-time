@@ -13,18 +13,18 @@ use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
-use ReflectionClass;
-use ReflectionProperty;
 use Unexpected\DeliveryTime\Api\Data\DeliveryTimeInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Helper\Render;
 use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 use Unexpected\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use Unexpected\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
 
 class RenderTest extends TestCase
 {
     use TraitObjectManager;
+    use TraitReflectionClass;
 
     /** @var Render */
     private $render;
@@ -73,12 +73,7 @@ class RenderTest extends TestCase
 
         $properties = [$this->configMock, $this->deliveryTimeRepositoryMock, $this->loggerMock];
         $this->render = $this->getObjectManager()->getObject(Render::class, $properties);
-        $refClass = new ReflectionClass(Render::class);
-        $refProperties = $refClass->getProperties(ReflectionProperty::IS_PRIVATE);
-        foreach ($refProperties as $key => $refProperty) {
-            $refProperty->setAccessible(true);
-            $refProperty->setValue($this->render, $properties[$key]);
-        }
+        $this->setAccessibleProperties($this->render, $properties);
     }
 
     /**
