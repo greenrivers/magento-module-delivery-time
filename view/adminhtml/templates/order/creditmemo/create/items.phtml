@@ -26,20 +26,20 @@ $deliveryTime = $block->getDeliveryTime();
         <span class="title"><?= $block->escapeHtml(__('Items to Refund')) ?></span>
     </div>
 
-    <?php if (count($_items)) : ?>
+    <?php if (count($_items)): ?>
         <div class="admin__table-wrapper">
             <table class="data-table admin__table-primary order-creditmemo-tables">
                 <thead>
                 <tr class="headings">
                     <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                     <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)) : ?>
+                    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
                         <th class="col-delivery-time">
                             <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
                         </th>
                     <?php endif; ?>
                     <th class="col-ordered-qty"><span><?= $block->escapeHtml(__('Qty')) ?></span></th>
-                    <?php if ($block->canReturnToStock()) : ?>
+                    <?php if ($block->canReturnToStock()): ?>
                         <th class="col-return-to-stock"><span><?= $block->escapeHtml(__('Return to Stock')) ?></span>
                         </th>
                     <?php endif; ?>
@@ -50,7 +50,7 @@ $deliveryTime = $block->getDeliveryTime();
                     <th class="col-total last"><span><?= $block->escapeHtml(__('Row Total')) ?></span></th>
                 </tr>
                 </thead>
-                <?php if ($block->canEditQty()) : ?>
+                <?php if ($block->canEditQty()): ?>
                     <tfoot>
                     <tr>
                         <td colspan="4">&nbsp;</td>
@@ -62,10 +62,10 @@ $deliveryTime = $block->getDeliveryTime();
                     </tfoot>
                 <?php endif; ?>
                 <?php $i = 0;
-                foreach ($_items as $_item) : ?>
-                    <?php if ($_item->getOrderItem()->getParentItem()) :
+                foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()):
                         continue;
-                    else :
+                    else:
                         $i++;
                     endif; ?>
                     <tbody class="<?= /* @noEscape */
@@ -76,7 +76,7 @@ $deliveryTime = $block->getDeliveryTime();
                 <?php endforeach; ?>
             </table>
         </div>
-    <?php else : ?>
+    <?php else: ?>
         <div class="no-items">
             <?= $block->escapeHtml(__('No Items To Refund')) ?>
         </div>
@@ -85,7 +85,7 @@ $deliveryTime = $block->getDeliveryTime();
 
 <?php $orderTotalBar = $block->getChildHtml('order_totalbar'); ?>
 
-<?php if (!empty($orderTotalBar)) : ?>
+<?php if (!empty($orderTotalBar)): ?>
     <section class="fieldset-wrapper">
         <?= /* @noEscape */
         $orderTotalBar ?>
@@ -112,7 +112,9 @@ $deliveryTime = $block->getDeliveryTime();
                                   class="admin__control-textarea"
                                   name="creditmemo[comment_text]"
                                   rows="3"
-                                  cols="5"><?= $block->escapeHtml($block->getCreditmemo()->getCommentText()) ?></textarea>
+                                  cols="5">
+                            <?= $block->escapeHtml($block->getCreditmemo()->getCommentText()) ?>
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -135,7 +137,7 @@ $deliveryTime = $block->getDeliveryTime();
                         <span><?= $block->escapeHtml(__('Append Comments')) ?></span>
                     </label>
                 </div>
-                <?php if ($block->canSendCreditmemoEmail()) : ?>
+                <?php if ($block->canSendCreditmemoEmail()): ?>
                     <div class="field choice admin__field admin__field-option field-email-copy">
                         <input id="send_email"
                                class="admin__control-checkbox"

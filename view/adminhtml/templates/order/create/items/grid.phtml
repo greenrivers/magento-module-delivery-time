@@ -51,7 +51,11 @@ $deliveryTime = $block->getDeliveryTime();
     <div class="admin__table-wrapper" id="order-items_grid">
         <?php if (count($_items) > 10): ?>
             <div class="actions update actions-update">
-                <?= $block->getButtonHtml(__('Update Items and Quantities'), 'order.itemsUpdate()', 'action-secondary') ?>
+                <?= $block->getButtonHtml(
+                    __('Update Items and Quantities'),
+                    'order.itemsUpdate()',
+                    'action-secondary'
+                ) ?>
             </div>
         <?php endif; ?>
         <table class="data-table admin__table-primary order-tables">
@@ -59,7 +63,7 @@ $deliveryTime = $block->getDeliveryTime();
             <tr class="headings">
                 <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                 <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                <?php if ($deliveryTime->canShowOnProducts($layout, $_items)) : ?>
+                <?php if ($deliveryTime->canShowOnProducts($layout, $_items)): ?>
                     <th class="col-delivery-time">
                         <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
                     </th>
@@ -90,12 +94,16 @@ $deliveryTime = $block->getDeliveryTime();
                 ($i % 2) ? 'even' : 'odd' ?>">
                 <tr>
                     <td class="col-product">
-                        <span
-                            id="order_item_<?= (int)$_item->getId() ?>_title"><?= $block->escapeHtml($_item->getName()) ?></span>
+                        <span id="order_item_<?= (int)$_item->getId() ?>_title">
+                            <?= $block->escapeHtml($_item->getName()) ?>
+                        </span>
                         <div class="product-sku-block">
                             <span><?= $block->escapeHtml(__('SKU')) ?>:</span>
                             <?= /* @noEscape */
-                            implode('<br />', $this->helper(Data::class)->splitSku($block->escapeHtml($_item->getSku()))) ?>
+                            implode(
+                                '<br />',
+                                $this->helper(Data::class)->splitSku($block->escapeHtml($_item->getSku()))
+                            ) ?>
                         </div>
                         <div class="product-configure-block">
                             <?= $block->getConfigureButtonHtml($_item) ?>
@@ -108,7 +116,9 @@ $deliveryTime = $block->getDeliveryTime();
                         <?php $_isCustomPrice = $block->usedCustomPriceForItem($_item) ?>
                         <?php if ($_tier = $block->getTierHtml($_item)): ?>
                             <div
-                                id="item_tier_block_<?= (int)$_item->getId() ?>"<?php if ($_isCustomPrice): ?> style="display:none"<?php endif; ?>>
+                                id="item_tier_block_<?= (int)$_item->getId() ?>"
+                                <?php if ($_isCustomPrice): ?> style="display:none"<?php endif; ?>
+                            >
                                 <a href="#"
                                    onclick="$('item_tier_<?= (int)$_item->getId() ?>').toggle();return false;">
                                     <?= $block->escapeHtml(__('Tier Pricing')) ?>

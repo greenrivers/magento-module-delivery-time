@@ -27,7 +27,7 @@ $deliveryTime = $block->getDeliveryTime();
                 <tr class="headings">
                     <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                     <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)) : ?>
+                    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
                         <th class="col-delivery-time">
                             <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
                         </th>
@@ -40,10 +40,10 @@ $deliveryTime = $block->getDeliveryTime();
                 </tr>
                 </thead>
                 <?php $i = 0;
-                foreach ($_items as $_item) : ?>
-                    <?php if ($_item->getOrderItem()->getParentItem()) :
+                foreach ($_items as $_item): ?>
+                    <?php if ($_item->getOrderItem()->getParentItem()):
                         continue;
-                    else :
+                    else:
                         $i++;
                     endif; ?>
                     <tbody class="<?= /* @noEscape */

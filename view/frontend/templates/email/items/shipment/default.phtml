@@ -24,9 +24,9 @@ $orderItems = $orderItem->getOrder()->getAllItems();
     <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
         <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
         <p class="sku"><?= $block->escapeHtml(__('SKU')) ?>: <?= $block->escapeHtml($block->getSku($_item)) ?></p>
-        <?php if ($block->getItemOptions()) : ?>
+        <?php if ($block->getItemOptions()): ?>
             <dl class="item-options">
-                <?php foreach ($block->getItemOptions() as $option) : ?>
+                <?php foreach ($block->getItemOptions() as $option): ?>
                     <dt><strong><em><?= $block->escapeHtml($option['label']) ?></em></strong></dt>
                     <dd>
                         <?= /* @noEscape */
@@ -36,12 +36,12 @@ $orderItems = $orderItem->getOrder()->getAllItems();
             </dl>
         <?php endif; ?>
         <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
-        <?php if ($addInfoBlock) : ?>
+        <?php if ($addInfoBlock): ?>
             <?= $addInfoBlock->setItem($_item->getOrderItem())->toHtml() ?>
         <?php endif; ?>
         <?= $block->escapeHtml($_item->getDescription()) ?>
     </td>
-    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)) : ?>
+    <?php if ($deliveryTime->canShowOnItems($layout, $orderItems)): ?>
         <td class="item-delivery-time"><?= $block->escapeHtml($deliveryTime->renderFromItem($orderItem)) ?></td>
     <?php endif; ?>
     <td class="item-qty"><?= (float)$_item->getQty() ?></td>

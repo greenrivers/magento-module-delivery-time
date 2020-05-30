@@ -20,14 +20,14 @@ $layout = $block->getLayout()->getUpdate()->getHandles()[0];
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
 ?>
-<?php if ($_invoice && $_order) : ?>
+<?php if ($_invoice && $_order): ?>
     <table class="email-items">
         <thead>
         <tr>
             <th class="item-info">
                 <?= $block->escapeHtml(__('Items')) ?>
             </th>
-            <?php if ($deliveryTime->canShowOnItems($layout, $items)) : ?>
+            <?php if ($deliveryTime->canShowOnItems($layout, $items)): ?>
                 <th class="item-delivery-time">
                     <?= $block->escapeHtml($deliveryTime->getLabel()) ?>
                 </th>
@@ -40,8 +40,8 @@ $deliveryTime = $block->getDeliveryTime();
             </th>
         </tr>
         </thead>
-        <?php foreach ($_invoice->getAllItems() as $_item) : ?>
-            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+        <?php foreach ($_invoice->getAllItems() as $_item): ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()): ?>
                 <tbody>
                 <?= $block->getItemHtml($_item) ?>
                 </tbody>

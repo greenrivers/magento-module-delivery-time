@@ -17,7 +17,7 @@ $layout = $block->getLayout()->getUpdate()->getHandles()[0];
 /** @var DeliveryTime $deliveryTime */
 $deliveryTime = $block->getDeliveryTime();
 ?>
-<?php if ($_creditmemo && $_order) : ?>
+<?php if ($_creditmemo && $_order): ?>
     <table class="email-items">
         <thead>
         <tr>
@@ -37,8 +37,8 @@ $deliveryTime = $block->getDeliveryTime();
             </th>
         </tr>
         </thead>
-        <?php foreach ($_creditmemo->getAllItems() as $_item) : ?>
-            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+        <?php foreach ($_creditmemo->getAllItems() as $_item): ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()): ?>
                 <tbody>
                 <?= $block->getItemHtml($_item) ?>
                 </tbody>

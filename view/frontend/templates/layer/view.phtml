@@ -19,7 +19,7 @@ $categoryId = $block->getLayer()->getCurrentCategory()->getId();
 $deliveryTimeFilter = $block->getDeliveryTimeFilter();
 ?>
 
-<?php if ($block->canShowBlock()) : ?>
+<?php if ($block->canShowBlock()): ?>
     <div class="block filter" id="layered-filter-block" data-mage-init='
     {
         "collapsible":
@@ -42,7 +42,7 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
         <div class="block-content filter-content">
             <?= $block->getChildHtml('state') ?>
 
-            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+            <?php if ($block->getLayer()->getState()->getFilters()): ?>
                 <div class="block-actions filter-actions">
                     <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear">
                         <span><?= $block->escapeHtml(__('Clear All')) ?></span>
@@ -50,9 +50,9 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
                 </div>
             <?php endif; ?>
             <?php $wrapOptions = false; ?>
-            <?php foreach ($block->getFilters() as $filter) : ?>
-        <?php if ($filter->getItemsCount()) : ?>
-        <?php if (!$wrapOptions) : ?>
+            <?php foreach ($block->getFilters() as $filter): ?>
+                <?php if ($filter->getItemsCount()): ?>
+                    <?php if (!$wrapOptions): ?>
             <strong role="heading" aria-level="2"
                     class="block-subtitle filter-subtitle"><?= $block->escapeHtml(__('Shopping Options')) ?></strong>
             <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='
@@ -65,7 +65,7 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
                                 "multipleCollapsible": false
                             }
                         }'>
-                <?php $wrapOptions = true;
+                        <?php $wrapOptions = true;
                 endif; ?>
                 <div data-role="collapsible" class="filter-options-item">
                     <div data-role="title"
@@ -75,20 +75,21 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
                 </div>
                 <?php endif; ?>
                 <?php endforeach; ?>
-                <?php if ($deliveryTimeFilter->canShowOnFilters($categoryId)) : ?>
+                <?php if ($deliveryTimeFilter->canShowOnFilters($categoryId)): ?>
                     <div data-role="collapsible" class="filter-options-item delivery-time"
                          data-mage-init='{
                              "sliderRange": {
                                     "divSlider": ".delivery-time #slider-range",
                                     "inputValues": ".delivery-time #values",
                                     "aBtn": ".delivery-time #btn",
-                                    "maxValue": <?= $deliveryTimeFilter->getMaxValue($categoryId) ?>,
-                                    "dateUnit": <?= json_encode($deliveryTimeFilter->getDateUnit()) ?>
+                                    "maxValue": <?= /* @noEscape */ $deliveryTimeFilter->getMaxValue($categoryId) ?>,
+                                    "dateUnit": <?= /* @noEscape */ json_encode($deliveryTimeFilter->getDateUnit()) ?>
                                 }
                              }'
                     >
-                        <div data-role="title"
-                             class="filter-options-title"><?= $block->escapeHtml($deliveryTimeFilter->getLabel()) ?></div>
+                        <div data-role="title" class="filter-options-title">
+                            <?= $block->escapeHtml($deliveryTimeFilter->getLabel()) ?>
+                        </div>
                         <div data-role="content" class="filter-options-content">
                             <p>
                                 <input type="text" id="values" readonly style="border:0; font-weight:bold;">
@@ -102,9 +103,9 @@ $deliveryTimeFilter = $block->getDeliveryTimeFilter();
                         </div>
                     </div>
                 <?php endif; ?>
-                <?php if ($wrapOptions) : ?>
+                <?php if ($wrapOptions): ?>
             </div>
-        <?php else : ?>
+        <?php else: ?>
             <script>
                 require([
                     'jquery'

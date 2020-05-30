@@ -18,7 +18,7 @@ $layout = $block->getLayout()->getUpdate()->getHandles()[0];
 $deliveryTime = $block->getDeliveryTime();
 ?>
 <?php $_order = $block->getOrder() ?>
-<?php if ($_order) : ?>
+<?php if ($_order): ?>
     <?php $_items = $_order->getAllItems(); ?>
     <table class="email-items">
         <thead>
@@ -39,8 +39,8 @@ $deliveryTime = $block->getDeliveryTime();
             </th>
         </tr>
         </thead>
-        <?php foreach ($_items as $_item) : ?>
-            <?php if (!$_item->getParentItem()) : ?>
+        <?php foreach ($_items as $_item): ?>
+            <?php if (!$_item->getParentItem()): ?>
                 <tbody>
                 <?= $block->getItemHtml($_item) ?>
                 </tbody>
@@ -53,17 +53,19 @@ $deliveryTime = $block->getDeliveryTime();
     <?php if ($this->helper(Message::class)
             ->isMessagesAllowed('order', $_order, $_order->getStore())
         && $_order->getGiftMessageId()
-    ) : ?>
+    ): ?>
         <?php $_giftMessage = $this->helper(Message::class)
             ->getGiftMessage($_order->getGiftMessageId()); ?>
-        <?php if ($_giftMessage) : ?>
+        <?php if ($_giftMessage): ?>
             <br/>
             <table class="message-gift">
                 <tr>
                     <td>
                         <h3><?= $block->escapeHtml(__('Gift Message for this Order')) ?></h3>
-                        <strong><?= $block->escapeHtml(__('From:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
-                        <br/><strong><?= $block->escapeHtml(__('To:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                        <strong><?= $block->escapeHtml(__('From:')) ?></strong>
+                        <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                        <br/><strong><?= $block->escapeHtml(__('To:')) ?></strong>
+                        <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
                         <br/><strong><?= $block->escapeHtml(__('Message:')) ?></strong>
                         <br/><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
                     </td>
