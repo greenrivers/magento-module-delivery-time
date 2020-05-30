@@ -197,7 +197,7 @@ class Render
             case 0:
                 return __('To') . " {$max} {$dateUnit}";
             case 1:
-                return __('From') . " {$min} {$dateUnit} " . __('To') . " {$max} {$dateUnit}";
+                return __('From') . " {$min} " . __('to') . " {$max} {$dateUnit}";
             case 2:
                 return __('From') . " {$min} {$dateUnit}";
             default:
