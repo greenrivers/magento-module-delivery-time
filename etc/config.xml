@@ -12,8 +12,17 @@
         <delivery_time>
             <general>
                 <enable>1</enable>
-                <date_unit>0</date_unit>
             </general>
+            <backend>
+                <min_scale>1</min_scale>
+                <max_scale>100</max_scale>
+                <scale_step>1</scale_step>
+            </backend>
+            <frontend>
+                <label>Delivery time</label>
+                <sort>0</sort>
+                <filter>0</filter>
+            </frontend>
         </delivery_time>
     </default>
 </config>

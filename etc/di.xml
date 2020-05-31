@@ -43,36 +43,6 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Invoice">
-        <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
-        </arguments>
-    </type>
-    <type name="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Shipment">
-        <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
-        </arguments>
-    </type>
-    <type name="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Creditmemo">
-        <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
-        </arguments>
-    </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Invoice\DefaultInvoice">
-        <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
-        </arguments>
-    </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Shipment\DefaultShipment">
-        <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
-        </arguments>
-    </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo">
-        <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
-        </arguments>
-    </type>
     <type name="Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
@@ -104,26 +74,6 @@
         </arguments>
     </type>
 
-    <type name="Magento\Checkout\Block\Cart\AbstractCart">
-        <plugin name="Unexpected_DeliveryTime::Block_AbstractCart"
-                type="Unexpected\DeliveryTime\Plugin\Block\Cart\AbstractCart"/>
-    </type>
-    <type name="Magento\Checkout\Model\DefaultConfigProvider">
-        <plugin name="Unexpected_DeliveryTime::Model_DefaultConfigProvider"
-                type="Unexpected\DeliveryTime\Plugin\Model\DefaultConfigProvider"/>
-    </type>
-    <type name="Magento\Sales\Model\Order\Pdf\Items\Invoice\DefaultInvoice">
-        <plugin name="Unexpected_DeliveryTime::Model_DefaultInvoice"
-                type="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Invoice\DefaultInvoice"/>
-    </type>
-    <type name="Magento\Sales\Model\Order\Pdf\Items\Shipment\DefaultShipment">
-        <plugin name="Unexpected_DeliveryTime::Model_DefaultShipment"
-                type="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Shipment\DefaultShipment"/>
-    </type>
-    <type name="Magento\Sales\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo">
-        <plugin name="Unexpected_DeliveryTime::Model_DefaultCreditmemot"
-                type="Unexpected\DeliveryTime\Plugin\Model\Order\Pdf\Items\Creditmemo\DefaultCreditmemo"/>
-    </type>
     <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
         <plugin name="Unexpected_DeliveryTime::Block_Configurable"
                 type="Unexpected\DeliveryTime\Plugin\Block\Product\View\Type\Configurable"/>
@@ -142,13 +92,6 @@
 
     <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
                 type="Unexpected\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>
-
-    <preference for="Magento\Sales\Model\Order\Pdf\Invoice"
-                type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Invoice"/>
-    <preference for="Magento\Sales\Model\Order\Pdf\Shipment"
-                type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Shipment"/>
-    <preference for="Magento\Sales\Model\Order\Pdf\Creditmemo"
-                type="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Creditmemo"/>
 
     <preference for="Magento\CatalogSearch\Model\Layer\Filter\Attribute"
                 type="Unexpected\DeliveryTime\Preference\Model\Layer\Filter\Attribute"/>
