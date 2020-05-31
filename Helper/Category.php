@@ -7,10 +7,10 @@
 
 namespace Unexpected\DeliveryTime\Helper;
 
-use Magento\Catalog\Api\Data\ProductSearchResultsInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Layer\Filter\Item;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\UrlInterface;
@@ -131,9 +131,9 @@ class Category
 
     /**
      * @param int $categoryId
-     * @return ProductSearchResultsInterface
+     * @return SearchResultsInterface
      */
-    private function getProductCollection(int $categoryId): ProductSearchResultsInterface
+    private function getProductCollection(int $categoryId): SearchResultsInterface
     {
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter('category_id', $categoryId, 'eq')
@@ -144,12 +144,12 @@ class Category
     /**
      * @param int $categoryId
      * @param array $deliveryTimeTypes
-     * @return ProductSearchResultsInterface
+     * @return SearchResultsInterface
      */
     private function getProductCollectionByDeliveryTime(
         int $categoryId,
         array $deliveryTimeTypes
-    ): ProductSearchResultsInterface {
+    ): SearchResultsInterface {
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter('category_id', $categoryId, 'eq')
             ->addFilter(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE, $deliveryTimeTypes, 'in')

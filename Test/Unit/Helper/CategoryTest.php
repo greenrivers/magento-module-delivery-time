@@ -8,13 +8,13 @@
 namespace Unexpected\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Catalog\Api\Data\ProductInterface;
-use Magento\Catalog\Api\Data\ProductSearchResultsInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Layer\Filter\AbstractFilter;
 use Magento\Catalog\Model\Layer\Filter\Item;
 use Magento\Catalog\Model\ResourceModel\Eav\Attribute;
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilder;
+use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\App\Http;
 use Magento\Framework\UrlInterface;
 use PHPUnit\Framework\Constraint\IsType;
@@ -105,7 +105,7 @@ class CategoryTest extends TestCase
         $searchCriteriaMock = $this->getMockBuilder(SearchCriteria::class)
             ->disableOriginalConstructor()
             ->getMock();
-        $productSearchResultsMock = $this->getMockBuilder(ProductSearchResultsInterface::class)
+        $searchResultsMock = $this->getMockBuilder(SearchResultsInterface::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -118,8 +118,8 @@ class CategoryTest extends TestCase
         $this->productRepositoryMock->expects(self::exactly(2))
             ->method('getList')
             ->with($searchCriteriaMock)
-            ->willReturn($productSearchResultsMock);
-        $productSearchResultsMock->expects(self::exactly(2))
+            ->willReturn($searchResultsMock);
+        $searchResultsMock->expects(self::exactly(2))
             ->method('getItems')
             ->willReturn($products);
 
