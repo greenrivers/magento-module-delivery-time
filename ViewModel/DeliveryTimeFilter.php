@@ -10,25 +10,25 @@ namespace Unexpected\DeliveryTime\ViewModel;
 use Magento\Catalog\Model\Layer\Filter\Item;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\Filters;
+use Unexpected\DeliveryTime\Helper\Category;
 
 class DeliveryTimeFilter implements ArgumentInterface
 {
     /** @var Config */
     private $config;
 
-    /** @var Filters */
-    private $filters;
+    /** @var Category */
+    private $category;
 
     /**
      * DeliveryTimeFilter constructor.
      * @param Config $config
-     * @param Filters $filters
+     * @param Category $category
      */
-    public function __construct(Config $config, Filters $filters)
+    public function __construct(Config $config, Category $category)
     {
         $this->config = $config;
-        $this->filters = $filters;
+        $this->category = $category;
     }
 
     /**
@@ -53,7 +53,7 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function canShowOnFilters(int $categoryId): bool
     {
-        return $this->config->getFilterConfig() && $this->filters->canShowOnFilters($categoryId);
+        return $this->category->canShow($categoryId, Category::FILTER_OPTION);
     }
 
     /**
@@ -62,7 +62,7 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function getMaxValue(int $categoryId): int
     {
-        return $this->filters->getMaxValue($categoryId);
+        return $this->category->getMaxValue($categoryId);
     }
 
     /**
@@ -70,7 +70,7 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function getUrl(): string
     {
-        return $this->filters->getUrl();
+        return $this->category->getUrl();
     }
 
     /**
@@ -79,6 +79,6 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function isDeliveryTime(Item $item): bool
     {
-        return $this->filters->isDeliveryTime($item);
+        return $this->category->isDeliveryTime($item);
     }
 }

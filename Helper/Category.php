@@ -17,8 +17,14 @@ use Magento\Framework\UrlInterface;
 use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
-class Filters
+class Category
 {
+    const SORT_OPTION = 0;
+    const FILTER_OPTION = 1;
+
+    /** @var Config */
+    private $config;
+
     /** @var SearchCriteriaBuilder */
     private $searchCriteriaBuilder;
 
@@ -36,6 +42,7 @@ class Filters
 
     /**
      * Filters constructor.
+     * @param Config $config
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param ProductRepositoryInterface $productRepository
      * @param Http $request
@@ -43,12 +50,14 @@ class Filters
      * @param LoggerInterface $logger
      */
     public function __construct(
+        Config $config,
         SearchCriteriaBuilder $searchCriteriaBuilder,
         ProductRepositoryInterface $productRepository,
         Http $request,
         UrlInterface $url,
         LoggerInterface $logger
     ) {
+        $this->config = $config;
         $this->searchCriteriaBuilder = $searchCriteriaBuilder;
         $this->productRepository = $productRepository;
         $this->request = $request;
@@ -58,10 +67,13 @@ class Filters
 
     /**
      * @param int $categoryId
+     * @param int $type
      * @return bool
      */
-    public function canShowOnFilters(int $categoryId): bool
+    public function canShow(int $categoryId, int $type): bool
     {
+        $condition = $type === self::SORT_OPTION ? $this->config->getSortConfig()
+            : $this->config->getFilterConfig() && !$this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
         return $this->getProductCollectionByDeliveryTime(
             $categoryId,
             [
@@ -69,7 +81,7 @@ class Filters
                     AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_RANGE_VALUE,
                     AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE
             ]
-        )->getTotalCount() && !$this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
+        )->getTotalCount() && $condition;
     }
 
     /**

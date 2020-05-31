@@ -21,17 +21,21 @@ use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
-use Unexpected\DeliveryTime\Helper\Filters;
+use Unexpected\DeliveryTime\Helper\Category;
+use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 use Unexpected\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
 
-class FiltersTest extends TestCase
+class CategoryTest extends TestCase
 {
     use TraitObjectManager;
     use TraitReflectionClass;
 
-    /** @var Filters */
-    private $filters;
+    /** @var Category */
+    private $category;
+
+    /** @var Config|PHPUnit_Framework_MockObject_MockObject */
+    private $configMock;
 
     /** @var SearchCriteriaBuilder|PHPUnit_Framework_MockObject_MockObject */
     private $searchCriteriaBuilderMock;
@@ -50,6 +54,9 @@ class FiltersTest extends TestCase
 
     protected function setUp()
     {
+        $this->configMock = $this->getMockBuilder(Config::class)
+            ->disableOriginalConstructor()
+            ->getMock();
         $this->searchCriteriaBuilderMock = $this->getMockBuilder(SearchCriteriaBuilder::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -67,18 +74,19 @@ class FiltersTest extends TestCase
             ->getMock();
 
         $properties = [
+            $this->configMock,
             $this->searchCriteriaBuilderMock,
             $this->productRepositoryMock,
             $this->requestMock,
             $this->urlMock,
             $this->loggerMock
         ];
-        $this->filters = $this->getObjectManager()->getObject(Filters::class, $properties);
-        $this->setAccessibleProperties($this->filters, $properties);
+        $this->category = $this->getObjectManager()->getObject(Category::class, $properties);
+        $this->setAccessibleProperties($this->category, $properties);
     }
 
     /**
-     * @covers Filters::getMaxValue
+     * @covers Category::getMaxValue
      */
     public function testGetMaxValue()
     {
@@ -115,12 +123,12 @@ class FiltersTest extends TestCase
             ->method('getItems')
             ->willReturn($products);
 
-        $this->assertEquals(3, $this->filters->getMaxValue(1));
-        $this->assertInternalType(IsType::TYPE_INT, $this->filters->getMaxValue(1));
+        $this->assertEquals(3, $this->category->getMaxValue(1));
+        $this->assertInternalType(IsType::TYPE_INT, $this->category->getMaxValue(1));
     }
 
     /**
-     * @covers Filters::isDeliveryTime
+     * @covers Category::isDeliveryTime
      */
     public function testIsDeliveryTime()
     {
@@ -145,6 +153,6 @@ class FiltersTest extends TestCase
             ->method('getAttributeCode')
             ->willReturn('delivery_time_max');
 
-        $this->assertTrue($this->filters->isDeliveryTime($itemMock));
+        $this->assertTrue($this->category->isDeliveryTime($itemMock));
     }
 }

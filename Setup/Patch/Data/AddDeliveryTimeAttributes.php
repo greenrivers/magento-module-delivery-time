@@ -159,7 +159,7 @@ class AddDeliveryTimeAttributes implements DataPatchInterface
                 'user_defined' => false,
                 'default' => self::DELIVERY_TIME_TYPE_NONE_VALUE,
                 'searchable' => false,
-                'filterable' => true,
+                'filterable' => false,
                 'comparable' => false,
                 'visible_on_front' => false,
                 'used_in_product_listing' => true,
