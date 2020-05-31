@@ -7,61 +7,28 @@
 
 namespace Unexpected\DeliveryTime\ViewModel;
 
-use Magento\Catalog\Api\Data\ProductSearchResultsInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Layer\Filter\Item;
-use Magento\Framework\Api\SearchCriteriaBuilder;
-use Magento\Framework\App\Request\Http;
-use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\UrlInterface;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Psr\Log\LoggerInterface;
 use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
+use Unexpected\DeliveryTime\Helper\Filters;
 
 class DeliveryTimeFilter implements ArgumentInterface
 {
     /** @var Config */
     private $config;
 
-    /** @var ProductRepositoryInterface */
-    private $productRepository;
-
-    /** @var SearchCriteriaBuilder */
-    private $searchCriteriaBuilder;
-
-    /** @var Http */
-    private $request;
-
-    /** @var UrlInterface */
-    private $url;
-
-    /** @var LoggerInterface */
-    private $logger;
+    /** @var Filters */
+    private $filters;
 
     /**
      * DeliveryTimeFilter constructor.
      * @param Config $config
-     * @param ProductRepositoryInterface $productRepository
-     * @param SearchCriteriaBuilder $searchCriteriaBuilder
-     * @param Http $request
-     * @param UrlInterface $url
-     * @param LoggerInterface $logger
+     * @param Filters $filters
      */
-    public function __construct(
-        Config $config,
-        ProductRepositoryInterface $productRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        Http $request,
-        UrlInterface $url,
-        LoggerInterface $logger
-    ) {
+    public function __construct(Config $config, Filters $filters)
+    {
         $this->config = $config;
-        $this->productRepository = $productRepository;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->request = $request;
-        $this->url = $url;
-        $this->logger = $logger;
+        $this->filters = $filters;
     }
 
     /**
@@ -86,16 +53,7 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function canShowOnFilters(int $categoryId): bool
     {
-        return $this->config->getFilterConfig() &&
-            $this->getProductCollectionByDeliveryTime(
-                $categoryId,
-                [
-                    AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_TO_VALUE,
-                    AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_RANGE_VALUE,
-                    AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE
-                ]
-            )->getTotalCount() &&
-            !$this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
+        return $this->config->getFilterConfig() && $this->filters->canShowOnFilters($categoryId);
     }
 
     /**
@@ -104,15 +62,7 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function getMaxValue(int $categoryId): int
     {
-        $collection = $this->getProductCollection($categoryId);
-        $products = $collection->getItems();
-        $max = reset($products)->getDeliveryTimeMax();
-        foreach ($products as $product) {
-            if ($max < $product->getDeliveryTimeMax()) {
-                $max = $product->getDeliveryTimeMax();
-            }
-        }
-        return $max;
+        return $this->filters->getMaxValue($categoryId);
     }
 
     /**
@@ -120,12 +70,7 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function getUrl(): string
     {
-        $query = [
-            AddDeliveryTimeAttributes::DELIVERY_TIME_MAX =>
-                $this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) ?
-                    $this->request->get(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX) : 1
-        ];
-        return $this->url->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true, '_query' => $query]);
+        return $this->filters->getUrl();
     }
 
     /**
@@ -134,40 +79,6 @@ class DeliveryTimeFilter implements ArgumentInterface
      */
     public function isDeliveryTime(Item $item): bool
     {
-        $attr = '';
-        try {
-            $attr = $item->getFilter()->getAttributeModel()->getAttributeCode();
-        } catch (LocalizedException $e) {
-            $this->logger->error($e->getMessage());
-        }
-        return $attr === AddDeliveryTimeAttributes::DELIVERY_TIME_MAX;
-    }
-
-    /**
-     * @param int $categoryId
-     * @return ProductSearchResultsInterface
-     */
-    private function getProductCollection(int $categoryId): ProductSearchResultsInterface
-    {
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('category_id', $categoryId, 'eq')
-            ->create();
-        return $this->productRepository->getList($searchCriteria);
-    }
-
-    /**
-     * @param int $categoryId
-     * @param array $deliveryTimeTypes
-     * @return ProductSearchResultsInterface
-     */
-    private function getProductCollectionByDeliveryTime(
-        int $categoryId,
-        array $deliveryTimeTypes
-    ): ProductSearchResultsInterface {
-        $searchCriteria = $this->searchCriteriaBuilder
-            ->addFilter('category_id', $categoryId, 'eq')
-            ->addFilter(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE, $deliveryTimeTypes, 'in')
-            ->create();
-        return $this->productRepository->getList($searchCriteria);
+        return $this->filters->isDeliveryTime($item);
     }
 }

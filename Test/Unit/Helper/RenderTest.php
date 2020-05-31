@@ -17,7 +17,6 @@ use Unexpected\DeliveryTime\Api\Data\DeliveryTimeInterface;
 use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
 use Unexpected\DeliveryTime\Helper\Config;
 use Unexpected\DeliveryTime\Helper\Render;
-use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 use Unexpected\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 use Unexpected\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
 
@@ -83,7 +82,7 @@ class RenderTest extends TestCase
     {
         $this->productMock->expects(self::exactly(2))
             ->method('getDeliveryTimeType')
-            ->willReturn(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_RANGE_VALUE);
+            ->willReturn(1);
         $this->productMock->expects(self::exactly(2))
             ->method('getDeliveryTimeMin')
             ->willReturn(1);
@@ -133,7 +132,7 @@ class RenderTest extends TestCase
             ->willReturn(['page1', 'page2', 'page3']);
         $this->productMock->expects(self::exactly(2))
             ->method('getDeliveryTimeType')
-            ->willReturn(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_TO_VALUE);
+            ->willReturn(0);
 
         $this->assertTrue($this->render->canShowOnProduct('page1', $this->productMock));
     }
@@ -154,7 +153,7 @@ class RenderTest extends TestCase
             ->willReturn($this->productMock);
         $this->productMock->expects(self::exactly(2))
             ->method('getDeliveryTimeType')
-            ->willReturn(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE);
+            ->willReturn(2);
 
         $this->assertTrue($this->render->canShowOnProducts('page2', [$this->itemMock, $this->itemMock]));
     }

@@ -8,7 +8,6 @@
 namespace Unexpected\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use Magento\Store\Model\ScopeInterface;
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
@@ -43,7 +42,7 @@ class ConfigTest extends TestCase
     {
         $this->scopeConfigMock->expects(self::once())
             ->method('getValue')
-            ->with(Config::XML_ENABLE_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/general/enable', 'store')
             ->willReturn(true);
 
         $this->assertTrue($this->config->getEnableConfig());
@@ -57,7 +56,7 @@ class ConfigTest extends TestCase
         $value = 'days';
         $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
-            ->with(Config::XML_DATE_UNIT_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/backend/date_unit', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getDateUnitConfig());
@@ -72,7 +71,7 @@ class ConfigTest extends TestCase
         $value = 1;
         $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
-            ->with(Config::XML_MIN_SCALE_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/backend/min_scale', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getMinScaleConfig());
@@ -87,7 +86,7 @@ class ConfigTest extends TestCase
         $value = 100;
         $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
-            ->with(Config::XML_MAX_SCALE_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/backend/max_scale', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getMaxScaleConfig());
@@ -102,7 +101,7 @@ class ConfigTest extends TestCase
         $value = 10;
         $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
-            ->with(Config::XML_SCALE_STEP_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/backend/scale_step', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getScaleStepConfig());
@@ -117,7 +116,7 @@ class ConfigTest extends TestCase
         $value = 'Delivery time';
         $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
-            ->with(Config::XML_LABEL_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/frontend/label', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getLabelConfig());
@@ -132,7 +131,7 @@ class ConfigTest extends TestCase
         $value = true;
         $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
-            ->with(Config::XML_SORT_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/frontend/sort', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getSortConfig());
@@ -147,7 +146,7 @@ class ConfigTest extends TestCase
         $value = true;
         $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
-            ->with(Config::XML_FILTER_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/frontend/filter', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getFilterConfig());
@@ -162,7 +161,7 @@ class ConfigTest extends TestCase
         $value = 'page1,page2,page3';
         $this->scopeConfigMock->expects(self::exactly(3))
             ->method('getValue')
-            ->with(Config::XML_VISIBILITY_CONFIG_PATH, ScopeInterface::SCOPE_STORE)
+            ->with('delivery_time/frontend/visibility', 'store')
             ->willReturn($value);
 
         $this->assertEquals(['page1', 'page2', 'page3'], $this->config->getVisibilityConfig());
