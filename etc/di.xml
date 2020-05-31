@@ -38,6 +38,11 @@
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
         </arguments>
     </type>
+    <type name="Unexpected\DeliveryTime\Setup\Patch\Data\RemoveDeliveryTimeAttributes">
+        <arguments>
+            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+        </arguments>
+    </type>
     <type name="Unexpected\DeliveryTime\Preference\Model\Order\Pdf\Invoice">
         <arguments>
             <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>

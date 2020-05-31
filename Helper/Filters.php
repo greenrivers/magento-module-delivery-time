@@ -63,14 +63,13 @@ class Filters
     public function canShowOnFilters(int $categoryId): bool
     {
         return $this->getProductCollectionByDeliveryTime(
-                $categoryId,
-                [
+            $categoryId,
+            [
                     AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_TO_VALUE,
                     AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_RANGE_VALUE,
                     AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE
-                ]
-            )->getTotalCount() &&
-            !$this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
+            ]
+        )->getTotalCount() && !$this->request->has(AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
     }
 
     /**
@@ -138,8 +137,7 @@ class Filters
     private function getProductCollectionByDeliveryTime(
         int $categoryId,
         array $deliveryTimeTypes
-    ): ProductSearchResultsInterface
-    {
+    ): ProductSearchResultsInterface {
         $searchCriteria = $this->searchCriteriaBuilder
             ->addFilter('category_id', $categoryId, 'eq')
             ->addFilter(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE, $deliveryTimeTypes, 'in')
