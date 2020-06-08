@@ -8,6 +8,7 @@
 namespace Unexpected\DeliveryTime\Plugin\Block\Product\View\Type;
 
 use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable as Subject;
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable as ConfigurableProduct;
 use Magento\Framework\Serialize\Serializer\Json;
 use Unexpected\DeliveryTime\Helper\Render;
 
@@ -38,7 +39,7 @@ class Configurable
     public function afterGetJsonConfig(Subject $subject, string $result): string
     {
         $jsonResult = $this->json->unserialize($result);
-        $jsonResult['deliveryTime']['configurable'] =
+        $jsonResult['deliveryTime'][ConfigurableProduct::TYPE_CODE] =
             $this->render->getFromProduct($subject->getProduct());
         $childProducts = $subject->getAllowProducts();
         foreach ($childProducts as $childProduct) {
