@@ -38,15 +38,20 @@ class Configurable
      */
     public function afterGetJsonConfig(Subject $subject, string $result): string
     {
-        $jsonResult = $this->json->unserialize($result);
-        $jsonResult['deliveryTime'][ConfigurableProduct::TYPE_CODE] =
-            $this->render->getFromProduct($subject->getProduct());
-        $childProducts = $subject->getAllowProducts();
-        foreach ($childProducts as $childProduct) {
-            $id = $childProduct->getId();
-            $jsonResult['deliveryTime'][$id] = $this->render->getFromProduct($childProduct);
+        $layout = $subject->getRequest()->getFullActionName();
+        $product = $subject->getProduct();
+
+        if ($this->render->canShowOnProduct($layout, $product)) {
+            $jsonResult = $this->json->unserialize($result);
+            $jsonResult['deliveryTime'][ConfigurableProduct::TYPE_CODE] = $this->render->getFromProduct($product);
+            $childProducts = $subject->getAllowProducts();
+            foreach ($childProducts as $childProduct) {
+                $id = $childProduct->getId();
+                $jsonResult['deliveryTime'][$id] = $this->render->getFromProduct($childProduct);
+            }
+            $result = $this->json->serialize($jsonResult);
         }
 
-        return $this->json->serialize($jsonResult);
+        return $result;
     }
 }

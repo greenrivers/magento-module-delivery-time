@@ -18,7 +18,9 @@ define([
                 this._super($this, $widget);
 
                 const {deliveryTime} = this.options.jsonConfig;
-                this.updateDeliveryTime(deliveryTime);
+                if (deliveryTime) {
+                    this.updateDeliveryTime(deliveryTime);
+                }
             },
 
             /**

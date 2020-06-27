@@ -95,4 +95,7 @@
 
     <preference for="Magento\CatalogSearch\Model\Layer\Filter\Attribute"
                 type="Unexpected\DeliveryTime\Preference\Model\Layer\Filter\Attribute"/>
+
+    <preference for="Magento\Catalog\Model\Locator\LocatorInterface"
+                type="Magento\Catalog\Model\Locator\RegistryLocator"/>
 </config>
