@@ -20,10 +20,10 @@
             <resource>Unexpected_DeliveryTime::delivery_time_config</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0"
                    showInStore="0">
-                <label>General Configuration</label>
-                <field id="enable" translate="label" type="checkbox" sortOrder="10" showInDefault="1" showInWebsite="1"
+                <label>General</label>
+                <field id="enabled" translate="label" type="checkbox" sortOrder="10" showInDefault="1" showInWebsite="1"
                        showInStore="1">
-                    <label>Enable</label>
+                    <label>Enabled</label>
                     <frontend_model>Unexpected\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch</frontend_model>
                 </field>
             </group>

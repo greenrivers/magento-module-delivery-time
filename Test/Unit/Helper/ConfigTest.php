@@ -36,16 +36,16 @@ class ConfigTest extends TestCase
     }
 
     /**
-     * @covers Config::getEnableConfig
+     * @covers Config::getEnabledConfig
      */
-    public function testGetEnableConfig()
+    public function testGetEnabledConfig()
     {
         $this->scopeConfigMock->expects(self::once())
             ->method('getValue')
-            ->with('delivery_time/general/enable', 'store')
+            ->with('delivery_time/general/enabled', 'store')
             ->willReturn(true);
 
-        $this->assertTrue($this->config->getEnableConfig());
+        $this->assertTrue($this->config->getEnabledConfig());
     }
 
     /**

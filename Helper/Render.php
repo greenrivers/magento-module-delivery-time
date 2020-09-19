@@ -171,7 +171,7 @@ class Render
      */
     private function isEnabled(): bool
     {
-        return $this->config->getEnableConfig();
+        return $this->config->getEnabledConfig();
     }
 
     /**

@@ -50,7 +50,7 @@ class RenderTest extends TestCase
     {
         $this->configMock = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getDateUnitConfig', 'getEnableConfig', 'getVisibilityConfig', 'getLabelConfig'])
+            ->setMethods(['getDateUnitConfig', 'getEnabledConfig', 'getVisibilityConfig', 'getLabelConfig'])
             ->getMock();
         $this->deliveryTimeRepositoryMock = $this->getMockBuilder(DeliveryTimeRepositoryInterface::class)
             ->disableOriginalConstructor()
@@ -125,7 +125,7 @@ class RenderTest extends TestCase
     public function testCanShowOnProduct()
     {
         $this->configMock->expects(self::once())
-            ->method('getEnableConfig')
+            ->method('getEnabledConfig')
             ->willReturn(true);
         $this->configMock->expects(self::once())
             ->method('getVisibilityConfig')
@@ -143,7 +143,7 @@ class RenderTest extends TestCase
     public function testCanShowOnProducts()
     {
         $this->configMock->expects(self::once())
-            ->method('getEnableConfig')
+            ->method('getEnabledConfig')
             ->willReturn(true);
         $this->configMock->expects(self::once())
             ->method('getVisibilityConfig')
@@ -164,7 +164,7 @@ class RenderTest extends TestCase
     public function testCanShowOnItems()
     {
         $this->configMock->expects(self::once())
-            ->method('getEnableConfig')
+            ->method('getEnabledConfig')
             ->willReturn(true);
         $this->configMock->expects(self::once())
             ->method('getVisibilityConfig')

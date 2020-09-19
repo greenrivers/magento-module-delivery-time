@@ -11,7 +11,7 @@
     <default>
         <delivery_time>
             <general>
-                <enable>1</enable>
+                <enabled>1</enabled>
             </general>
             <backend>
                 <min_scale>1</min_scale>

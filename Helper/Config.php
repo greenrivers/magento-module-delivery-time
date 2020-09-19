@@ -12,7 +12,7 @@ use Magento\Store\Model\ScopeInterface;
 
 class Config extends AbstractHelper
 {
-    const XML_ENABLE_CONFIG_PATH = 'delivery_time/general/enable';
+    const XML_ENABLED_CONFIG_PATH = 'delivery_time/general/enabled';
 
     const XML_DATE_UNIT_CONFIG_PATH = 'delivery_time/backend/date_unit';
     const XML_MIN_SCALE_CONFIG_PATH = 'delivery_time/backend/min_scale';
@@ -27,9 +27,9 @@ class Config extends AbstractHelper
     /**
      * @return bool
      */
-    public function getEnableConfig(): bool
+    public function getEnabledConfig(): bool
     {
-        return $this->scopeConfig->getValue(self::XML_ENABLE_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->getValue(self::XML_ENABLED_CONFIG_PATH, ScopeInterface::SCOPE_STORE);
     }
 
     /**

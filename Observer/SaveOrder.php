@@ -69,7 +69,7 @@ class SaveOrder implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        if ($this->config->getEnableConfig()) {
+        if ($this->config->getEnabledConfig()) {
             /** @var Order $order */
             $order = $observer->getOrder();
             $items = $order->getAllVisibleItems();

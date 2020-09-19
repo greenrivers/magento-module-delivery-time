@@ -96,7 +96,7 @@ class AddFields extends AbstractModifier
     {
         $product = $this->locator->getProduct();
 
-        if (!$this->config->getEnableConfig()) {
+        if (!$this->config->getEnabledConfig()) {
             $meta['delivery-time']['arguments']['data']['config']['visible'] = false;
         }
 
