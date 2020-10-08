@@ -194,11 +194,11 @@ class Render
         $dateUnit = $this->config->getDateUnitConfig();
 
         switch ($type) {
-            case 0:
+            case AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_TO_VALUE:
                 return __('To') . " {$max} {$dateUnit}";
-            case 1:
+            case AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_RANGE_VALUE:
                 return __('From') . " {$min} " . __('to') . " {$max} {$dateUnit}";
-            case 2:
+            case AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE_FROM_VALUE:
                 return __('From') . " {$min} {$dateUnit}";
             default:
                 return '';

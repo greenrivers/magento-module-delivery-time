@@ -32,7 +32,6 @@ class DateUnit implements OptionSourceInterface
     private function toArray(): array
     {
         return [
-            '' => __('Please select'),
             'hours' => __('Hour'),
             'days' => __('Day'),
             'weeks' => __('Week'),

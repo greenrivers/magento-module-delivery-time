@@ -42,7 +42,7 @@ define([
                     slide: function (event, ui) {
                         value(ui.value);
                         const deliveryTimeType = registry.get('index = delivery_time_type');
-                        if (deliveryTimeType.value() === 2) {
+                        if (deliveryTimeType.value() === 3) {
                             deliveryTimeMin.value(ui.value);
                         } else {
                             deliveryTimeMax.value(ui.value);
@@ -89,7 +89,7 @@ define([
          * @param {Number} type
          */
         setConfig: function (type) {
-            this.isRange(type === 1);
+            this.isRange(type === 2);
             const deliveryTimeType = registry.get('index = delivery_time_type');
             deliveryTimeType.value(type);
         },
@@ -105,13 +105,13 @@ define([
             const maxValue = deliveryTimeMax.value() || this.maxScale;
 
             switch (typeValue) {
-                case 0:
+                case 1:
                     this.value(maxValue);
                     return $.mage.__(`To ${maxValue} ${dateUnit}`);
-                case 1:
+                case 2:
                     this.isRange(true);
                     return $.mage.__(`From ${values[0]()} to ${values[1]()} ${dateUnit}`);
-                case 2:
+                case 3:
                     this.value(minValue);
                     return $.mage.__(`From ${minValue} ${dateUnit}`);
                 default:

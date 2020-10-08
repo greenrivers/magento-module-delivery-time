@@ -66,14 +66,14 @@ class Toolbar
                 ->order(AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE . ' ' . $currentDirection)
                 ->order(
                     new Zend_Db_Expr(
-                        "CASE WHEN ${deliveryTimeType} IN (0, 1) THEN ${deliveryTimeMax}
-                                        WHEN ${deliveryTimeType} = 2 THEN ${deliveryTimeMin}
+                        "CASE WHEN ${deliveryTimeType} IN (1, 2) THEN ${deliveryTimeMax}
+                                        WHEN ${deliveryTimeType} = 3 THEN ${deliveryTimeMin}
                                         END ${currentDirection}"
                     )
                 )
                 ->order(
                     new Zend_Db_Expr(
-                        "CASE WHEN ${deliveryTimeType} = 1 THEN ${deliveryTimeMax}
+                        "CASE WHEN ${deliveryTimeType} = 2 THEN ${deliveryTimeMax}
                                         END ${currentDirection}"
                     )
                 );

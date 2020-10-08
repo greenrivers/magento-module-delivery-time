@@ -183,7 +183,7 @@ class AddFields extends AbstractModifier
                                         'actions' => [
                                             '0' => [
                                                 'target' => 'product_form.product_form.delivery-time.range',
-                                                'callback' => 'show'
+                                                'callback' => 'hide'
                                             ]
                                         ]
                                     ],
@@ -210,7 +210,7 @@ class AddFields extends AbstractModifier
                                         'actions' => [
                                             '0' => [
                                                 'target' => 'product_form.product_form.delivery-time.range',
-                                                'callback' => 'hide'
+                                                'callback' => 'show'
                                             ]
                                         ]
                                     ]
