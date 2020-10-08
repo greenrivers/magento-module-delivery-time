@@ -18,6 +18,7 @@ class Visibility implements OptionSourceInterface
     const ORDER_VIEW_PRINT = 'sales_order_print';
     const ORDER_VIEW_ADMIN_PAGE = 'sales_order_view_' . Area::AREA_ADMINHTML;
     const ORDER_CREATE_ADMIN_PAGE = 'sales_order_create_index';
+    const ORDER_CREATE_ADMIN_LOAD_BLOCK_PAGE = 'sales_order_create_loadBlock';
 
     /**
      * @inheritDoc
@@ -44,7 +45,7 @@ class Visibility implements OptionSourceInterface
             self::ORDER_MAIL => __('Order mail'),
             self::ORDER_VIEW_ADMIN_PAGE => __('Order view admin'),
             self::ORDER_VIEW_CUSTOMER_PAGE . ' ' . self::ORDER_VIEW_PRINT => __('Order view customer'),
-            self::ORDER_CREATE_ADMIN_PAGE => __('Order create admin')
+            self::ORDER_CREATE_ADMIN_PAGE . ' ' . self::ORDER_CREATE_ADMIN_LOAD_BLOCK_PAGE => __('Order create admin')
         ];
     }
 }

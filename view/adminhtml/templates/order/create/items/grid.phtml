@@ -27,7 +27,7 @@ $deliveryTime = $block->getDeliveryTime();
                 <tr class="headings">
                     <th class="col-product"><span><?= $block->escapeHtml(__('Product')) ?></span></th>
                     <th class="col-price"><span><?= $block->escapeHtml(__('Price')) ?></span></th>
-                    <?php if ($deliveryTime->canShowOnProducts($layout, $_items)): ?>
+                    <?php if ($deliveryTime->canShowOnItems($layout, $_items)): ?>
                         <th class="col-delivery-time">
                             <span><?= $block->escapeHtml($deliveryTime->getLabel()) ?></span>
                         </th>
