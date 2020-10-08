@@ -98,7 +98,7 @@ class Category
                 $max = $product->getDeliveryTimeMax();
             }
         }
-        return $max;
+        return $max ?? 0;
     }
 
     /**
