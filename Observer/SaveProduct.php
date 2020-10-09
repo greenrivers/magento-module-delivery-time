@@ -7,40 +7,25 @@
 
 namespace Unexpected\DeliveryTime\Observer;
 
-use Exception;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Api\LinkManagementInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Psr\Log\LoggerInterface;
+use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class SaveProduct implements ObserverInterface
 {
     /** @var LinkManagementInterface */
     private $linkManagement;
 
-    /** @var ProductRepositoryInterface */
-    private $productRepository;
-
-    /** @var LoggerInterface */
-    private $logger;
-
     /**
      * SaveProduct constructor.
      * @param LinkManagementInterface $linkManagement
-     * @param ProductRepositoryInterface $productRepository
-     * @param LoggerInterface $logger
      */
-    public function __construct(
-        LinkManagementInterface $linkManagement,
-        ProductRepositoryInterface $productRepository,
-        LoggerInterface $logger
-    ) {
+    public function __construct(LinkManagementInterface $linkManagement)
+    {
         $this->linkManagement = $linkManagement;
-        $this->productRepository = $productRepository;
-        $this->logger = $logger;
     }
 
     /**
@@ -50,9 +35,16 @@ class SaveProduct implements ObserverInterface
     {
         /** @var Product $product */
         $product = $observer->getProduct();
+
         if ($product->getTypeId() === Configurable::TYPE_CODE) {
             $inherit = $product->getDeliveryTimeInherit();
             $fromSimple = $product->getDeliveryTimeFromSimple();
+
+            $product->setDeliveryTimeInherit(false)
+                ->setDeliveryTimeFromSimple(false);
+            $product->getResource()
+                ->saveAttribute($product, AddDeliveryTimeAttributes::DELIVERY_TIME_INHERIT)
+                ->saveAttribute($product, AddDeliveryTimeAttributes::DELIVERY_TIME_FROM_SIMPLE);
 
             if ($inherit && !$fromSimple) {
                 $sku = $product->getSku();
@@ -60,17 +52,16 @@ class SaveProduct implements ObserverInterface
                 $min = $product->getDeliveryTimeMin();
                 $max = $product->getDeliveryTimeMax();
                 $childProducts = $this->linkManagement->getChildren($sku);
+
                 foreach ($childProducts as $childProduct) {
-                    if (!$childProduct->getDeliveryTimeType()) {
-                        $childProduct->setDeliveryTimeType($type)
-                            ->setDeliveryTimeMin($min)
-                            ->setDeliveryTimeMax($max);
-                        try {
-                            $this->productRepository->save($childProduct);
-                        } catch (Exception $e) {
-                            $this->logger->error($e->getMessage());
-                        }
-                    }
+                    $childProduct->setDeliveryTimeType($type)
+                        ->setDeliveryTimeMin($min)
+                        ->setDeliveryTimeMax($max);
+
+                    $childProduct->getResource()
+                        ->saveAttribute($childProduct, AddDeliveryTimeAttributes::DELIVERY_TIME_TYPE)
+                        ->saveAttribute($childProduct, AddDeliveryTimeAttributes::DELIVERY_TIME_MIN)
+                        ->saveAttribute($childProduct, AddDeliveryTimeAttributes::DELIVERY_TIME_MAX);
                 }
             }
         }

@@ -135,10 +135,6 @@ class AddFields extends AbstractModifier
                 [
                     'delivery-time' => [
                         'children' => [
-                            AddDeliveryTimeAttributes::DELIVERY_TIME_INHERIT => $this->setConfig(
-                                'disabled',
-                                count($filterProducts) === 0
-                            ),
                             AddDeliveryTimeAttributes::DELIVERY_TIME_FROM_SIMPLE => $this->setConfig(
                                 'disabled',
                                 count($filterProducts) === count($childProducts)

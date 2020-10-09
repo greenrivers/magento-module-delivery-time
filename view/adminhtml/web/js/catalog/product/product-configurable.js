@@ -15,7 +15,7 @@ define([
                 $('[data-index="type"], [data-index="delivery_time_inherit"], [data-index="delivery_time_product_simple"]').toggle();
 
                 const checkbox = $(this);
-                const radio = $('[data-index="type"] input:first');
+                const radio = $('[data-index="type"] input:last');
                 toggleRange(checkbox, radio);
             });
 
