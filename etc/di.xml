@@ -53,11 +53,6 @@
             <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="GreenRivers\DeliveryTime\Observer\SaveProduct">
-        <arguments>
-            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
-        </arguments>
-    </type>
     <type name="GreenRivers\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\AddFields">
         <arguments>
             <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>

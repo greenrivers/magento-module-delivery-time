@@ -12,7 +12,7 @@ Magento2 module delivery time for products.
 1. Module
 
     ```php
-    composer require GreenRivers/delivery-time
+    composer require greenrivers/delivery-time
     
     php bin/magento module:enable GreenRivers_DeliveryTime
     
@@ -25,7 +25,7 @@ Magento2 module delivery time for products.
 
 ## Usage
 
-#### **Stores->Configuration->GreenRivers->Delivery Time**
+#### **Stores->Configuration->GREENRIVERS->Delivery Time**
 
 * **General->Enabled** - module activation
 

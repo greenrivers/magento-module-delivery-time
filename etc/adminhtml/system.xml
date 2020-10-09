@@ -9,7 +9,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="GreenRivers" translate="label" sortOrder="100000">
+        <tab id="greenrivers" translate="label" sortOrder="100000">
             <label>GreenRivers</label>
         </tab>
         <section id="delivery_time" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1"
