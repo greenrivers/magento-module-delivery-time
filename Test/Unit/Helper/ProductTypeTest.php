@@ -1,11 +1,11 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Test\Unit\Helper;
+namespace GreenRivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
@@ -14,8 +14,8 @@ use Magento\Quote\Model\Quote\Item\Option;
 use Magento\Sales\Model\Order\Item;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
-use Unexpected\DeliveryTime\Helper\ProductType;
-use Unexpected\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use GreenRivers\DeliveryTime\Helper\ProductType;
+use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 
 class ProductTypeTest extends TestCase
 {

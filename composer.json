@@ -1,11 +1,11 @@
 {
-    "name": "unexpected/delivery-time",
-    "description": "Unexpected Delivery Time",
+    "name": "greenrivers/delivery-time",
+    "description": "GreenRivers Delivery Time",
     "minimum-stability": "stable",
     "authors": [
         {
-            "name": "Unexpected team",
-            "email": "support@unexpected.com"
+            "name": "GreenRivers team",
+            "email": "support@greenrivers.it"
         }
     ],
     "require": {
@@ -21,7 +21,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Unexpected\\DeliveryTime\\": ""
+            "GreenRivers\\DeliveryTime\\": ""
         }
     }
 }

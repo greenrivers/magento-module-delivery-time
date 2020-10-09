@@ -1,17 +1,17 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Model;
+namespace GreenRivers\DeliveryTime\Plugin\Model;
 
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\Config as Subject;
 use Magento\Catalog\Model\Layer\Resolver;
-use Unexpected\DeliveryTime\Helper\Category as CategoryHelper;
-use Unexpected\DeliveryTime\Helper\Config as ConfigHelper;
+use GreenRivers\DeliveryTime\Helper\Category as CategoryHelper;
+use GreenRivers\DeliveryTime\Helper\Config as ConfigHelper;
 
 class Config
 {

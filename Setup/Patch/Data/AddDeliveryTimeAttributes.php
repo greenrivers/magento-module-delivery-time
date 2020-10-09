@@ -1,11 +1,11 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Setup\Patch\Data;
+namespace GreenRivers\DeliveryTime\Setup\Patch\Data;
 
 use Exception;
 use Magento\Catalog\Model\Product;
@@ -19,8 +19,8 @@ use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Psr\Log\LoggerInterface;
-use Unexpected\DeliveryTime\Model\Source\ProductsSimple;
-use Unexpected\DeliveryTime\Model\Source\RadioOptions;
+use GreenRivers\DeliveryTime\Model\Source\ProductsSimple;
+use GreenRivers\DeliveryTime\Model\Source\RadioOptions;
 
 class AddDeliveryTimeAttributes implements DataPatchInterface
 {

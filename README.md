@@ -1,4 +1,4 @@
-# Unexpected DeliveryTime
+# GreenRivers DeliveryTime
 
 Magento2 module delivery time for products.
 
@@ -12,9 +12,9 @@ Magento2 module delivery time for products.
 1. Module
 
     ```php
-    composer require unexpected/delivery-time
+    composer require GreenRivers/delivery-time
     
-    php bin/magento module:enable Unexpected_DeliveryTime
+    php bin/magento module:enable GreenRivers_DeliveryTime
     
     php bin/magento setup:upgrade
     
@@ -25,7 +25,7 @@ Magento2 module delivery time for products.
 
 ## Usage
 
-#### **Stores->Configuration->Unexpected->Delivery Time**
+#### **Stores->Configuration->GreenRivers->Delivery Time**
 
 * **General->Enabled** - module activation
 
@@ -47,7 +47,7 @@ Magento2 module delivery time for products.
 
     In Delivery Time tab select type on radiobox set.
     
-    Next set up range on slider.
+    Next set up value on slider.
 
 2. Configurable product
 

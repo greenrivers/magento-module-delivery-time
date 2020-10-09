@@ -1,11 +1,11 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Test\Unit\Helper;
+namespace GreenRivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\Sales\Model\Order\Item;
@@ -13,12 +13,12 @@ use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
-use Unexpected\DeliveryTime\Api\Data\DeliveryTimeInterface;
-use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
-use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\Render;
-use Unexpected\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
-use Unexpected\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
+use GreenRivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
+use GreenRivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use GreenRivers\DeliveryTime\Helper\Config;
+use GreenRivers\DeliveryTime\Helper\Render;
+use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
 
 class RenderTest extends TestCase
 {

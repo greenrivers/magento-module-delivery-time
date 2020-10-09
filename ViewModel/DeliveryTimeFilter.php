@@ -1,16 +1,16 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\ViewModel;
+namespace GreenRivers\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Model\Layer\Filter\Item;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\Category;
+use GreenRivers\DeliveryTime\Helper\Config;
+use GreenRivers\DeliveryTime\Helper\Category;
 
 class DeliveryTimeFilter implements ArgumentInterface
 {

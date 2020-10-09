@@ -1,23 +1,23 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Observer;
+namespace GreenRivers\DeliveryTime\Observer;
 
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Sales\Model\Order;
 use Psr\Log\LoggerInterface;
-use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
-use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Helper\ProductType;
-use Unexpected\DeliveryTime\Helper\Render;
-use Unexpected\DeliveryTime\Model\DeliveryTime;
-use Unexpected\DeliveryTime\Model\DeliveryTimeFactory;
+use GreenRivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use GreenRivers\DeliveryTime\Helper\Config;
+use GreenRivers\DeliveryTime\Helper\ProductType;
+use GreenRivers\DeliveryTime\Helper\Render;
+use GreenRivers\DeliveryTime\Model\DeliveryTime;
+use GreenRivers\DeliveryTime\Model\DeliveryTimeFactory;
 
 class SaveOrder implements ObserverInterface
 {

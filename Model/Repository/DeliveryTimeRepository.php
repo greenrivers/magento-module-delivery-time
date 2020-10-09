@@ -1,11 +1,11 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Model\Repository;
+namespace GreenRivers\DeliveryTime\Model\Repository;
 
 use Exception;
 use Magento\Framework\Api\Search\SearchResultInterface;
@@ -15,12 +15,12 @@ use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Unexpected\DeliveryTime\Api\Data\DeliveryTimeInterface;
-use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
-use Unexpected\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
-use Unexpected\DeliveryTime\Model\ResourceModel\DeliveryTime\Collection;
-use Unexpected\DeliveryTime\Model\ResourceModel\DeliveryTime\CollectionFactory as DeliveryTimeCollectionFactory;
-use Unexpected\DeliveryTime\Model\DeliveryTimeFactory;
+use GreenRivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
+use GreenRivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
+use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime\Collection;
+use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime\CollectionFactory as DeliveryTimeCollectionFactory;
+use GreenRivers\DeliveryTime\Model\DeliveryTimeFactory;
 
 class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
 {

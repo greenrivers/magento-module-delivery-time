@@ -1,16 +1,16 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Block\Adminhtml\System\Config;
+namespace GreenRivers\DeliveryTime\Block\Adminhtml\System\Config;
 
 use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
-use Unexpected\DeliveryTime\Helper\Config;
+use GreenRivers\DeliveryTime\Helper\Config;
 
 class ToggleSwitch extends Field
 {
@@ -19,7 +19,7 @@ class ToggleSwitch extends Field
     const DELIVERY_TIME_FRONTEND_FILTER = 'delivery-time-frontend-filter';
 
     /** @var string */
-    protected $_template = 'Unexpected_DeliveryTime::system/config/toggle_switch.phtml';
+    protected $_template = 'GreenRivers_DeliveryTime::system/config/toggle_switch.phtml';
 
     /** @var Config */
     private $config;

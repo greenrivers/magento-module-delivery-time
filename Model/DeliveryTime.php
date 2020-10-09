@@ -1,15 +1,15 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Model;
+namespace GreenRivers\DeliveryTime\Model;
 
 use Magento\Framework\Model\AbstractModel;
-use Unexpected\DeliveryTime\Api\Data\DeliveryTimeInterface;
-use Unexpected\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
+use GreenRivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
+use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
 
 class DeliveryTime extends AbstractModel implements DeliveryTimeInterface
 {

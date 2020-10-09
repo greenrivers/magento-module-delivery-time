@@ -1,15 +1,15 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Model\ResourceModel\DeliveryTime;
+namespace GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use Unexpected\DeliveryTime\Model\DeliveryTime;
-use Unexpected\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
+use GreenRivers\DeliveryTime\Model\DeliveryTime;
+use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
 
 class Collection extends AbstractCollection
 {

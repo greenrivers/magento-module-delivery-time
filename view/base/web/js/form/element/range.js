@@ -1,7 +1,7 @@
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
 define([
@@ -59,7 +59,7 @@ define([
 
     return AbstractElement.extend({
         defaults: {
-            elementTmpl: 'Unexpected_DeliveryTime/form/range',
+            elementTmpl: 'GreenRivers_DeliveryTime/form/range',
             minScale: 1,
             maxScale: 100,
             scaleStep: 1,

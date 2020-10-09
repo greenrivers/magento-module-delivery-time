@@ -1,11 +1,11 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Test\Unit\Traits;
+namespace GreenRivers\DeliveryTime\Test\Unit\Traits;
 
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
 

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,10 +11,10 @@
     <body>
         <referenceContainer name="product.info.form.content">
             <block name="delivery.time" class="Magento\Catalog\Block\Product\View"
-                   template="Unexpected_DeliveryTime::catalog/product/view/delivery_time.phtml">
+                   template="GreenRivers_DeliveryTime::catalog/product/view/delivery_time.phtml">
                 <arguments>
                     <argument name="delivery_time" xsi:type="object">
-                        Unexpected\DeliveryTime\ViewModel\DeliveryTime
+                        GreenRivers\DeliveryTime\ViewModel\DeliveryTime
                     </argument>
                 </arguments>
             </block>

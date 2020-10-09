@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="unexpected_delivery_time" resource="default" engine="innodb" comment="Unexpected_DeliveryTime table">
+    <table name="GreenRivers_delivery_time" resource="default" engine="innodb" comment="GreenRivers_DeliveryTime table">
         <column xsi:type="int" name="delivery_time_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Delivery Time ID"/>
         <column xsi:type="int" name="order_item_id" padding="10" unsigned="true" nullable="false" identity="false"
@@ -18,10 +18,10 @@
             <column name="delivery_time_id"/>
         </constraint>
         <constraint xsi:type="foreign"
-                    referenceId="UNEXPECTED_DELIVERY_TIME_ORDER_ITEM_ORDER_ITEM_ID_SALES_ORDER_ITEM_ITEM_ID"
-                    table="unexpected_delivery_time_order_item" column="order_item_id"
+                    referenceId="GreenRivers_DELIVERY_TIME_ORDER_ITEM_ORDER_ITEM_ID_SALES_ORDER_ITEM_ITEM_ID"
+                    table="GreenRivers_delivery_time_order_item" column="order_item_id"
                     referenceTable="sales_order_item" referenceColumn="item_id" onDelete="CASCADE"/>
-        <index referenceId="UNEXPECTED_DELIVERY_TIME_ORDER_ITEM_ORDER_ITEM_ID" indexType="btree">
+        <index referenceId="GreenRivers_DELIVERY_TIME_ORDER_ITEM_ORDER_ITEM_ID" indexType="btree">
             <column name="order_item_id"/>
         </index>
     </table>

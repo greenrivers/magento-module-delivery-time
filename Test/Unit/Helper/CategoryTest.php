@@ -1,11 +1,11 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Test\Unit\Helper;
+namespace GreenRivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
@@ -21,10 +21,10 @@ use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
-use Unexpected\DeliveryTime\Helper\Category;
-use Unexpected\DeliveryTime\Helper\Config;
-use Unexpected\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
-use Unexpected\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
+use GreenRivers\DeliveryTime\Helper\Category;
+use GreenRivers\DeliveryTime\Helper\Config;
+use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
 
 class CategoryTest extends TestCase
 {

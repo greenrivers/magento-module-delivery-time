@@ -1,16 +1,16 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Test\Unit\Helper;
+namespace GreenRivers\DeliveryTime\Test\Unit\Helper;
 
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
-use Unexpected\DeliveryTime\Helper\OrderView;
-use Unexpected\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use GreenRivers\DeliveryTime\Helper\OrderView;
+use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 
 class OrderViewTest extends TestCase
 {

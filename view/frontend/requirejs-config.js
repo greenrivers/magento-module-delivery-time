@@ -1,20 +1,20 @@
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
 const config = {
     config: {
         mixins: {
             'Magento_Swatches/js/swatch-renderer': {
-                'Unexpected_DeliveryTime/js/catalog/product/swatch-renderer': true
+                'GreenRivers_DeliveryTime/js/catalog/product/swatch-renderer': true
             }
         }
     },
     map: {
         '*': {
-            sliderRange: 'Unexpected_DeliveryTime/js/layer/slider-range'
+            sliderRange: 'GreenRivers_DeliveryTime/js/layer/slider-range'
         }
     }
 };

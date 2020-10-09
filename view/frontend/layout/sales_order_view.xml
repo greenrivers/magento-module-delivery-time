@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,10 +11,10 @@
     <body>
         <referenceContainer name="content">
             <referenceBlock name="sales.order.view">
-                <referenceBlock name="order_items" template="Unexpected_DeliveryTime::order/items.phtml">
+                <referenceBlock name="order_items" template="GreenRivers_DeliveryTime::order/items.phtml">
                     <arguments>
                         <argument name="delivery_time" xsi:type="object">
-                            Unexpected\DeliveryTime\ViewModel\DeliveryTime
+                            GreenRivers\DeliveryTime\ViewModel\DeliveryTime
                         </argument>
                     </arguments>
                 </referenceBlock>

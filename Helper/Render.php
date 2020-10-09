@@ -1,18 +1,18 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Helper;
+namespace GreenRivers\DeliveryTime\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Sales\Model\Order\Item;
 use Psr\Log\LoggerInterface;
-use Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
-use Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
+use GreenRivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use GreenRivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class Render
 {

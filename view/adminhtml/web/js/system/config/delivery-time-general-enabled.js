@@ -1,7 +1,7 @@
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
 define([
@@ -14,7 +14,7 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'Unexpected_DeliveryTime/system/config/toggle_switch',
+            template: 'GreenRivers_DeliveryTime/system/config/toggle_switch',
             text: ko.observable('Yes'),
             isChecked: ko.observable(true)
         },

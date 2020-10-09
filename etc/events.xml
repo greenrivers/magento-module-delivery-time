@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="checkout_submit_all_after">
-        <observer name="unexpected_delivery_time_save_delivery_time"
-                  instance="Unexpected\DeliveryTime\Observer\SaveOrder"/>
+        <observer name="GreenRivers_delivery_time_save_delivery_time"
+                  instance="GreenRivers\DeliveryTime\Observer\SaveOrder"/>
     </event>
 </config>

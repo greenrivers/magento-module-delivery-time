@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <virtualType name="Unexpected\DeliveryTime\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
+    <virtualType name="GreenRivers\DeliveryTime\Logger\Handler" type="Magento\Framework\Logger\Handler\Base">
         <arguments>
             <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
-            <argument name="fileName" xsi:type="string">/var/log/unexpected/delivery_time.log</argument>
+            <argument name="fileName" xsi:type="string">/var/log/GreenRivers/delivery_time.log</argument>
         </arguments>
     </virtualType>
-    <virtualType name="Unexpected\DeliveryTime\Logger" type="Magento\Framework\Logger\Monolog">
+    <virtualType name="GreenRivers\DeliveryTime\Logger" type="Magento\Framework\Logger\Monolog">
         <arguments>
-            <argument name="name" xsi:type="string">Unexpected_DeliveryTime Logger</argument>
+            <argument name="name" xsi:type="string">GreenRivers_DeliveryTime Logger</argument>
             <argument name="handlers" xsi:type="array">
-                <item name="system" xsi:type="object">Unexpected\DeliveryTime\Logger\Handler</item>
+                <item name="system" xsi:type="object">GreenRivers\DeliveryTime\Logger\Handler</item>
             </argument>
         </arguments>
     </virtualType>
 
-    <type name="Unexpected\DeliveryTime\Helper\Render">
+    <type name="GreenRivers\DeliveryTime\Helper\Render">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Observer\SaveOrder">
+    <type name="GreenRivers\DeliveryTime\Observer\SaveOrder">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes">
+    <type name="GreenRivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Setup\Patch\Data\RemoveDeliveryTimeAttributes">
+    <type name="GreenRivers\DeliveryTime\Setup\Patch\Data\RemoveDeliveryTimeAttributes">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items">
+    <type name="GreenRivers\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
+    <type name="GreenRivers\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Observer\SaveProduct">
+    <type name="GreenRivers\DeliveryTime\Observer\SaveProduct">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\AddFields">
+    <type name="GreenRivers\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\AddFields">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\Plugin\Block\Product\ProductList\Toolbar">
+    <type name="GreenRivers\DeliveryTime\Plugin\Block\Product\ProductList\Toolbar">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
-    <type name="Unexpected\DeliveryTime\ViewModel\DeliveryTimeFilter">
+    <type name="GreenRivers\DeliveryTime\ViewModel\DeliveryTimeFilter">
         <arguments>
-            <argument name="logger" xsi:type="object">Unexpected\DeliveryTime\Logger</argument>
+            <argument name="logger" xsi:type="object">GreenRivers\DeliveryTime\Logger</argument>
         </arguments>
     </type>
 
     <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
-        <plugin name="Unexpected_DeliveryTime::Block_Configurable"
-                type="Unexpected\DeliveryTime\Plugin\Block\Product\View\Type\Configurable"/>
+        <plugin name="GreenRivers_DeliveryTime::Block_Configurable"
+                type="GreenRivers\DeliveryTime\Plugin\Block\Product\View\Type\Configurable"/>
     </type>
     <type name="Magento\Catalog\Model\Config">
-        <plugin name="Unexpected_DeliveryTime::Model_Config" type="Unexpected\DeliveryTime\Plugin\Model\Config"/>
+        <plugin name="GreenRivers_DeliveryTime::Model_Config" type="GreenRivers\DeliveryTime\Plugin\Model\Config"/>
     </type>
     <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
-        <plugin name="Unexpected_DeliveryTime::Block_Toolbar"
-                type="Unexpected\DeliveryTime\Plugin\Block\Product\ProductList\Toolbar"/>
+        <plugin name="GreenRivers_DeliveryTime::Block_Toolbar"
+                type="GreenRivers\DeliveryTime\Plugin\Block\Product\ProductList\Toolbar"/>
     </type>
     <type name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection">
-        <plugin name="Unexpected_DeliveryTime::Model_Collection"
-                type="Unexpected\DeliveryTime\Plugin\Model\ResourceModel\Fulltext\Collection"/>
+        <plugin name="GreenRivers_DeliveryTime::Model_Collection"
+                type="GreenRivers\DeliveryTime\Plugin\Model\ResourceModel\Fulltext\Collection"/>
     </type>
 
-    <preference for="Unexpected\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
-                type="Unexpected\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>
+    <preference for="GreenRivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
+                type="GreenRivers\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>
 
     <preference for="Magento\CatalogSearch\Model\Layer\Filter\Attribute"
-                type="Unexpected\DeliveryTime\Preference\Model\Layer\Filter\Attribute"/>
+                type="GreenRivers\DeliveryTime\Preference\Model\Layer\Filter\Attribute"/>
 
     <preference for="Magento\Catalog\Model\Locator\LocatorInterface"
                 type="Magento\Catalog\Model\Locator\RegistryLocator"/>

@@ -1,16 +1,16 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Block\Product\View\Type;
+namespace GreenRivers\DeliveryTime\Plugin\Block\Product\View\Type;
 
 use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable as Subject;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable as ConfigurableProduct;
 use Magento\Framework\Serialize\Serializer\Json;
-use Unexpected\DeliveryTime\Helper\Render;
+use GreenRivers\DeliveryTime\Helper\Render;
 
 class Configurable
 {

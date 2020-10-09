@@ -1,19 +1,19 @@
 <?php
 /**
- * @author Unexpected Team
- * @copyright Copyright (c) 2020 Unexpected
- * @package Unexpected_DeliveryTime
+ * @author GreenRivers Team
+ * @copyright Copyright (c) 2020 GreenRivers
+ * @package GreenRivers_DeliveryTime
  */
 
-namespace Unexpected\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer;
+namespace GreenRivers\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\DataObject;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer as Subject;
 use Psr\Log\LoggerInterface;
-use Unexpected\DeliveryTime\Helper\OrderView;
-use Unexpected\DeliveryTime\Helper\Render;
+use GreenRivers\DeliveryTime\Helper\OrderView;
+use GreenRivers\DeliveryTime\Helper\Render;
 
 class DefaultRenderer
 {
