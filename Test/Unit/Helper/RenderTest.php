@@ -82,7 +82,7 @@ class RenderTest extends TestCase
     {
         $this->productMock->expects(self::exactly(2))
             ->method('getDeliveryTimeType')
-            ->willReturn(1);
+            ->willReturn(2);
         $this->productMock->expects(self::exactly(2))
             ->method('getDeliveryTimeMin')
             ->willReturn(1);
@@ -132,7 +132,7 @@ class RenderTest extends TestCase
             ->willReturn(['page1', 'page2', 'page3']);
         $this->productMock->expects(self::exactly(2))
             ->method('getDeliveryTimeType')
-            ->willReturn(0);
+            ->willReturn(1);
 
         $this->assertTrue($this->render->canShowOnProduct('page1', $this->productMock));
     }
