@@ -1,7 +1,7 @@
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
 define([
@@ -59,7 +59,7 @@ define([
 
     return AbstractElement.extend({
         defaults: {
-            elementTmpl: 'GreenRivers_DeliveryTime/form/range',
+            elementTmpl: 'Greenrivers_DeliveryTime/form/range',
             minScale: 1,
             maxScale: 100,
             scaleStep: 1,

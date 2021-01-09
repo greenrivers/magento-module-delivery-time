@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,7 +11,7 @@
     <body>
         <referenceContainer name="js">
             <block name="delivery_time_configurable_product"
-                   template="GreenRivers_DeliveryTime::catalog/product/product_configurable.phtml"/>
+                   template="Greenrivers_DeliveryTime::catalog/product/product_configurable.phtml"/>
         </referenceContainer>
     </body>
 </page>

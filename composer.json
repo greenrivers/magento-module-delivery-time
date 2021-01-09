@@ -1,10 +1,10 @@
 {
     "name": "greenrivers/delivery-time",
-    "description": "GreenRivers Delivery Time",
+    "description": "Greenrivers Delivery Time",
     "minimum-stability": "stable",
     "authors": [
         {
-            "name": "GreenRivers team",
+            "name": "Greenrivers team",
             "email": "support@greenrivers.it"
         }
     ],
@@ -21,7 +21,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "GreenRivers\\DeliveryTime\\": ""
+            "Greenrivers\\DeliveryTime\\": ""
         }
     }
 }

@@ -1,16 +1,16 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Preference\Model\Layer\Filter;
+namespace Greenrivers\DeliveryTime\Preference\Model\Layer\Filter;
 
 use Magento\CatalogSearch\Model\Layer\Filter\Attribute as BaseAttribute;
 use Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection;
 use Magento\Framework\App\RequestInterface;
-use GreenRivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
+use Greenrivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class Attribute extends BaseAttribute
 {

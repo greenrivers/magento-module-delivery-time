@@ -1,20 +1,20 @@
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
 const config = {
     config: {
         mixins: {
             'Magento_Swatches/js/swatch-renderer': {
-                'GreenRivers_DeliveryTime/js/catalog/product/swatch-renderer': true
+                'Greenrivers_DeliveryTime/js/catalog/product/swatch-renderer': true
             }
         }
     },
     map: {
         '*': {
-            sliderRange: 'GreenRivers_DeliveryTime/js/layer/slider-range'
+            sliderRange: 'Greenrivers_DeliveryTime/js/layer/slider-range'
         }
     }
 };

@@ -1,18 +1,18 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Model\ResourceModel;
+namespace Greenrivers\DeliveryTime\Model\ResourceModel;
 
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
-use GreenRivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
+use Greenrivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
 
 class DeliveryTime extends AbstractDb
 {
-    const DELIVERY_TIME_TABLE = 'GreenRivers_delivery_time';
+    const DELIVERY_TIME_TABLE = 'Greenrivers_delivery_time';
 
     /**
      * @inheritDoc

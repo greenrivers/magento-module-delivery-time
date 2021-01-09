@@ -1,11 +1,11 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Model\Repository;
+namespace Greenrivers\DeliveryTime\Model\Repository;
 
 use Exception;
 use Magento\Framework\Api\Search\SearchResultInterface;
@@ -15,12 +15,12 @@ use Magento\Framework\Api\SearchResultsInterfaceFactory;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use GreenRivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
-use GreenRivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
-use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
-use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime\Collection;
-use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime\CollectionFactory as DeliveryTimeCollectionFactory;
-use GreenRivers\DeliveryTime\Model\DeliveryTimeFactory;
+use Greenrivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
+use Greenrivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
+use Greenrivers\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
+use Greenrivers\DeliveryTime\Model\ResourceModel\DeliveryTime\Collection;
+use Greenrivers\DeliveryTime\Model\ResourceModel\DeliveryTime\CollectionFactory as DeliveryTimeCollectionFactory;
+use Greenrivers\DeliveryTime\Model\DeliveryTimeFactory;
 
 class DeliveryTimeRepository implements DeliveryTimeRepositoryInterface
 {

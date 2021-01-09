@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
-    <module name="GreenRivers_DeliveryTime" setup_version="1.0.0">
+    <module name="Greenrivers_DeliveryTime" setup_version="1.0.0">
         <sequence>
             <module name="Magento_Catalog"/>
             <module name="Magento_ConfigurableProduct"/>

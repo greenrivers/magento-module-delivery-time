@@ -1,11 +1,11 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Plugin\Model\ResourceModel\Fulltext;
+namespace Greenrivers\DeliveryTime\Plugin\Model\ResourceModel\Fulltext;
 
 use Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection as Subject;
 

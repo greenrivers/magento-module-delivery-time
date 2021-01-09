@@ -1,18 +1,18 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Api;
+namespace Greenrivers\DeliveryTime\Api;
 
 use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use GreenRivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
+use Greenrivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
 
 interface DeliveryTimeRepositoryInterface
 {

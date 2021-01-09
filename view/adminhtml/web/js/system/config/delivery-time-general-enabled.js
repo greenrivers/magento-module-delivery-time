@@ -1,7 +1,7 @@
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
 define([
@@ -14,7 +14,7 @@ define([
 
     return Component.extend({
         defaults: {
-            template: 'GreenRivers_DeliveryTime/system/config/toggle_switch',
+            template: 'Greenrivers_DeliveryTime/system/config/toggle_switch',
             text: ko.observable('Yes'),
             isChecked: ko.observable(true)
         },

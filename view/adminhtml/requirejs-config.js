@@ -1,14 +1,14 @@
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
 const config = {
     config: {
         mixins: {
             'mage/validation': {
-                'GreenRivers_DeliveryTime/js/validation': true
+                'Greenrivers_DeliveryTime/js/validation': true
             }
         }
     }

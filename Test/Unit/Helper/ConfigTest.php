@@ -1,18 +1,18 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Test\Unit\Helper;
+namespace Greenrivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
-use GreenRivers\DeliveryTime\Helper\Config;
-use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use Greenrivers\DeliveryTime\Helper\Config;
+use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 
 class ConfigTest extends TestCase
 {

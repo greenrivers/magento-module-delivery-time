@@ -1,19 +1,19 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Plugin\Block\Product\ProductList;
+namespace Greenrivers\DeliveryTime\Plugin\Block\Product\ProductList;
 
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Block\Product\ProductList\Toolbar as Subject;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Psr\Log\LoggerInterface;
-use GreenRivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
+use Greenrivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 use Zend_Db_Expr;
-use GreenRivers\DeliveryTime\Plugin\Model\Config;
+use Greenrivers\DeliveryTime\Plugin\Model\Config;
 
 class Toolbar
 {

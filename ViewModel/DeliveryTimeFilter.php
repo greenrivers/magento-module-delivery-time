@@ -1,16 +1,16 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\ViewModel;
+namespace Greenrivers\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Model\Layer\Filter\Item;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
-use GreenRivers\DeliveryTime\Helper\Config;
-use GreenRivers\DeliveryTime\Helper\Category;
+use Greenrivers\DeliveryTime\Helper\Config;
+use Greenrivers\DeliveryTime\Helper\Category;
 
 class DeliveryTimeFilter implements ArgumentInterface
 {

@@ -1,11 +1,11 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Test\Unit\Helper;
+namespace Greenrivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
@@ -14,8 +14,8 @@ use Magento\Quote\Model\Quote\Item\Option;
 use Magento\Sales\Model\Order\Item;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
-use GreenRivers\DeliveryTime\Helper\ProductType;
-use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use Greenrivers\DeliveryTime\Helper\ProductType;
+use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 
 class ProductTypeTest extends TestCase
 {

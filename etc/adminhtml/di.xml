@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -14,7 +14,7 @@
             <argument name="modifiers" xsi:type="array">
                 <item name="Fields" xsi:type="array">
                     <item name="class" xsi:type="string">
-                        GreenRivers\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\AddFields
+                        Greenrivers\DeliveryTime\Ui\DataProvider\Product\Form\Modifier\AddFields
                     </item>
                     <item name="sortOrder" xsi:type="number">100</item>
                 </item>
@@ -23,11 +23,11 @@
     </virtualType>
 
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Items">
-        <plugin name="GreenRivers_DeliveryTime::Block_Items"
-                type="GreenRivers\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items"/>
+        <plugin name="Greenrivers_DeliveryTime::Block_Items"
+                type="Greenrivers\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items"/>
     </type>
     <type name="Magento\Sales\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer">
-        <plugin name="GreenRivers_DeliveryTime::Block_DefaultRenderer"
-                type="GreenRivers\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer"/>
+        <plugin name="Greenrivers_DeliveryTime::Block_DefaultRenderer"
+                type="Greenrivers\DeliveryTime\Plugin\Block\Adminhtml\Order\View\Items\Renderer\DefaultRenderer"/>
     </type>
 </config>

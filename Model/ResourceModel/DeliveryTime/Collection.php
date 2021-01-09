@@ -1,15 +1,15 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime;
+namespace Greenrivers\DeliveryTime\Model\ResourceModel\DeliveryTime;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
-use GreenRivers\DeliveryTime\Model\DeliveryTime;
-use GreenRivers\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
+use Greenrivers\DeliveryTime\Model\DeliveryTime;
+use Greenrivers\DeliveryTime\Model\ResourceModel\DeliveryTime as DeliveryTimeResource;
 
 class Collection extends AbstractCollection
 {

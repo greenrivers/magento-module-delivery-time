@@ -1,19 +1,19 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\ViewModel;
+namespace Greenrivers\DeliveryTime\ViewModel;
 
 use Magento\Catalog\Model\Product;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Magento\Sales\Model\Order\Item;
-use GreenRivers\DeliveryTime\Helper\Config;
-use GreenRivers\DeliveryTime\Helper\ProductType;
-use GreenRivers\DeliveryTime\Helper\Render;
+use Greenrivers\DeliveryTime\Helper\Config;
+use Greenrivers\DeliveryTime\Helper\ProductType;
+use Greenrivers\DeliveryTime\Helper\Render;
 
 class DeliveryTime implements ArgumentInterface
 {

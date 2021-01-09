@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 -->
 <schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
-    <table name="greenrivers_delivery_time" resource="default" engine="innodb" comment="GreenRivers_DeliveryTime table">
+    <table name="greenrivers_delivery_time" resource="default" engine="innodb" comment="Greenrivers_DeliveryTime table">
         <column xsi:type="int" name="delivery_time_id" padding="10" unsigned="true" nullable="false" identity="true"
                 comment="Delivery Time ID"/>
         <column xsi:type="int" name="order_item_id" padding="10" unsigned="true" nullable="false" identity="false"

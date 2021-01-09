@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="sidebar.main">
-            <referenceBlock name="catalog.leftnav" template="GreenRivers_DeliveryTime::layer/view.phtml">
-                <referenceBlock name="catalog.navigation.state" template="GreenRivers_DeliveryTime::layer/state.phtml">
+            <referenceBlock name="catalog.leftnav" template="Greenrivers_DeliveryTime::layer/view.phtml">
+                <referenceBlock name="catalog.navigation.state" template="Greenrivers_DeliveryTime::layer/state.phtml">
                     <arguments>
                         <argument name="delivery_time_filter" xsi:type="object">
-                            GreenRivers\DeliveryTime\ViewModel\DeliveryTimeFilter
+                            Greenrivers\DeliveryTime\ViewModel\DeliveryTimeFilter
                         </argument>
                     </arguments>
                 </referenceBlock>
                 <arguments>
                     <argument name="delivery_time_filter" xsi:type="object">
-                        GreenRivers\DeliveryTime\ViewModel\DeliveryTimeFilter
+                        Greenrivers\DeliveryTime\ViewModel\DeliveryTimeFilter
                     </argument>
                 </arguments>
             </referenceBlock>

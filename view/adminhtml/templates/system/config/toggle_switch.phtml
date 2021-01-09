@@ -1,11 +1,11 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-use GreenRivers\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
+use Greenrivers\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
 
 /** @var ToggleSwitch $block */
 $component = $block->getComponent();
@@ -27,7 +27,7 @@ $component = $block->getComponent();
         "Magento_Ui/js/core/app": {
         "components":{
           "<?= /* @noEscape */ $component['id'] ?>-scope":{
-            "component":"GreenRivers_DeliveryTime/js/system/config/<?= /* @noEscape */ $component['id'] ?>",
+            "component":"Greenrivers_DeliveryTime/js/system/config/<?= /* @noEscape */ $component['id'] ?>",
             "isChecked": <?= /* @noEscape */ json_encode($component['value']) ?>
           }
         }

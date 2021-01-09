@@ -1,10 +1,10 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
 use \Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(ComponentRegistrar::MODULE, 'GreenRivers_DeliveryTime', __DIR__);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Greenrivers_DeliveryTime', __DIR__);

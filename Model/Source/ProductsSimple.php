@@ -1,16 +1,16 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Model\Source;
+namespace Greenrivers\DeliveryTime\Model\Source;
 
 use Magento\Catalog\Model\Locator\LocatorInterface;
 use Magento\ConfigurableProduct\Api\LinkManagementInterface;
 use Magento\Eav\Model\Entity\Attribute\Source\AbstractSource;
-use GreenRivers\DeliveryTime\Helper\Render;
+use Greenrivers\DeliveryTime\Helper\Render;
 
 class ProductsSimple extends AbstractSource
 {

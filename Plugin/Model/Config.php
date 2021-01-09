@@ -1,17 +1,17 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Plugin\Model;
+namespace Greenrivers\DeliveryTime\Plugin\Model;
 
 use Magento\Catalog\Model\Category;
 use Magento\Catalog\Model\Config as Subject;
 use Magento\Catalog\Model\Layer\Resolver;
-use GreenRivers\DeliveryTime\Helper\Category as CategoryHelper;
-use GreenRivers\DeliveryTime\Helper\Config as ConfigHelper;
+use Greenrivers\DeliveryTime\Helper\Category as CategoryHelper;
+use Greenrivers\DeliveryTime\Helper\Config as ConfigHelper;
 
 class Config
 {

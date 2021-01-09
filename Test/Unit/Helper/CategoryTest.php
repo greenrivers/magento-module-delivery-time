@@ -1,11 +1,11 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Test\Unit\Helper;
+namespace Greenrivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
@@ -21,10 +21,10 @@ use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use Psr\Log\LoggerInterface;
-use GreenRivers\DeliveryTime\Helper\Category;
-use GreenRivers\DeliveryTime\Helper\Config;
-use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
-use GreenRivers\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
+use Greenrivers\DeliveryTime\Helper\Category;
+use Greenrivers\DeliveryTime\Helper\Config;
+use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
+use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitReflectionClass;
 
 class CategoryTest extends TestCase
 {

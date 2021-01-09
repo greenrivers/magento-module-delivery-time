@@ -1,11 +1,11 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Ui\DataProvider\Product\Form\Modifier;
+namespace Greenrivers\DeliveryTime\Ui\DataProvider\Product\Form\Modifier;
 
 use Magento\Catalog\Api\ProductAttributeRepositoryInterface;
 use Magento\Catalog\Model\Locator\LocatorInterface;
@@ -18,9 +18,9 @@ use Magento\Ui\Component\Form\Element\Input;
 use Magento\Ui\Component\Form\Element\RadioSet;
 use Magento\Ui\Component\Form\Field;
 use Psr\Log\LoggerInterface;
-use GreenRivers\DeliveryTime\Helper\Config;
-use GreenRivers\DeliveryTime\Model\Source\RadioOptions;
-use GreenRivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
+use Greenrivers\DeliveryTime\Helper\Config;
+use Greenrivers\DeliveryTime\Model\Source\RadioOptions;
+use Greenrivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class AddFields extends AbstractModifier
 {
@@ -166,7 +166,7 @@ class AddFields extends AbstractModifier
                             'formElement' => RadioSet::NAME,
                             'options' => $this->radioOptions->getAllOptions(),
                             'componentType' => Field::NAME,
-                            'component' => 'GreenRivers_DeliveryTime/js/form/element/radiobox-set',
+                            'component' => 'Greenrivers_DeliveryTime/js/form/element/radiobox-set',
                             'dataScope' => 'type',
                             'label' => __('Type'),
                             'fit' => true,
@@ -223,7 +223,7 @@ class AddFields extends AbstractModifier
                         'config' => [
                             'label' => __('Range'),
                             'componentType' => Field::NAME,
-                            'component' => 'GreenRivers_DeliveryTime/js/form/element/range',
+                            'component' => 'Greenrivers_DeliveryTime/js/form/element/range',
                             'formElement' => Input::NAME,
                             'dataScope' => 'range',
                             'dataType' => Text::NAME,

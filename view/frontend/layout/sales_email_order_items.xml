@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!--
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
-        <referenceBlock name="items" template="GreenRivers_DeliveryTime::email/items.phtml">
+        <referenceBlock name="items" template="Greenrivers_DeliveryTime::email/items.phtml">
             <arguments>
                 <argument name="delivery_time" xsi:type="object">
-                    GreenRivers\DeliveryTime\ViewModel\DeliveryTime
+                    Greenrivers\DeliveryTime\ViewModel\DeliveryTime
                 </argument>
             </arguments>
         </referenceBlock>

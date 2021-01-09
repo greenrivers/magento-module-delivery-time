@@ -1,16 +1,16 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Plugin\Block\Product\View\Type;
+namespace Greenrivers\DeliveryTime\Plugin\Block\Product\View\Type;
 
 use Magento\ConfigurableProduct\Block\Product\View\Type\Configurable as Subject;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable as ConfigurableProduct;
 use Magento\Framework\Serialize\Serializer\Json;
-use GreenRivers\DeliveryTime\Helper\Render;
+use Greenrivers\DeliveryTime\Helper\Render;
 
 class Configurable
 {

@@ -1,11 +1,11 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Model\Config\Source;
+namespace Greenrivers\DeliveryTime\Model\Config\Source;
 
 use Magento\Framework\App\Area;
 use Magento\Framework\Data\OptionSourceInterface;

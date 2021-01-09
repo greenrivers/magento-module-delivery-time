@@ -1,20 +1,18 @@
-# GreenRivers DeliveryTime
+# Greenrivers DeliveryTime
 
 Magento2 module delivery time for products.
 
 ## Requirements
 
 * PHP >= **7.1**
-* Magento >= **2.3**
+* Magento = **2.3.***
 
 ## Installation
 
 1. Module
 
-    ```php
-    composer require greenrivers/delivery-time
-    
-    php bin/magento module:enable GreenRivers_DeliveryTime
+    ```shell    
+    php bin/magento module:enable Greenrivers_DeliveryTime
     
     php bin/magento setup:upgrade
     
@@ -45,12 +43,10 @@ Magento2 module delivery time for products.
 
 1. Simple product
 
-    In Delivery Time tab select type on radiobox set.
-    
-    Next set up value on slider.
+In Delivery Time tab select type on radiobox set.<br />
+Next set up value on slider.
 
 2. Configurable product
 
-    Apply to simple products - select if You want to apply delivery time to all children products
-    
-    Apply from simple products - select if You want to choose delivery time from one of children products
+Apply to simple products - select if You want to apply delivery time to all children products<br />
+Apply from simple products - select if You want to choose delivery time from one of children products

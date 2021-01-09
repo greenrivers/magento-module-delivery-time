@@ -1,18 +1,18 @@
 <?php
 /**
- * @author GreenRivers Team
- * @copyright Copyright (c) 2020 GreenRivers
- * @package GreenRivers_DeliveryTime
+ * @author Greenrivers Team
+ * @copyright Copyright (c) 2021 Greenrivers
+ * @package Greenrivers_DeliveryTime
  */
 
-namespace GreenRivers\DeliveryTime\Observer;
+namespace Greenrivers\DeliveryTime\Observer;
 
 use Magento\Catalog\Model\Product;
 use Magento\ConfigurableProduct\Api\LinkManagementInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use GreenRivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
+use Greenrivers\DeliveryTime\Setup\Patch\Data\AddDeliveryTimeAttributes;
 
 class SaveProduct implements ObserverInterface
 {
