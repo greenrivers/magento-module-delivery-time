@@ -84,6 +84,10 @@
         <plugin name="Greenrivers_DeliveryTime::Model_Collection"
                 type="Greenrivers\DeliveryTime\Plugin\Model\ResourceModel\Fulltext\Collection"/>
     </type>
+    <type name="Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection\SearchCriteriaResolverInterface">
+        <plugin name="Greenrivers_DeliveryTime::Model_SearchCriteriaResolver"
+                type="Greenrivers\DeliveryTime\Plugin\Model\ResourceModel\Fulltext\Collection\SearchCriteriaResolver"/>
+    </type>
 
     <preference for="Greenrivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface"
                 type="Greenrivers\DeliveryTime\Model\Repository\DeliveryTimeRepository"/>
