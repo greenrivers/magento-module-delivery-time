@@ -12,7 +12,7 @@ use Greenrivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
 
 class DeliveryTime extends AbstractDb
 {
-    const DELIVERY_TIME_TABLE = 'Greenrivers_delivery_time';
+    const DELIVERY_TIME_TABLE = 'greenrivers_delivery_time';
 
     /**
      * @inheritDoc
