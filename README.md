@@ -5,7 +5,7 @@ Magento2 module delivery time for products.
 ## Requirements
 
 * PHP >= **7.1**
-* Magento >= **2.3.***
+* Magento >= **2.3**
 
 ## Installation
 
