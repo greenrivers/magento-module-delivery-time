@@ -5,7 +5,7 @@ Magento2 module delivery time for products.
 ## Requirements
 
 * PHP >= **7.1**
-* Magento = **2.3.***
+* Magento >= **2.3.***
 
 ## Installation
 
@@ -50,3 +50,8 @@ Next set up value on slider.
 
 Apply to simple products - select if You want to apply delivery time to all children products<br />
 Apply from simple products - select if You want to choose delivery time from one of children products
+
+## Notes
+
+Sort option works for Magento version 2.3.* with disabled Elasticsearch.
+Sort option not available for Magento version 2.4.*.
