@@ -8,7 +8,7 @@
 namespace Greenrivers\DeliveryTime\Plugin\Model\ResourceModel\Fulltext\Collection;
 
 use Greenrivers\DeliveryTime\Plugin\Model\Config;
-use Magento\Elasticsearch\Model\ResourceModel\Fulltext\Collection\SearchCriteriaResolver as Subject;
+use Magento\CatalogSearch\Model\ResourceModel\Fulltext\Collection\SearchCriteriaResolverInterface as Subject;
 use Magento\Framework\Api\Search\SearchCriteria;
 
 class SearchCriteriaResolver
