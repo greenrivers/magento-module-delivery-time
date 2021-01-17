@@ -7,7 +7,6 @@
 
 namespace Greenrivers\DeliveryTime\Test\Unit\Helper;
 
-use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
 use Greenrivers\DeliveryTime\Helper\OrderView;
 use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
@@ -19,7 +18,7 @@ class OrderViewTest extends TestCase
     /** @var OrderView */
     private $orderView;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->orderView = $this->getObjectManager()->getObject(OrderView::class);
     }
@@ -38,6 +37,5 @@ class OrderViewTest extends TestCase
         $this->assertEquals(['column1' => 10, 'column2' => 20, 'columnX' => 25, 'column3' => 30], $result);
         $this->assertArrayHasKey('columnX', $result);
         $this->assertCount(4, $result);
-        $this->assertInternalType(IsType::TYPE_ARRAY, $result);
     }
 }

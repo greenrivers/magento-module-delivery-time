@@ -9,9 +9,8 @@ namespace Greenrivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Catalog\Model\Product;
 use Magento\Sales\Model\Order\Item;
-use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Greenrivers\DeliveryTime\Api\Data\DeliveryTimeInterface;
 use Greenrivers\DeliveryTime\Api\DeliveryTimeRepositoryInterface;
@@ -28,25 +27,25 @@ class RenderTest extends TestCase
     /** @var Render */
     private $render;
 
-    /** @var Config|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Config|MockObject */
     private $configMock;
 
-    /** @var DeliveryTimeRepositoryInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var DeliveryTimeRepositoryInterface|MockObject */
     private $deliveryTimeRepositoryMock;
 
-    /** @var LoggerInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var LoggerInterface|MockObject */
     private $loggerMock;
 
-    /** @var Product|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Product|MockObject */
     private $productMock;
 
-    /** @var Item|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Item|MockObject */
     private $itemMock;
 
-    /** @var DeliveryTimeInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var DeliveryTimeInterface|MockObject */
     private $deliveryTimeMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configMock = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
@@ -80,21 +79,20 @@ class RenderTest extends TestCase
      */
     public function testGetFromProduct()
     {
-        $this->productMock->expects(self::exactly(2))
+        $this->productMock->expects(self::once())
             ->method('getDeliveryTimeType')
             ->willReturn(2);
-        $this->productMock->expects(self::exactly(2))
+        $this->productMock->expects(self::once())
             ->method('getDeliveryTimeMin')
             ->willReturn(1);
-        $this->productMock->expects(self::exactly(2))
+        $this->productMock->expects(self::once())
             ->method('getDeliveryTimeMax')
             ->willReturn(10);
-        $this->configMock->expects(self::exactly(2))
+        $this->configMock->expects(self::once())
             ->method('getDateUnitConfig')
             ->willReturn('hours');
 
         $this->assertEquals('From 1 to 10 hours', $this->render->getFromProduct($this->productMock));
-        $this->assertInternalType(IsType::TYPE_STRING, $this->render->getFromProduct($this->productMock));
     }
 
     /**
@@ -104,19 +102,18 @@ class RenderTest extends TestCase
     {
         $content = 'From 5 to 20 days';
 
-        $this->itemMock->expects(self::exactly(2))
+        $this->itemMock->expects(self::once())
             ->method('getId')
             ->willReturn(1);
-        $this->deliveryTimeRepositoryMock->expects(self::exactly(2))
+        $this->deliveryTimeRepositoryMock->expects(self::once())
             ->method('getByOrderItemId')
             ->with(1)
             ->willReturn($this->deliveryTimeMock);
-        $this->deliveryTimeMock->expects(self::exactly(2))
+        $this->deliveryTimeMock->expects(self::once())
             ->method('getContent')
             ->willReturn($content);
 
         $this->assertEquals($content, $this->render->getFromOrderItem($this->itemMock));
-        $this->assertInternalType(IsType::TYPE_STRING, $this->render->getFromOrderItem($this->itemMock));
     }
 
     /**
@@ -186,11 +183,10 @@ class RenderTest extends TestCase
     public function testGetLabel()
     {
         $value = 'Delivery time';
-        $this->configMock->expects(self::exactly(2))
+        $this->configMock->expects(self::once())
             ->method('getLabelConfig')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->render->getLabel());
-        $this->assertInternalType(IsType::TYPE_STRING, $this->render->getLabel());
     }
 }

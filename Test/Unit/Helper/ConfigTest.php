@@ -8,9 +8,8 @@
 namespace Greenrivers\DeliveryTime\Test\Unit\Helper;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
-use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use Greenrivers\DeliveryTime\Helper\Config;
 use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 
@@ -21,10 +20,10 @@ class ConfigTest extends TestCase
     /** @var Config */
     private $config;
 
-    /** @var ScopeConfigInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ScopeConfigInterface|MockObject */
     private $scopeConfigMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->scopeConfigMock = $this->getMockBuilder(ScopeConfigInterface::class)
             ->disableOriginalConstructor()
@@ -54,13 +53,12 @@ class ConfigTest extends TestCase
     public function testGetDateUnitConfig()
     {
         $value = 'days';
-        $this->scopeConfigMock->expects(self::exactly(2))
+        $this->scopeConfigMock->expects(self::once())
             ->method('getValue')
             ->with('delivery_time/backend/date_unit', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getDateUnitConfig());
-        $this->assertInternalType(IsType::TYPE_STRING, $this->config->getDateUnitConfig());
     }
 
     /**
@@ -69,13 +67,12 @@ class ConfigTest extends TestCase
     public function testGetMinScaleConfig()
     {
         $value = 1;
-        $this->scopeConfigMock->expects(self::exactly(2))
+        $this->scopeConfigMock->expects(self::once())
             ->method('getValue')
             ->with('delivery_time/backend/min_scale', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getMinScaleConfig());
-        $this->assertInternalType(IsType::TYPE_INT, $this->config->getMinScaleConfig());
     }
 
     /**
@@ -84,13 +81,12 @@ class ConfigTest extends TestCase
     public function testGetMaxScaleConfig()
     {
         $value = 100;
-        $this->scopeConfigMock->expects(self::exactly(2))
+        $this->scopeConfigMock->expects(self::once())
             ->method('getValue')
             ->with('delivery_time/backend/max_scale', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getMaxScaleConfig());
-        $this->assertInternalType(IsType::TYPE_INT, $this->config->getMaxScaleConfig());
     }
 
     /**
@@ -99,13 +95,12 @@ class ConfigTest extends TestCase
     public function testGetScaleStepConfig()
     {
         $value = 10;
-        $this->scopeConfigMock->expects(self::exactly(2))
+        $this->scopeConfigMock->expects(self::once())
             ->method('getValue')
             ->with('delivery_time/backend/scale_step', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getScaleStepConfig());
-        $this->assertInternalType(IsType::TYPE_INT, $this->config->getScaleStepConfig());
     }
 
     /**
@@ -114,13 +109,12 @@ class ConfigTest extends TestCase
     public function testGetLabelConfig()
     {
         $value = 'Delivery time';
-        $this->scopeConfigMock->expects(self::exactly(2))
+        $this->scopeConfigMock->expects(self::once())
             ->method('getValue')
             ->with('delivery_time/frontend/label', 'store')
             ->willReturn($value);
 
         $this->assertEquals($value, $this->config->getLabelConfig());
-        $this->assertInternalType(IsType::TYPE_STRING, $this->config->getLabelConfig());
     }
 
     /**
@@ -159,13 +153,12 @@ class ConfigTest extends TestCase
     public function testGetVisibilityConfig()
     {
         $value = 'page1,page2,page3';
-        $this->scopeConfigMock->expects(self::exactly(3))
+        $this->scopeConfigMock->expects(self::exactly(2))
             ->method('getValue')
             ->with('delivery_time/frontend/visibility', 'store')
             ->willReturn($value);
 
         $this->assertEquals(['page1', 'page2', 'page3'], $this->config->getVisibilityConfig());
         $this->assertCount(3, $this->config->getVisibilityConfig());
-        $this->assertInternalType(IsType::TYPE_ARRAY, $this->config->getVisibilityConfig());
     }
 }

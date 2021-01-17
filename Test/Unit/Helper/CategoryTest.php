@@ -17,9 +17,8 @@ use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\App\Http;
 use Magento\Framework\UrlInterface;
-use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 use Greenrivers\DeliveryTime\Helper\Category;
 use Greenrivers\DeliveryTime\Helper\Config;
@@ -34,25 +33,25 @@ class CategoryTest extends TestCase
     /** @var Category */
     private $category;
 
-    /** @var Config|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Config|MockObject */
     private $configMock;
 
-    /** @var SearchCriteriaBuilder|PHPUnit_Framework_MockObject_MockObject */
+    /** @var SearchCriteriaBuilder|MockObject */
     private $searchCriteriaBuilderMock;
 
-    /** @var ProductRepositoryInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var ProductRepositoryInterface|MockObject */
     private $productRepositoryMock;
 
-    /** @var Http|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Http|MockObject */
     private $requestMock;
 
-    /** @var UrlInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var UrlInterface|MockObject */
     private $urlMock;
 
-    /** @var LoggerInterface|PHPUnit_Framework_MockObject_MockObject */
+    /** @var LoggerInterface|MockObject */
     private $loggerMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configMock = $this->getMockBuilder(Config::class)
             ->disableOriginalConstructor()
@@ -109,22 +108,21 @@ class CategoryTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->searchCriteriaBuilderMock->expects(self::exactly(2))
+        $this->searchCriteriaBuilderMock->expects(self::once())
             ->method('addFilter')
             ->willReturnSelf();
-        $this->searchCriteriaBuilderMock->expects(self::exactly(2))
+        $this->searchCriteriaBuilderMock->expects(self::once())
             ->method('create')
             ->willReturn($searchCriteriaMock);
-        $this->productRepositoryMock->expects(self::exactly(2))
+        $this->productRepositoryMock->expects(self::once())
             ->method('getList')
             ->with($searchCriteriaMock)
             ->willReturn($searchResultsMock);
-        $searchResultsMock->expects(self::exactly(2))
+        $searchResultsMock->expects(self::once())
             ->method('getItems')
             ->willReturn($products);
 
         $this->assertEquals(3, $this->category->getMaxValue(1));
-        $this->assertInternalType(IsType::TYPE_INT, $this->category->getMaxValue(1));
     }
 
     /**

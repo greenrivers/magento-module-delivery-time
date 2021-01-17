@@ -7,10 +7,10 @@
 
 namespace Greenrivers\DeliveryTime\Test\Unit\Block\Adminhtml\System\Config;
 
+use Greenrivers\DeliveryTime\Helper\Compatibility;
 use Magento\Framework\Data\Form\Element\AbstractElement;
-use PHPUnit\Framework\Constraint\IsType;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use Greenrivers\DeliveryTime\Block\Adminhtml\System\Config\ToggleSwitch;
 use Greenrivers\DeliveryTime\Helper\Config;
 use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
@@ -24,15 +24,21 @@ class ToggleSwitchTest extends TestCase
     /** @var ToggleSwitch */
     private $toggleSwitch;
 
-    /** @var Config|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Config|MockObject */
     private $configMock;
 
-    /** @var AbstractElement|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Compatibility|MockObject */
+    private $compatibilityMock;
+
+    /** @var AbstractElement|MockObject */
     private $elementMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configMock = $this->getMockBuilder(Config::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $this->compatibilityMock = $this->getMockBuilder(Compatibility::class)
             ->disableOriginalConstructor()
             ->getMock();
         $this->elementMock = $this->getMockBuilder(AbstractElement::class)
@@ -41,7 +47,11 @@ class ToggleSwitchTest extends TestCase
 
         $this->toggleSwitch = $this->getObjectManager()->getObject(ToggleSwitch::class);
 
-        $properties = [$this->configMock, $this->elementMock];
+        $properties = [
+            $this->configMock,
+            $this->compatibilityMock,
+            $this->elementMock
+        ];
         $this->toggleSwitch = $this->getObjectManager()->getObject(ToggleSwitch::class, $properties);
         $this->setAccessibleProperties($this->toggleSwitch, $properties);
     }
@@ -51,13 +61,13 @@ class ToggleSwitchTest extends TestCase
      */
     public function testGetComponent()
     {
-        $this->elementMock->expects(self::exactly(4))
+        $this->elementMock->expects(self::exactly(3))
             ->method('getHtmlId')
             ->willReturn('delivery_time_frontend_sort');
-        $this->elementMock->expects(self::exactly(4))
+        $this->elementMock->expects(self::exactly(3))
             ->method('getName')
             ->willReturn('groups[frontend][fields][sort][value]');
-        $this->configMock->expects(self::exactly(4))
+        $this->configMock->expects(self::exactly(3))
             ->method('getSortConfig')
             ->willReturn(true);
 
@@ -69,6 +79,5 @@ class ToggleSwitchTest extends TestCase
         );
         $this->assertCount(3, $this->toggleSwitch->getComponent());
         $this->assertArrayHasKey('value', $this->toggleSwitch->getComponent());
-        $this->assertInternalType(IsType::TYPE_ARRAY, $this->toggleSwitch->getComponent());
     }
 }

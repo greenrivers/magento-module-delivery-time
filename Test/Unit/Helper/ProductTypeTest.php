@@ -13,7 +13,7 @@ use Magento\Quote\Model\Quote\Item as QuoteItem;
 use Magento\Quote\Model\Quote\Item\Option;
 use Magento\Sales\Model\Order\Item;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\MockObject;
 use Greenrivers\DeliveryTime\Helper\ProductType;
 use Greenrivers\DeliveryTime\Test\Unit\Traits\TraitObjectManager;
 
@@ -27,16 +27,16 @@ class ProductTypeTest extends TestCase
     /** @var Product */
     private $product;
 
-    /** @var QuoteItem|PHPUnit_Framework_MockObject_MockObject */
+    /** @var QuoteItem|MockObject */
     private $quoteItemMock;
 
-    /** @var Item|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Item|MockObject */
     private $itemMock;
 
-    /** @var Option|PHPUnit_Framework_MockObject_MockObject */
+    /** @var Option|MockObject */
     private $optionMock;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->quoteItemMock = $this->getMockBuilder(QuoteItem::class)
             ->disableOriginalConstructor()
