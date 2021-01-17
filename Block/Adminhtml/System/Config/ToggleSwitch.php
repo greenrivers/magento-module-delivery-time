@@ -7,6 +7,7 @@
 
 namespace Greenrivers\DeliveryTime\Block\Adminhtml\System\Config;
 
+use Greenrivers\DeliveryTime\Helper\Compatibility;
 use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
@@ -24,6 +25,9 @@ class ToggleSwitch extends Field
     /** @var Config */
     private $config;
 
+    /** @var Compatibility */
+    private $compatibility;
+
     /** @var AbstractElement */
     private $element;
 
@@ -31,11 +35,13 @@ class ToggleSwitch extends Field
      * Checkbox constructor.
      * @param Context $context
      * @param Config $config
+     * @param Compatibility $compatibility
      * @param array $data
      */
-    public function __construct(Context $context, Config $config, array $data = [])
+    public function __construct(Context $context, Config $config, Compatibility $compatibility, array $data = [])
     {
         $this->config = $config;
+        $this->compatibility = $compatibility;
         parent::__construct($context, $data);
     }
 
@@ -69,6 +75,11 @@ class ToggleSwitch extends Field
      */
     public function render(AbstractElement $element): string
     {
+        $id = str_replace('_', '-', $element->getHtmlId());
+        if ($id === self::DELIVERY_TIME_FRONTEND_SORT && !$this->compatibility->canSortBy()) {
+            return '';
+        }
+
         $this->setElement($element);
         $html = "<td class='label'>" . $element->getLabel() . '</td><td>' . $this->toHtml() . '</td><td></td>';
         return $this->_decorateRowHtml($element, $html);
