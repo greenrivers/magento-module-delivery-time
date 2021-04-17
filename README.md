@@ -11,7 +11,9 @@ Magento2 module delivery time for products.
 
 1. Module
 
-    ```shell    
+    ```shell  
+    composer require greenrivers/delivery-time
+    
     php bin/magento module:enable Greenrivers_DeliveryTime
     
     php bin/magento setup:upgrade
@@ -53,5 +55,5 @@ Apply from simple products - select if You want to choose delivery time from one
 
 ## Notes
 
-Sort option works for Magento version 2.3.* with disabled Elasticsearch.
+Sort option works for Magento version 2.3.* with disabled Elasticsearch.<br />
 Sort option not available for Magento version 2.4.*.
